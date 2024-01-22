@@ -1,0 +1,3 @@
+[submodule "license-engine"]
+	path = license-engine
+	url = https://github.com/OpenTOSCA/license-engine.git
