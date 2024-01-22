@@ -1,0 +1,41 @@
+---
+version: '3'
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./LicenseChecker_Frontend
+      dockerfile: Dockerfile
+    ports:
+      - '5173:80'
+    networks:
+      - resus
+  backend:
+    container_name: backend
+    build:
+      context: ./LicenceChecker
+      dockerfile: Dockerfile
+    ports:
+      - '8000:80'
+    networks:
+      - resus
+  fossology:
+    container_name: fossology
+    image: fossology/fossology:3.10.0
+    platform: linux/amd64
+    ports:
+      - '7100:80'
+    networks:
+      - resus
+  license-engine:
+    container_name: license-engine
+    build: ./license-engine-main
+    ports:
+      - '7200:7000'
+    networks:
+      - resus
+    environment:
+      - FOSSOLOGY_ENDPOINT_BASE_PATH=http://fossology:80
+networks:
+  resus:
+    driver: bridge
