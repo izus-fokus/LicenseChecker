@@ -1,0 +1,27 @@
+APACHE-2.0,GPL-3.0,Yes,https://www.gnu.org/licenses/license-list.en.html#apache2	
+APACHE-2.0,GPL-2.0,No,	https://www.gnu.org/licenses/license-list.en.html#apache2	
+GPL-2.0,GPL-3.0,No,https://www.gnu.org/licenses/license-list.en.html#GPLv2
+GPL-3.0,GPL-2.0,No,https://www.gnu.org/licenses/license-list.en.html#GNUGPLv3
+LGPL-3.0,GPL-3.0,Yes,	https://www.gnu.org/licenses/license-list.en.html#LGPLv3	
+LGPL-3.0,GPL-2.0,No,	https://www.gnu.org/licenses/license-list.en.html#LGPLv3	
+LGPL-2.1,GPL-3.0,Yes,	https://www.gnu.org/licenses/license-list.en.html#LGPLv2.1	
+LGPL-2.1,GPL-2.0,Yes,	https://www.gnu.org/licenses/license-list.en.html#LGPLv2.1	
+AGPL-3.0,GPL-3.0,Unsure (no?),	https://www.gnu.org/licenses/license-list.en.html#AGPLv3.0,	It is possible to combine. Parts must retain the respective Licenses. Which license can the combined work have?
+AGPL-3.0,GPL-2.0,No,	https://www.gnu.org/licenses/license-list.en.html#AGPLv3.0	
+GPL-3.0,AGPL-3.0,Unsure (Yes?),	https://www.gnu.org/licenses/license-list.en.html#AGPLv3.0,	It is possible to combine. Parts must retain the respective Licenses. Which license can the combined work have?
+GPL-2.0,AGPL-3.0,No,	https://www.gnu.org/licenses/license-list.en.html#AGPLv3.0	
+Artistic-2.0,	GPL,	Yes,	https://www.gnu.org/licenses/license-list.en.html#ArtisticLicense2	
+BSL-1.0,	GPL,	Yes,	https://www.gnu.org/licenses/license-list.en.html#boost	
+BSD-3-Clause,	GPL,	Yes,	https://www.gnu.org/licenses/license-list.en.html#ModifiedBSD	
+Cecill (v2 or v2.1?),	GPL,	Yes,	https://www.gnu.org/licenses/license-list.en.html#CeCILL	
+ECL-2.0,	GPL-3.0,	Yes,	https://www.gnu.org/licenses/license-list.en.html#ECL2.0	
+BSD-2-Clause,	GPL,	Yes,	https://www.gnu.org/licenses/license-list.en.html#FreeBSD	
+BSD-3-Clause-Clear,	GPL,	Yes,	https://www.gnu.org/licenses/license-list.en.html#clearbsd	
+ISC,	GPL,	Yes,	https://www.gnu.org/licenses/license-list.en.html#ISC	
+MPL-2.0,	GPL, LGPL,	Unsure	https://www.gnu.org/licenses/license-list.en.html#MPL-2.0,	Parties who release original work under MPL 2.0 may choose to opt out of this compatibility by including a sentence in the license notices that says that the work is “Incompatible With Secondary Licenses.” Any software that includes this notice is not compatible with the GPL or AGPL.
+MPL-2.0,	GPL, LGPL	Unsure	https://www.mozilla.org/en-US/MPL/2.0/combining-mpl-and-gpl/,	It is possible, but some conditions have to be checked and some requirements have to be met
+NCSA,	GPL,	Yes,	https://www.gnu.org/licenses/license-list.en.html#NCSA	
+Unlicense,	GPL,	Yes,	https://www.gnu.org/licenses/license-list.en.html#Unlicense	
+Vim,	GPL,	Yes,	https://www.gnu.org/licenses/license-list.en.html#Vim Vim license text section II) 2) e)
+WTFPL,GPL,	Yes	,https://www.gnu.org/licenses/license-list.en.html#WTFPL
+Zlib,	GPL,	Yes	,https://www.gnu.org/licenses/license-list.en.html#ZLib

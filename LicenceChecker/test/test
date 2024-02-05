@@ -1,0 +1,7 @@
+  <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li *ngFor="let item of options" role="presentation">
+                <button role="menuitem" class=" btn btn-link dropdown-item"
+                        (click)="dropdownAction(item);show_form=false">{{ item }}
+                </button>
+            </li>
+        </ul>

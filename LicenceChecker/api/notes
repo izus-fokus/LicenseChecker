@@ -1,0 +1,18 @@
+# Test License
+newlic = {
+    "id": "HBD0",
+    "name": "HBD-0",
+    "url": "https://choosealicense.com/licenses/0hbd/",
+    "type": {
+        "id": "Permissive",
+        "name": "Permissive"
+    },
+    "conditions": [{"id": "LicenseNoticeCondition", "name": "LicenseNoticeCondition"}],
+    "permissions": [{"id": "CommercialUsePermission", "name": "CommercialUsePermission"}],
+    "limitations": [{"id": "LiabilityLimitation", "name": "LiabilityLimitation"}],
+    "compatibility": ["HBD0"]
+}
+
+# Roles
+
+roles: "admin,update,write,read,delete"

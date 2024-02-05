@@ -1,0 +1,81 @@
+ <terms:description xml:lang="en">
+    The Academic Free License is a variant of the Open Software License that does not require that the source code of derivative works be disclosed. It contains explicit copyright and patent grants and reserves trademark rights in the author.
+
+     Files licensed under AFL 3.0 must also include the notice "Licensed under the Academic Free License version 3.0" adjacent to the copyright notice.
+
+ </terms:description>
+ 
+ <terms:description xml:lang="en">
+ Permissions of this strongest copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. When a modified version is used to provide a service over a network, the complete source code of the modified version must be made available.
+
+
+
+
+
+</terms:description>
+<terms:description xml:lang="en">A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code.
+
+
+
+</terms:description>
+<terms:description xml:lang="en">Heavily favored by the Perl community, the Artistic license requires that modified versions of the software do not prevent users from running the standard version.
+
+ Do not replace the copyright notice (year, author), which refers to the license itself, not the licensed project.</terms:description>
+<terms:description xml:lang="en">A permissive license that comes in two variants, the <a href="/licenses/bsd-2-clause/">BSD 2-Clause</a> and <a href="/licenses/bsd-3-clause/">BSD 3-Clause</a>. Both have very minute differences to the MIT license.
+
+ Replace [year] with the current year and [fullname] with the name (or names) of the copyright holders.</terms:description>
+
+<terms:description xml:lang="en">A variant of the <a href="/licenses/bsd-3-clause/">BSD 3-Clause License</a> that explicitly does not grant any patent rights.
+
+ Replace [year] with the current year and [fullname] with the name (or names) of the copyright holders.</terms:description>
+<terms:description xml:lang="en">A permissive license similar to the <a href="/licenses/bsd-3-clause/">BSD 3-Clause License</a>, but with an "advertising clause" that requires an acknowledgment of the original source in all advertising material.
+
+ Replace [year] with the current year and [fullname] with the name (or names) of the copyright holders. Replace [project] with the project organization, if any, that sponsors this work.
+</terms:description>
+<terms:description xml:lang="en">A simple permissive license only requiring preservation of copyright and license notices for source (and not binary) distribution. Licensed works, modifications, and larger works may be distributed under different terms and without source code.
+
+</terms:description>
+<terms:description xml:lang="en">Permits almost any use subject to providing credit and license notice. Frequently used for media assets and educational materials. The most common license for Open Access scientific publications. Not recommended for software.
+</terms:description>
+<terms:description xml:lang="en"> Similar to <a href='/licenses/cc-by-4.0/'>CC-BY-4.0</a> but requires derivatives be distributed under the same or a similar, <a href="https://creativecommons.org/compatiblelicenses/">compatible</a> license. Frequently used for media assets and educational materials. A previous version is the default license for Wikipedia and other Wikimedia projects. Not recommended for software.</terms:description>
+<terms:description xml:lang="en">The <a href="https://creativecommons.org/publicdomain/zero/1.0/">Creative Commons CC0 Public Domain Dedication</a> waives copyright interest in a work you've created and dedicates it to the world-wide public domain. Use CC0 to opt out of copyright entirely and ensure your work has the widest reach. As with the Unlicense and typical software licenses, CC0 disclaims warranties. CC0 is very similar to the Unlicense.</terms:description>
+<terms:description xml:lang="en">Strong copyleft license made by three French public research organisations, CEA, CNRS, and Inria, compatible with AGPL-3.0, EUPL-1.1, and GPL-2.0, or later versions of those licenses.
+
+</terms:description>
+<terms:description xml:lang="en">The Educational Community License version 2.0 ("ECL") consists of the Apache 2.0 license, modified to change the scope of the patent grant in section 3 to be specific to the needs of the education communities using this license.
+
+</terms:description>
+<terms:description xml:lang="en">This commercially-friendly copyleft license provides the ability to commercially license binaries; a modern royalty-free patent license grant; and the ability for linked works to use other licenses, including commercial ones.
+
+</terms:description>
+<terms:description xml:lang="en">The “European Union Public Licence” (EUPL) is a copyleft free/open source software license created on the initiative of and approved by the European Commission in 22 official languages of the European Union.</terms:description>
+<terms:description xml:lang="en">The European Union Public Licence (EUPL) is a copyleft free/open source software license created on the initiative of and approved by the European Commission in <a href="https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12">23 official languages</a> of the European Union.
+</terms:description>
+<terms:description xml:lang="en">The GNU GPL is the most widely used free software license and has a strong copyleft requirement. When distributing derived works, the source code of the work must be made available under the same license. There are multiple variants of the GNU GPL, each with different requirements.</terms:description>
+<terms:description xml:lang="en">Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
+</terms:description>
+<terms:description xml:lang="en">A permissive license lets people do anything with your code with proper attribution and without warranty. The ISC license is functionally equivalent to the <a href="/licenses/bsd-2-clause/">BSD 2-Clause</a> and <a href="/licenses/mit/">MIT</a> licenses, removing some language that is no longer necessary.
+</terms:description>
+<terms:description xml:lang="en">Primarily used for software libraries, the GNU LGPL requires that derived works be licensed under the same license, but works that only link to it do not fall under this restriction. There are two commonly used versions of the GNU LGPL.</terms:description>
+<terms:description xml:lang="en">Permissions of this copyleft license are conditioned on making available complete source code of licensed works and modifications under the same license or the GNU GPLv3. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. However, a larger work using the licensed work through interfaces provided by the licensed work may be distributed under different terms and without source code for the larger work.</terms:description>
+<terms:description xml:lang="en">The LaTeX Project Public License (LPPL) is the primary license under which the LaTeX kernel and the base LaTeX packages are distributed.</terms:description>
+<terms:description xml:lang="en">A short and simple permissive license with no conditions, not even requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.</terms:description>
+<terms:description xml:lang="en">A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.</terms:description>
+<terms:description xml:lang="en">Permissions of this weak copyleft license are conditioned on making available source code of licensed files and modifications of those files under the same license (or in certain cases, one of the GNU licenses). Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. However, a larger work using the licensed work may be distributed under different terms and without source code for files added in the larger work.</terms:description>
+<terms:description xml:lang="en">An open source license with a patent grant.</terms:description>
+<terms:description xml:lang="en">An open source license with a patent grant similar to the <a href="/licenses/ms-pl/">Microsoft Public License</a>, with the additional condition that any source code for any derived file be provided under this license.
+
+</terms:description>
+<terms:description xml:lang="en"> A permissive license similar to the <a href="/licenses/apache-2.0/">Apache License</a>, but explicitly states that it does not grant trademark rights. Mulan Permissive Software License is the first open source license in both Chinese and English approved by OSI.
+</terms:description>
+<terms:description xml:lang="en">The University of Illinois/NCSA Open Source License, or UIUC license, is a permissive free software license, based on the <a href="/licenses/mit/">MIT/X11 license</a>  and the <a href="/licenses/bsd-3-clause/">BSD 3-clause License</a>. Its conditions include requiring the preservation of copyright and license notices both in source and in binary distributions and the prohibition of using the names of the authors or the project organization to promote or endorse derived products.</terms:description>
+<terms:description xml:lang="en">The Open Database License (ODbL) is a license agreement intended to allow users to freely share, modify, and use a database while maintaining this same freedom for others.</terms:description>
+<terms:description xml:lang="en">OSL 3.0 is a copyleft license that does not require reciprocal licensing on linked works. It also provides an express grant of patent rights from contributors to users, with a termination clause triggered if a user files a patent infringement lawsuit.</terms:description>
+<terms:description xml:lang="en">A very short, BSD-style license, used specifically for PostgreSQL.</terms:description>
+<terms:description xml:lang="en">A license with no conditions whatsoever which dedicates works to the public domain. Unlicensed works, modifications, and larger works may be distributed under different terms and without source code.</terms:description>
+<terms:description xml:lang="en">A permissive, OSI and FSF approved, GPL compatible license, expressly allowing attribution with just a copyright notice and a short form link rather than the full text of the license.  Includes an express grant of patent rights.  Licensed works and modifications may be distributed under different terms and without source code, and the patent grant may also optionally be expanded to larger works to permit use as a contributor license agreement.</terms:description>
+<terms:description xml:lang="en">There are no restrictions on using or distributing an unmodified copy of the software. Parts of the software may also be distributed, but the license text must always be included. For modified versions a few restrictions apply. The license is GPL compatible, you may compile the software with GPL libraries and distribute it.</terms:description>
+<terms:description xml:lang="en">The easiest license out there. It gives the user permissions to do whatever they want with your code.
+</terms:description>
+<terms:description xml:lang="en">A short permissive license, compatible with GPL. Requires altered source versions to be documented as such.
+</terms:description>

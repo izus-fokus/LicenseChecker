@@ -1,0 +1,3 @@
+[submodule "ontology/softwareLicenseOntology"]
+	path = softwareLicenseOntology
+	url = https://github.tik.uni-stuttgart.de/fokus/softwareLicenseOntology.git

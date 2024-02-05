@@ -1,0 +1,27 @@
+---
+title: Vim License
+spdx-id: Vim
+
+description: There are no restrictions on using or distributing an unmodified copy of the software. Parts of the software may also be distributed, but the license text must always be included. For modified versions a few restrictions apply. The license is GPL compatible, you may compile the software with GPL libraries and distribute it.
+
+how: Create a text file (typically named LICENSE or LICENSE.txt) in the root of your source code and copy the text of the license into the file. Replace [project] with the project name.
+
+using:
+  Vim: https://github.com/vim/vim/blob/master/LICENSE
+  Pathogen: https://github.com/tpope/vim-pathogen/blob/master/LICENSE
+  vim-license-gen: https://github.com/othree/vim-license/blob/master/LICENSE
+
+permissions:
+  - commercial-use
+  - modifications
+  - distribution
+  - private-use
+
+conditions:
+  - include-copyright
+  - document-changes
+  - disclose-source
+  - same-license
+
+limitations: []
+

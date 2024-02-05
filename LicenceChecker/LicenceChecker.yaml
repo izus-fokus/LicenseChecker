@@ -1,0 +1,477 @@
+---
+openapi: 3.0.0
+info:
+  title: Software License API
+  description: API to get information about Open Software Licenses and their compatibility
+  contact:
+    email: fokus@izus.uni-stuttgart.de
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/doigl/LicenceChecker/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+paths:
+  /licenses:
+    get:
+      tags:
+      - developers
+      summary: get a list of available licenses
+      description: |
+        By passing in the appropriate options, you can search for
+        available licenses in the system
+      operationId: getLicenseInfo
+      parameters:
+      - name: searchString
+        in: query
+        description: pass an optional search string for looking up inventory
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: skip
+        in: query
+        description: number of records to skip for pagination
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 0
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: maximum number of records to return
+        required: false
+        style: form
+        explode: true
+        schema:
+          maximum: 50
+          minimum: 0
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/License'
+        "400":
+          description: bad input parameter
+    post:
+      tags:
+      - admins
+      summary: adds a license
+      description: Adds a license to the ontology
+      operationId: addLicense
+      requestBody:
+        description: License item to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/License'
+      responses:
+        "201":
+          description: license created
+        "400":
+          description: invalid input, object invalid
+        "409":
+          description: the license already exists in the ontology
+  /licenses/{license_id}:
+    get:
+      tags:
+      - developers
+      summary: get information about a specific license
+      operationId: getLicense
+      parameters:
+      - name: license_id
+        in: path
+        description: Id of the license
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: a license to be returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/License'
+        "401":
+          description: access denied
+        "404":
+          description: license not available
+    delete:
+      tags:
+      - admins
+      summary: deletes a specific license
+      operationId: removeLicense
+      parameters:
+      - name: license_id
+        in: path
+        description: Id of the license
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: license sucessfully removed
+  /licenses/{license_id}/permissions:
+    get:
+      tags:
+      - developers
+      summary: get all permissions of a specific license
+      operationId: getPermissions
+      parameters:
+      - name: license_id
+        in: path
+        description: Id of the license
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Permission'
+        "404":
+          description: license not found
+    post:
+      tags:
+      - admins
+      operationId: addPermission
+      parameters:
+      - name: license_id
+        in: path
+        description: Id of the license
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Permission item to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Permission'
+      responses:
+        "200":
+          description: permission successfully added
+        "401":
+          description: access denied
+        "404":
+          description: license not found
+        "400":
+          description: permission not in correct format
+  /licenses/{license_id}/permissions/{permission_id}:
+    delete:
+      tags:
+      - admins
+      summary: deletes a specific permission of a license
+      operationId: removePermissionFromLicense
+      parameters:
+      - name: license_id
+        in: path
+        description: Id of the license
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      - name: permission_id
+        in: path
+        description: Id of the permission
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: permission sucessfully removed
+  /licenses/{license_id}/limitations:
+    get:
+      tags:
+      - developers
+      summary: get all limitations of a specific license
+      operationId: getLimitations
+      parameters:
+      - name: license_id
+        in: path
+        description: Id of the license
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Limitation'
+        "404":
+          description: license not found
+    post:
+      tags:
+      - admins
+      operationId: addLimitation
+      parameters:
+      - name: license_id
+        in: path
+        description: Id of the license
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Limitation item to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Limitation'
+      responses:
+        "200":
+          description: limitation successfully added
+        "401":
+          description: access denied
+        "404":
+          description: license not found
+        "400":
+          description: limitation not in correct format
+  /licenses/{license_id}/limitations/{limitation_id}:
+    delete:
+      tags:
+      - admins
+      summary: deletes a specific limitation of a license
+      operationId: removeLimitationFromLicense
+      parameters:
+      - name: license_id
+        in: path
+        description: Id of the license
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      - name: limitation_id
+        in: path
+        description: Id of the limitation
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: limitation sucessfully removed
+  /licenses/{license_id}/conditions:
+    get:
+      tags:
+      - developers
+      summary: get all conditions of a specific license
+      operationId: getCondition
+      parameters:
+      - name: license_id
+        in: path
+        description: Id of the license
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Condition'
+        "404":
+          description: license not found
+    post:
+      tags:
+      - admins
+      operationId: addCondition
+      parameters:
+      - name: license_id
+        in: path
+        description: Id of the license
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: condition item to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Condition'
+      responses:
+        "200":
+          description: condition successfully added
+        "401":
+          description: access denied
+        "404":
+          description: license not found
+        "400":
+          description: condition not in correct format
+  /licenses/{license_id}/conditions/{condition_id}:
+    delete:
+      tags:
+      - admins
+      summary: deletes a specific condition of a license
+      operationId: removeConditionFromLicense
+      parameters:
+      - name: license_id
+        in: path
+        description: Id of the license
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      - name: condition_id
+        in: path
+        description: Id of the condition
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: condition sucessfully removed
+  /permissions/{permission_id}:
+    get:
+      tags:
+      - developers
+      summary: get information about a specific permission
+      operationId: getPermission
+      parameters:
+      - name: permission_id
+        in: path
+        description: Id of the permission
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: a permission to be returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Permission'
+        "401":
+          description: access denied
+        "404":
+          description: permission not available
+components:
+  schemas:
+    License:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        name:
+          type: string
+          example: MIT License
+        url:
+          type: string
+          format: url
+          example: https://mit-license.org/
+        licenseText:
+          type: string
+        standardLicenseHeader:
+          type: string
+        standardLicenseTemplate:
+          type: string
+    Condition:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        name:
+          type: string
+          example: CopyrightNoticeCondition
+    Permission:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        name:
+          type: string
+          example: CommercialUsePermission
+    Limitation:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        name:
+          type: string
+          example: WarrantyLimitation

@@ -1,0 +1,29 @@
+---
+title: CeCILL Free Software License Agreement v2.1
+spdx-id: CECILL-2.1
+
+description: Strong copyleft license made by three French public research organisations, CEA, CNRS, and Inria, compatible with AGPL-3.0, EUPL-1.1, and GPL-2.0, or later versions of those licenses.
+
+how: Create a text file (typically named LICENSE or LICENCE) in the root of your source code and copy the text of the license into the file.
+
+using:
+  BMC-Tools: https://github.com/ANSSI-FR/bmc-tools/blob/master/LICENCE.txt
+  Taxe foncière: https://github.com/etalab/taxe-fonciere/blob/master/LICENSE
+  VITAM: https://github.com/ProgrammeVitam/vitam/blob/master_0.15.x/Licence_CeCILL_V2.1-fr.txt
+
+permissions:
+  - commercial-use
+  - modifications
+  - distribution
+  - private-use
+  - patent-use
+
+conditions:
+  - include-copyright
+  - disclose-source
+  - same-license
+
+limitations:
+  - liability
+  - warranty
+

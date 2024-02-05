@@ -1,0 +1,1660 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.softwarelicenseontology.org#"
+     xml:base="http://www.softwarelicenseontology.org"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:terms="http://purl.org/dc/terms/">
+    <owl:Ontology rdf:about="http://www.softwarelicenseontology.org#">
+        <owl:imports rdf:resource="http://spdx.org/rdf/terms/2.2.1"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#hasCondition -->
+
+    <owl:ObjectProperty rdf:about="http://www.softwarelicenseontology.org#hasCondition">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <rdfs:range rdf:resource="http://www.softwarelicenseontology.org#Condition"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#hasLicenseType -->
+
+    <owl:ObjectProperty rdf:about="http://www.softwarelicenseontology.org#hasLicenseType">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <rdfs:range rdf:resource="http://www.softwarelicenseontology.org#LicenseType"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#hasLimitation -->
+
+    <owl:ObjectProperty rdf:about="http://www.softwarelicenseontology.org#hasLimitation">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <rdfs:range rdf:resource="http://www.softwarelicenseontology.org#Limitation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#hasPermission -->
+
+    <owl:ObjectProperty rdf:about="http://www.softwarelicenseontology.org#hasPermission">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <rdfs:range rdf:resource="http://www.softwarelicenseontology.org#Permission"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#isBackwardCompatibleWith -->
+
+    <owl:ObjectProperty rdf:about="http://www.softwarelicenseontology.org#isBackwardCompatibleWith">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#LicenseType"/>
+        <rdfs:range rdf:resource="http://www.softwarelicenseontology.org#LicenseType"/>
+        <rdfs:comment xml:lang="en">What does it mean a license A is &quot;backward compatible&quot; with license B? 
+
+It depends mostly on terms &amp; conditions of the upstream license B. It means that code distributed under B is compatible with license A and can be licensed under license A. E.g., GPLv.3 is backward compatible with MIT. 
+
+Also known as &quot;upstream&quot;-compatibility and referrs to code feeding in.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#isExplicitlyCompatibleWith -->
+
+    <owl:ObjectProperty rdf:about="http://www.softwarelicenseontology.org#isExplicitlyCompatibleWith">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <rdfs:range rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2000/01/rdf-schema#Literal">always refers to forward/ downstream compatibility. </rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#isForwardCompatibleWith -->
+
+    <owl:ObjectProperty rdf:about="http://www.softwarelicenseontology.org#isForwardCompatibleWith">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#LicenseType"/>
+        <rdfs:range rdf:resource="http://www.softwarelicenseontology.org#LicenseType"/>
+        <rdfs:comment xml:lang="en">What does it mean a license A is &quot;forward compatible&quot; with license B?
+
+It means that you can combine code released under license A with code released under license B and can be released under license B. It depends on the terms and conditions of the downstream license A. 
+This relation refers to merging code NOT linking two modules. 
+
+Also known as &quot;downstream&quot;-compatibility and referrs to code feeding out.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#isNotCompatibleWith -->
+
+    <owl:ObjectProperty rdf:about="http://www.softwarelicenseontology.org#isNotCompatibleWith">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <rdfs:range rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#isRecommendedFor -->
+
+    <owl:ObjectProperty rdf:about="http://www.softwarelicenseontology.org#isRecommendedFor">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <rdfs:range rdf:resource="http://www.softwarelicenseontology.org#Recommendation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/dc/terms/description -->
+
+    <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/description"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/title -->
+
+    <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/title"/>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#hasChoosealicenseDescription -->
+
+    <owl:DatatypeProperty rdf:about="http://www.softwarelicenseontology.org#hasChoosealicenseDescription">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+        <rdfs:comment>short descriptions taken from https://github.com/github/choosealicense.com</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#isFsfLibre -->
+
+    <owl:DatatypeProperty rdf:about="http://www.softwarelicenseontology.org#isFsfLibre">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment>indicates if the license is FSF Libre according to https://github.com/spdx/license-list-data</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#isOsiApproved -->
+
+    <owl:DatatypeProperty rdf:about="http://www.softwarelicenseontology.org#isOsiApproved">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment>indicates if the license is OSI Approved according to https://github.com/spdx/license-list-data</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#isOsiPopular -->
+
+    <owl:DatatypeProperty rdf:about="http://www.softwarelicenseontology.org#isOsiPopular">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#licenseName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.softwarelicenseontology.org#licenseName">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#seeAlso -->
+
+    <owl:DatatypeProperty rdf:about="http://www.softwarelicenseontology.org#seeAlso"/>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#spdxID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.softwarelicenseontology.org#spdxID">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#url -->
+
+    <owl:DatatypeProperty rdf:about="http://www.softwarelicenseontology.org#url">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#version -->
+
+    <owl:DatatypeProperty rdf:about="http://www.softwarelicenseontology.org#version"/>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#widespreadability -->
+
+    <owl:DatatypeProperty rdf:about="http://www.softwarelicenseontology.org#widespreadability">
+        <rdfs:domain rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://spdx.org/rdf/terms#License -->
+
+    <owl:Class rdf:about="http://spdx.org/rdf/terms#License"/>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#Condition -->
+
+    <owl:Class rdf:about="http://www.softwarelicenseontology.org#Condition"/>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#LicenseType -->
+
+    <owl:Class rdf:about="http://www.softwarelicenseontology.org#LicenseType"/>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#Limitation -->
+
+    <owl:Class rdf:about="http://www.softwarelicenseontology.org#Limitation"/>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#Permission -->
+
+    <owl:Class rdf:about="http://www.softwarelicenseontology.org#Permission"/>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#Recommendation -->
+
+    <owl:Class rdf:about="http://www.softwarelicenseontology.org#Recommendation"/>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#SoftwareLicense -->
+
+    <owl:Class rdf:about="http://www.softwarelicenseontology.org#SoftwareLicense">
+        <rdfs:subClassOf rdf:resource="http://spdx.org/rdf/terms#License"/>
+        <rdfs:comment>A SoftwareLicense describes one License and extends the spdx-License class by information about conditions (over the hasCondition property), permissions (over the hasPermission property) and limitations (over the hasLimitation property)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#AFL-3.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#AFL-3.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#TrademarkUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#AGPL-3.0"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-2.0"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-3.0"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-2.1"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-3.0"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>The Academic Free License is a variant of the Open Software License that does not require that the source code of derivative works be disclosed. It contains explicit copyright and patent grants and reserves trademark rights in the author.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>Academic Free License v3.0</licenseName>
+        <spdxID>AFL-3.0</spdxID>
+        <url>https://choosealicense.com/licenses/afl-3.0/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#AGPL-3.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#AGPL-3.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#NetworkUseIsDistributionCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-3.0"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>Permissions of this strongest copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. When a modified version is used to provide a service over a network, the complete source code of the modified version must be made available.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>GNU Affero General Public License v3.0</licenseName>
+        <spdxID>AGPL-3.0</spdxID>
+        <url>https://choosealicense.com/licenses/agpl-3.0/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#APACHE-2.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#APACHE-2.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#TrademarkUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-2.0"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-2.1"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <isOsiPopular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiPopular>
+        <licenseName>Apache License 2.0</licenseName>
+        <spdxID>Apache-2.0</spdxID>
+        <url>https://choosealicense.com/licenses/apache-2.0/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#ARTISTIC-2.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#ARTISTIC-2.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#TrademarkUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>Heavily favored by the Perl community, the Artistic license requires that modified versions of the software do not prevent users from running the standard version.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>Artistic License 2.0</licenseName>
+        <spdxID>Artistic-2.0</spdxID>
+        <url>https://choosealicense.com/licenses/artistic-2.0/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#BSD-2-CLAUSE -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#BSD-2-CLAUSE">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>A permissive license that comes in two variants, the BSD 2-Clause and BSD 3-Clause. Both have very minute differences to the MIT license.</hasChoosealicenseDescription>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <isOsiPopular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiPopular>
+        <licenseName>BSD 2-Clause “Simplified” License</licenseName>
+        <spdxID>BSD-2-Clause</spdxID>
+        <url>https://choosealicense.com/licenses/bsd-2-clause/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#BSD-3-CLAUSE -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#BSD-3-CLAUSE">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>A permissive license similar to the BSD 2-Clause License, but with a 3rd clause that prohibits others from using the name of the copyright holder or its contributors to promote derived products without written consent.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <isOsiPopular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiPopular>
+        <licenseName>BSD 3-Clause “New” or “Revised” License</licenseName>
+        <spdxID>BSD-3-Clause</spdxID>
+        <url>https://choosealicense.com/licenses/bsd-3-clause/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#BSD-3-CLAUSE-CLEAR -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#BSD-3-CLAUSE-CLEAR">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#PatentUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>A variant of the BSD 3-Clause License that explicitly does not grant any patent rights.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOsiApproved>
+        <licenseName>BSD 3-Clause Clear License</licenseName>
+        <spdxID>BSD-3-Clause-Clear</spdxID>
+        <url>https://choosealicense.com/licenses/bsd-3-clause-clear/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#BSD-4-CLAUSE -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#BSD-4-CLAUSE">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#AGPL-3.0"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-2.0"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-3.0"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-2.1"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-3.0"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>A permissive license similar to the BSD 3-Clause License, but with an &quot;advertising clause&quot; that requires an acknowledgment of the original source in all advertising material.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOsiApproved>
+        <licenseName>BSD 4-Clause “Original” or “Old” License</licenseName>
+        <spdxID>BSD-4-Clause</spdxID>
+        <url>https://choosealicense.com/licenses/bsd-4-clause/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#BSL-1.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#BSL-1.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>A simple permissive license only requiring preservation of copyright and license notices for source (and not binary) distribution. Licensed works, modifications, and larger works may be distributed under different terms and without source code.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>Boost Software License 1.0</licenseName>
+        <spdxID>BSL-1.0</spdxID>
+        <url>https://choosealicense.com/licenses/bsl-1.0/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#CC-BY-4.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#CC-BY-4.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#PatentUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#TrademarkUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#CreativeWorkRecommendation"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#DataRecommendation"/>
+        <hasChoosealicenseDescription>Permits almost any use subject to providing credit and license notice. Frequently used for media assets and educational materials. The most common license for Open Access scientific publications. Not recommended for software.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOsiApproved>
+        <licenseName>Creative Commons Attribution 4.0 International</licenseName>
+        <spdxID>CC-BY-4.0</spdxID>
+        <url>https://choosealicense.com/licenses/cc-by-4.0/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#CC-BY-SA-4.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#CC-BY-SA-4.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#PatentUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#TrademarkUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-3.0"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#CreativeWorkRecommendation"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#DataRecommendation"/>
+        <hasChoosealicenseDescription>Similar to CC-BY-4.0 but requires derivatives be distributed under the same or a similar, &lt;a href=&quot;https://creativecommons.org/compatiblelicenses/&quot;&gt;compatible&lt;/a&gt; license. Frequently used for media assets and educational materials. A previous version is the default license for Wikipedia and other Wikimedia projects. Not recommended for software.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOsiApproved>
+        <licenseName>Creative Commons Attribution Share Alike 4.0 International</licenseName>
+        <spdxID>CC-BY-SA-4.0</spdxID>
+        <url>https://choosealicense.com/licenses/cc-by-sa-4.0/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#CC0-1.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#CC0-1.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#PublicDomain"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#PatentUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#TrademarkUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#BSD-3-CLAUSE"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#MIT"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#CreativeWorkRecommendation"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#DataRecommendation"/>
+        <hasChoosealicenseDescription>The &lt;a href=&quot;https://creativecommons.org/publicdomain/zero/1.0/&quot;&gt;Creative Commons CC0 Public Domain Dedication&lt;/a&gt; waives copyright interest in a work you&apos;ve created and dedicates it to the world-wide public domain. Use CC0 to opt out of copyright entirely and ensure your work has the widest reach. As with the Unlicense and typical software licenses, CC0 disclaims warranties. CC0 is very similar to the Unlicense.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOsiApproved>
+        <licenseName>Creative Commons Zero v1.0 Universal</licenseName>
+        <spdxID>CC0-1.0</spdxID>
+        <url>https://choosealicense.com/licenses/cc0-1.0/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#CECILL-2.1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#CECILL-2.1">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#AGPL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#EUPL-1.1"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#EUPL-1.2"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-2.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-2.1"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-3.0"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>Strong copyleft license made by three French public research organisations, CEA, CNRS, and Inria, compatible with AGPL-3.0, EUPL-1.1, and GPL-2.0, or later versions of those licenses.</hasChoosealicenseDescription>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>CeCILL Free Software License Agreement v2.1</licenseName>
+        <spdxID>CECILL-2.1</spdxID>
+        <url>https://choosealicense.com/licenses/cecill-2.1/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#CommercialUsePermission -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#CommercialUsePermission">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Permission"/>
+        <terms:description xml:lang="en">  The licensed material and derivatives may be used for commercial purposes.</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#Copyleft -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#Copyleft">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#LicenseType"/>
+        <isBackwardCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <terms:description xml:lang="en">A Copyleft software license allows derivative works but require them to use the same license as the original work.</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#CopyrightNoticeCondition -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#CopyrightNoticeCondition">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Condition"/>
+        <terms:description xml:lang="en">A copy of the license and copyright notice must be included with the licensed material.</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#CreativeWorkRecommendation -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#CreativeWorkRecommendation">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Recommendation"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#DataRecommendation -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#DataRecommendation">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Recommendation"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#DatabaseRecommendation -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#DatabaseRecommendation">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Recommendation"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#DiscloseSourceCondition -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#DiscloseSourceCondition">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Condition"/>
+        <terms:description xml:lang="en">Source code must be made available when the licensed material is distributed.</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#DistributionPermission -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#DistributionPermission">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Permission"/>
+        <terms:description xml:lang="en">The licensed material may be distributed</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#ECL-2.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#ECL-2.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#TrademarkUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-2.0"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>The Educational Community License version 2.0 (&quot;ECL&quot;) consists of the Apache 2.0 license, modified to change the scope of the patent grant in section 3 to be specific to the needs of the education communities using this license.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>Educational Community License v2.0</licenseName>
+        <spdxID>ECL-2.0</spdxID>
+        <url>https://choosealicense.com/licenses/ecl-2.0/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#EPL-1.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#EPL-1.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>This commercially-friendly copyleft license provides the ability to commercially license binaries; a modern royalty-free patent license grant; and the ability for linked works to use other licenses, including commercial ones.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>Eclipse Public License 1.0</licenseName>
+        <spdxID>EPL-1.0</spdxID>
+        <url>https://choosealicense.com/licenses/epl-1.0/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#EPL-2.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#EPL-2.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>This commercially-friendly copyleft license provides the ability to commercially license binaries; a modern royalty-free patent license grant; and the ability for linked works to use other licenses, including commercial ones.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <isOsiPopular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiPopular>
+        <licenseName>Eclipse Public License 2.0</licenseName>
+        <spdxID>EPL-2.0</spdxID>
+        <url>https://choosealicense.com/licenses/epl-2.0/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#EUPL-1.1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#EUPL-1.1">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#NetworkUseIsDistributionCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#TrademarkUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#AFL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#ARTISTIC-2.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#BSL-1.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#CECILL-2.1"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#ECL-2.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#EPL-1.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#EUPL-1.1"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#ISC"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-2.1"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LPPL-1.3c"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#MS-PL"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#MS-RL"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#NCSA"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#OFL-1.1"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#POSTGRESQL"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>The “European Union Public Licence” (EUPL) is a copyleft free/open source software license created on the initiative of and approved by the European Commission in 22 official languages of the European Union.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>European Union Public License 1.1</licenseName>
+        <spdxID>EUPL-1.1</spdxID>
+        <url>https://choosealicense.com/licenses/eupl-1.1/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#EUPL-1.2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#EUPL-1.2">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#NetworkUseIsDistributionCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#TrademarkUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#AFL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#AGPL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#ARTISTIC-2.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#BSL-1.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#CECILL-2.1"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#ECL-2.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#EPL-1.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#EUPL-1.2"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-2.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#ISC"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-2.1"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#MIT"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#MPL-2.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#MS-PL"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#NCSA"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#OSL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#POSTGRESQL"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>The European Union Public Licence (EUPL) is a copyleft free/open source software license created on the initiative of and approved by the European Commission in &lt;a href=&quot;https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12&quot;&gt;23 official languages&lt;/a&gt; of the European Union.</hasChoosealicenseDescription>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>European Union Public License 1.2</licenseName>
+        <spdxID>EUPL-1.2</spdxID>
+        <url>https://choosealicense.com/licenses/eupl-1.2/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#GPL-2.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#GPL-2.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#CC-BY-4.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#CC0-1.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-2.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-2.1"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>The GNU GPL is the most widely used free software license and has a strong copyleft requirement. When distributing derived works, the source code of the work must be made available under the same license. There are multiple variants of the GNU GPL, each with different requirements.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <isOsiPopular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiPopular>
+        <licenseName>GNU General Public License v2.0</licenseName>
+        <spdxID>GPL-2.0</spdxID>
+        <url>https://choosealicense.com/licenses/gpl-2.0/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#GPL-3.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#GPL-3.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <isOsiPopular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiPopular>
+        <licenseName>GNU General Public License v3.0</licenseName>
+        <spdxID>GPL-3.0</spdxID>
+        <url>https://choosealicense.com/licenses/gpl-3.0/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#ISC -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#ISC">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>A permissive license lets people do anything with your code with proper attribution and without warranty. The ISC license is functionally equivalent to the BSD 2-Clause; and MIT licenses, removing some language that is no longer necessary.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>ISC License</licenseName>
+        <spdxID>ISC</spdxID>
+        <url>https://choosealicense.com/licenses/isc/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#LGPL-2.1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#LGPL-2.1">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-2.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-2.1"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>Primarily used for software libraries, the GNU LGPL requires that derived works be licensed under the same license, but works that only link to it do not fall under this restriction. There are two commonly used versions of the GNU LGPL.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <isOsiPopular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiPopular>
+        <licenseName>GNU Lesser General Public License v2.1</licenseName>
+        <spdxID>LGPL-2.1</spdxID>
+        <url>https://choosealicense.com/licenses/lgpl-2.1/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#LGPL-3.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#LGPL-3.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-3.0"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>Permissions of this copyleft license are conditioned on making available complete source code of licensed works and modifications under the same license or the GNU GPLv3. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. However, a larger work using the licensed work through interfaces provided by the licensed work may be distributed under different terms and without source code for the larger work.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <isOsiPopular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiPopular>
+        <licenseName>GNU Lesser General Public License v3.0</licenseName>
+        <spdxID>LGPL-3.0</spdxID>
+        <url>https://choosealicense.com/licenses/lgpl-3.0/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#LPPL-1.3c -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#LPPL-1.3c">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#AGPL-3.0"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-2.0"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-3.0"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-2.1"/>
+        <isNotCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-3.0"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>The LaTeX Project Public License (LPPL) is the primary license under which the LaTeX kernel and the base LaTeX packages are distributed.</hasChoosealicenseDescription>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>LaTeX Project Public License v1.3c</licenseName>
+        <spdxID>LPPL-1.3c</spdxID>
+        <url>https://choosealicense.com/licenses/lppl-1.3c/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#LiabilityLimitation -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#LiabilityLimitation">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Limitation"/>
+        <terms:description xml:lang="en">This license includes a limitation of liability.</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#LicenseNoticeCondition -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#LicenseNoticeCondition">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Condition"/>
+        <terms:description xml:lang="en">A copy of the license and copyright notice must be included with the licensed material in source form, but is not required for binaries.</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#MIT -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#MIT">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <isOsiPopular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiPopular>
+        <licenseName>MIT License</licenseName>
+        <spdxID>MIT</spdxID>
+        <url>https://choosealicense.com/licenses/mit/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#MPL-2.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#MPL-2.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#TrademarkUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#AGPL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-2.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-2.1"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-3.0"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>Permissions of this weak copyleft license are conditioned on making available source code of licensed files and modifications of those files under the same license (or in certain cases, one of the GNU licenses). Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. However, a larger work using the licensed work may be distributed under different terms and without source code for files added in the larger work.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <isOsiPopular rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiPopular>
+        <licenseName>Mozilla Public License 2.0</licenseName>
+        <spdxID>MPL-2.0</spdxID>
+        <url>https://choosealicense.com/licenses/mpl-2.0/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#MS-PL -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#MS-PL">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#TrademarkUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>An open source license with a patent grant.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>Microsoft Public License</licenseName>
+        <spdxID>MS-PL</spdxID>
+        <url>https://choosealicense.com/licenses/ms-pl/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#MS-RL -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#MS-RL">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#TrademarkUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>An open source license with a patent grant similar to the Microsoft Public License, with the additional condition that any source code for any derived file be provided under this license.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>Microsoft Reciprocal License</licenseName>
+        <spdxID>MS-RL</spdxID>
+        <url>https://choosealicense.com/licenses/ms-rl/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#ModificationPermission -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#ModificationPermission">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Permission"/>
+        <terms:description xml:lang="en">   The licensed material may be modified.</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#NCSA -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#NCSA">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#NCSA"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>The University of Illinois/NCSA Open Source License, or UIUC license, is a permissive free software license, based on theMIT/X11 license  and the BSD 3-clause License. Its conditions include requiring the preservation of copyright and license notices both in source and in binary distributions and the prohibition of using the names of the authors or the project organization to promote or endorse derived products.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>University of Illinois/NCSA Open Source License</licenseName>
+        <spdxID>NCSA</spdxID>
+        <url>https://choosealicense.com/licenses/ncsa/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#NetworkUseIsDistributionCondition -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#NetworkUseIsDistributionCondition">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Condition"/>
+        <terms:description xml:lang="en">Users who interact with the licensed material via network are given the right to receive a copy of the source code.</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#ODBL-1.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#ODBL-1.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#PatentUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#TrademarkUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#DataRecommendation"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#DatabaseRecommendation"/>
+        <hasChoosealicenseDescription>The Open Database License (ODbL) is a license agreement intended to allow users to freely share, modify, and use a database while maintaining this same freedom for others.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOsiApproved>
+        <licenseName>ODC Open Database License v1.0</licenseName>
+        <spdxID>ODbL-1.0</spdxID>
+        <url>https://choosealicense.com/licenses/odbl-1.0/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#OFL-1.1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#OFL-1.1">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#OFL-1.1"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#OtherRecommendation"/>
+        <hasChoosealicenseDescription>The Open Font License (OFL) is maintained by SIL International. It attempts to be a compromise between the values of the free software and typeface design communities. It is used for almost all open source font projects, including those by Adobe, Google and Mozilla.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>SIL Open Font License 1.1</licenseName>
+        <spdxID>OFL-1.1</spdxID>
+        <url>https://choosealicense.com/licenses/ofl-1.1/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#OSL-3.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#OSL-3.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#NetworkUseIsDistributionCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#TrademarkUseLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>OSL 3.0 is a copyleft license that does not require reciprocal licensing on linked works. It also provides an express grant of patent rights from contributors to users, with a termination clause triggered if a user files a patent infringement lawsuit.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>Open Software License 3.0</licenseName>
+        <spdxID>OSL-3.0</spdxID>
+        <url>https://choosealicense.com/licenses/osl-3.0/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#OtherRecommendation -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#OtherRecommendation">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Recommendation"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#POSTGRESQL -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#POSTGRESQL">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>A very short, BSD-style license, used specifically for PostgreSQL.</hasChoosealicenseDescription>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>PostgreSQL License</licenseName>
+        <spdxID>PostgreSQL</spdxID>
+        <url>https://choosealicense.com/licenses/postgresql/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#PatentUseLimitation -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#PatentUseLimitation">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Limitation"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#PatentUsePermission -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#PatentUsePermission">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Permission"/>
+        <terms:description xml:lang="en">   This license provides an express grant of patent rights from contributors.
+ This license explicitly states that it does NOT grant any rights in the patents of contributors.
+</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#Permissive -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#Permissive">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#LicenseType"/>
+        <isBackwardCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <isForwardCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <isForwardCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <terms:description xml:lang="en">A permissive software license carries only minimal restrictions on how the software can be used, modified, and redistributed, usually including a warranty disclaimer.</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#PrivateUsePermission -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#PrivateUsePermission">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Permission"/>
+        <terms:description xml:lang="en">   The licensed material may be used and modified in private.</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#PublicDomain -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#PublicDomain">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#LicenseType"/>
+        <isForwardCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <isForwardCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <isForwardCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#PublicDomain"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#SameLicenseCondition -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#SameLicenseCondition">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Condition"/>
+        <terms:description xml:lang="en"> Modifications must be released under the same license when distributing the licensed material. In some cases a similar or related license may be used.</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#SameLicenseLibraryCondition -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#SameLicenseLibraryCondition">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Condition"/>
+        <terms:description xml:lang="en">Modifications must be released under the same license when distributing the licensed material. In some cases a similar or related license may be used, or this condition may not apply to works that use the licensed material as a library.
+</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#SoftwareRecommendation -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#SoftwareRecommendation">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Recommendation"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#StateChangesCondition -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#StateChangesCondition">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Condition"/>
+        <terms:description xml:lang="en">Changes made to the licensed material must be documented.</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#TrademarkUseLimitation -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#TrademarkUseLimitation">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Limitation"/>
+        <terms:description xml:lang="en">This license explicitly states that it does NOT grant trademark rights, even though licenses without such a statement probably do not grant any implicit trademark rights.</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#UNLICENSE -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#UNLICENSE">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#PublicDomain"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>A license with no conditions whatsoever which dedicates works to the public domain. Unlicensed works, modifications, and larger works may be distributed under different terms and without source code.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>The Unlicense</licenseName>
+        <spdxID>Unlicense</spdxID>
+        <url>https://choosealicense.com/licenses/unlicense/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#UPL-1.0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#UPL-1.0">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PatentUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>A permissive, OSI and FSF approved, GPL compatible license, expressly allowing attribution with just a copyright notice and a short form link rather than the full text of the license.  Includes an express grant of patent rights.  Licensed works and modifications may be distributed under different terms and without source code, and the patent grant may also optionally be expanded to larger works to permit use as a contributor license agreement.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>Universal Permissive License v1.0</licenseName>
+        <spdxID>UPL-1.0</spdxID>
+        <url>https://choosealicense.com/licenses/upl-1.0/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#VIM -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#VIM">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#DiscloseSourceCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#SameLicenseCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#AGPL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-2.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#GPL-3.0"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-2.1"/>
+        <isExplicitlyCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#LGPL-3.0"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>There are no restrictions on using or distributing an unmodified copy of the software. Parts of the software may also be distributed, but the license text must always be included. For modified versions a few restrictions apply. The license is GPL compatible, you may compile the software with GPL libraries and distribute it.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOsiApproved>
+        <licenseName>Vim License</licenseName>
+        <spdxID>Vim</spdxID>
+        <url>https://choosealicense.com/licenses/vim/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#WTFPL -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#WTFPL">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#PublicDomain"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>The easiest license out there. It gives the user permissions to do whatever they want with your code.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOsiApproved>
+        <licenseName>Do What The F*ck You Want To Public License</licenseName>
+        <spdxID>WTFPL</spdxID>
+        <url>https://choosealicense.com/licenses/wtfpl/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#WarrantyLimitation -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#WarrantyLimitation">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#Limitation"/>
+        <terms:description xml:lang="en">This license explicitly states that it does NOT provide any warranty.</terms:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#ZLIB -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#ZLIB">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#CopyrightNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#LicenseNoticeCondition"/>
+        <hasCondition rdf:resource="http://www.softwarelicenseontology.org#StateChangesCondition"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>A short permissive license, compatible with GPL. Requires altered source versions to be documented as such.</hasChoosealicenseDescription>
+        <isFsfLibre rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isFsfLibre>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>zlib License</licenseName>
+        <spdxID>Zlib</spdxID>
+        <url>https://choosealicense.com/licenses/zlib/</url>
+        <widespreadability xml:lang="en">no</widespreadability>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.softwarelicenseontology.org#0BSD -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#0BSD">
+        <rdf:type rdf:resource="http://www.softwarelicenseontology.org#SoftwareLicense"/>
+        <hasLicenseType rdf:resource="http://www.softwarelicenseontology.org#PublicDomain"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#LiabilityLimitation"/>
+        <hasLimitation rdf:resource="http://www.softwarelicenseontology.org#WarrantyLimitation"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#CommercialUsePermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#DistributionPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#ModificationPermission"/>
+        <hasPermission rdf:resource="http://www.softwarelicenseontology.org#PrivateUsePermission"/>
+        <isRecommendedFor rdf:resource="http://www.softwarelicenseontology.org#SoftwareRecommendation"/>
+        <hasChoosealicenseDescription>The BSD Zero Clause license goes further than the BSD 2-Clause license to allow you unlimited freedom with the software without requirements to include the copyright notice, license text, or disclaimer in either source or binary forms.</hasChoosealicenseDescription>
+        <isOsiApproved rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOsiApproved>
+        <licenseName>BSD-Zero</licenseName>
+        <spdxID>0BSD</spdxID>
+        <url rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://choosealicense.com/licenses/0bsd/</url>
+        <widespreadability xml:lang="en">yes</widespreadability>
+        <rdfs:comment>also known as &quot;Zero-Clause BSD&quot; or &quot;Free Public License 1.0.0&quot;</rdfs:comment>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi -->
+

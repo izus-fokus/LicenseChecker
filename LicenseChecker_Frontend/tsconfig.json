@@ -1,0 +1,16 @@
+{
+
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.config.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.vitest.json"
+    }
+  ]
+}

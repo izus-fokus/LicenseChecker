@@ -1,0 +1,9 @@
+owlready2
+bcrypt
+passlib
+tortoise-orm==0.16.5
+python-multipart
+fastapi
+uvicorn[standard]
+PyJWT
+pydantic==1.10.11
