@@ -29,7 +29,7 @@ services:
       - resus
   license-engine:
     container_name: license-engine
-    build: ./license-engine-main
+    build: ./license-engine
     ports:
       - '7200:7000'
     networks:
