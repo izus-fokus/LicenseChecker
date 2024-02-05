@@ -2,14 +2,28 @@
   <div>
     <q-layout view="hHh lpR fff">
       <q-page-container>
-        <Header_nav :header_label="header_label" @changeHeaderLabel="changeHeaderLabel" />
+        <Header_nav
+          :header_label="header_label"
+          @changeHeaderLabel="changeHeaderLabel"
+        />
 
-        <router-view :licenseid="licenseid" @changeHeaderLabel="changeHeaderLabel" @githubpost="githubpost"
-          @generateid="generateid" @changeLicenseName="changeLicenseName" @listCompatibleLicenses="listCompatibleLicenses"
-          :errorMessage="errorMessage" :compatibleLicenses="compatibleLicenses" :allLicenses="allLicenses"
+        <router-view
+          :licenseid="licenseid"
+          @changeHeaderLabel="changeHeaderLabel"
+          @githubpost="githubpost"
+          @generateid="generateid"
+          @changeLicenseName="changeLicenseName"
+          @listCompatibleLicenses="listCompatibleLicenses"
+          :errorMessage="errorMessage"
+          :compatibleLicenses="compatibleLicenses"
+          :allLicenses="allLicenses"
           :detailedCompatibleLicenses="detailedCompatibleLicenses"
           :detailedCompatibleLicensesId="detailedCompatibleLicensesId"
-          @changedetailedCompatibleLicensesId="changedetailedCompatibleLicensesId" />
+          @changedetailedCompatibleLicensesId="
+            changedetailedCompatibleLicensesId
+          "
+          @getCompatibleLicenses="getCompatibleLicenses"
+        />
       </q-page-container>
 
       <Footer_nav />
@@ -38,7 +52,7 @@ export default {
     allLicensesFields: null,
     compatibleLicenses: [],
     licenseid: null,
-    detailedCompatibleLicensesId:[],
+    detailedCompatibleLicensesId: [],
 
     errorMessage: null,
     // uploadSucess: false,
@@ -49,8 +63,8 @@ export default {
       sessionStorage.setItem("licenseid", licenseid);
       this.licenseid = sessionStorage.getItem("licenseid");
     },
-    changedetailedCompatibleLicensesId: function(changedId){
-      this.detailedCompatibleLicensesId=changedId
+    changedetailedCompatibleLicensesId: function (changedId) {
+      this.detailedCompatibleLicensesId = changedId;
     },
     changeHeaderLabel: function (headerlabel) {
       this.header_label = headerlabel;
@@ -95,10 +109,20 @@ export default {
     listCompatibleLicenses: function (cl) {
       this.compatibleLicenses = cl;
     },
+   getCompatibleLicenses:function(list){
+    axios
+      .post("http://127.0.0.1:8000/licenses/check/", list)
+      .then((response) => {
+        this.compatibleLicenses = response.data;
+      })
+      .catch((error) => {
+        console.error("Error fetching results:", error);
+      });
+   }
   },
   mounted() {
     axios.get("http://127.0.0.1:8000/licenses/").then(
-      (response) => (this.allLicenses = response.data),
+      (response) => (this.allLicenses = response.data)
 
       //this.allLicensesFields=Object.values(Object.values(this.allLicenses)
     );
@@ -123,7 +147,7 @@ export default {
   computed: {
     detailedCompatibleLicenses: function () {
       return this.allLicenses.filter((item) =>
-        this.compatibleLicenses.includes(item.id),
+        this.compatibleLicenses.includes(item.id)
       );
     },
   },

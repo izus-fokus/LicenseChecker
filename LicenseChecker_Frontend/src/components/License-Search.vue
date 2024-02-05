@@ -109,11 +109,16 @@
         $parent.$emit(
           'changedetailedCompatibleLicensesId',
           this.selectedLicensesCompatibilityCheck
+        );
+        $parent.$emit(
+          'getCompatibleLicenses',
+          this.selectedLicensesCompatibilityCheck
         )
       "
       to="/compatibleLicenses"
-      label="Detailed View"
+      label="Compatible Licenses"
       color="primary"
+
     />
   </div>
 </template>

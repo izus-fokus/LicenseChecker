@@ -304,18 +304,18 @@ export default {
       const licensesArray = Array.isArray(selectedLicenses)
         ? selectedLicenses
         : [selectedLicenses];
-      let result = await axios
-        .post("http://127.0.0.1:8000/licenses/check/", licensesArray)
-        .then((res) => {
-          console.log("asyncawait");
-          return res.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      //      this.compatibleLicenses = result;
+      // let result = await axios
+      //   .post("http://127.0.0.1:8000/licenses/check/", licensesArray)
+      //   .then((res) => {
+      //     console.log("asyncawait");
+      //     return res.data;
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
+      // //      this.compatibleLicenses = result;
 
-      this.$emit("listCompatibleLicenses", result);
+      this.$emit("getCompatibleLicenses", licensesArray);
       this.$router.push("/compatibleLicenses");
     },
 
