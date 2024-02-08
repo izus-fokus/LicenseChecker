@@ -31,7 +31,7 @@ services:
     container_name: license-engine
     build: ./license-engine
     ports:
-      - '7200:7000'
+      - '7000:7000'
     networks:
       - resus
     environment:
