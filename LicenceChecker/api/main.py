@@ -341,6 +341,7 @@ def check_license(usedLicenses: List[str]):
     output = {}
     compatibleLicenses = []
     unknownLicenses = []
+    
     for licId in usedLicenses:
         lic = get_license_object(licId)
         if lic is  None:
@@ -399,6 +400,9 @@ def check_license(usedLicenses: List[str]):
     output = {}
     compatibleLicenses = []
     unknownLicenses = []
+    usedLicenses.sort()
+    #print("Used Licenses",usedLicenses)
+    
 
     for licId in usedLicenses:
         lic = get_license_object(licId)

@@ -117,14 +117,16 @@ def check_compatiblity(license_id):
     type_ = remove_prefix(str(lic.hasLicenseType[0]))
     print("Type_",type_)
     type_compatible_forw = slo[type_].isForwardCompatibleWith #permissive is not compatible with any other license
-   
+    print("forward Compatible With",type_compatible_forw)
     log.debug(type_compatible_forw)
     # explicit compatible logic
     exp_comp = slo[license_id].isExplicitlyCompatibleWith #only those license objects which have this property will return value
-   
+    print("Explicitly Compatible With",exp_comp)
+    
     log.debug(exp_comp)
     # not compatible 
     not_comp = slo[license_id].isNotCompatibleWith
+    print("Not Compatible With",not_comp)
 
 
     log.debug(not_comp)
@@ -152,7 +154,8 @@ def check_compatiblity(license_id):
         if lc in license_:
             index_ = license_.index(lc)
             license_.pop(index_)
-    print("Sorted Licenses",license_.sort())
+    license_.sort()
+    print("Sorted Licenses",license_)
 
     return license_
     
