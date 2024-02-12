@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="q-pa-md">
-      <h4 class="text-blue-grey-10">
+      <h5 class="text-primary">
         Detailed List Of Compatible Licenses with
         <!-- change the line below for multiple items -->
-        <span class="text-red-13 q-pr-md" v-for="compId,k in detailedCompatibleLicensesId" :key="k">{{ compId }}    </span>
-      </h4>
+        <span class="text-primary q-pr-md" v-for="compId,k in detailedCompatibleLicensesId" :key="k">{{ compId }}    </span>
+      </h5>
       <q-table
         ref="table"
         :rows="detailedCompatibleLicenses"
