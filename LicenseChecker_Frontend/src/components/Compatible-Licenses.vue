@@ -15,7 +15,8 @@
         :visible-columns="visibleColumns"
         :filter="filter"
         column-sort-order="ad"
-      >
+      v-if="this.detailedCompatibleLicenses.length>0"
+        >
         <template v-slot:top-left>
           <q-input
             borderless
@@ -97,6 +98,7 @@
           </q-tr>
         </template>
       </q-table>
+    <h5 v-else>No compatible license found for selected licenses</h5>
     </div>
   </div>
 </template>
