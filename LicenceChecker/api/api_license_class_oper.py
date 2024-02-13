@@ -169,7 +169,7 @@ def get_license_object(license_id: str):
     lim_list = []
     comp_list = []
     
-    typ = remove_prefix(str(lic.hasLicenseType[0]))
+    typ = add_space(remove_prefix(str(lic.hasLicenseType[0])))
     typ_description=''.join(remove_prefix(lic.hasLicenseType[0].description.en))
    
 
