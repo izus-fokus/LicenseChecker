@@ -3,60 +3,34 @@
     <div v-show="showDiv1">
       <!-- Step 1: User provides GitHub link and branch name -->
       <div class="row q-mt-md justify-center">
-        <div
-          class="col-3 text-center q-pt-sm"
-          style="border: dotted 1px; padding-bottom: none"
-        >
+        <div class="col-3 text-center q-pt-sm" style="border: dotted 1px; padding-bottom: none">
           <p class="text">Retrieve code from a GitHub repository</p>
         </div>
       </div>
-      <div
-        class="row q-mx-xl q-mt-md center-container"
-        :class="{
-          'custom-background-color': !$q.screen.lt.md,
-          'max-width-1000': !$q.screen.lt.md,
-          'margin-20-auto-0': !$q.screen.lt.md,
-        }"
-      >
-        <div
-          class="col"
-          :class="{
-            'max-width-700': !$q.screen.lt.md,
-            'flex-center': !$q.screen.lt.md,
-          }"
-        >
-          <q-form
-            @submit="submitForm()"
-            @reset="onReset"
-            class="q-gutter-md custom-q-form"
-          >
-            <q-input
-              outlined
-              id="input-1"
-              v-model="form.url"
-              label="GitHub Link *"
-              hint="Provide the GitHub repository link"
-              required
-              :rules="[
+      <div class="row q-mx-xl q-mt-md center-container" :class="{
+        'custom-background-color': !$q.screen.lt.md,
+        'max-width-1000': !$q.screen.lt.md,
+        'margin-20-auto-0': !$q.screen.lt.md,
+      }">
+        <div class="col" :class="{
+          'max-width-700': !$q.screen.lt.md,
+          'flex-center': !$q.screen.lt.md,
+        }">
+          <q-form @submit="submitForm()" @reset="onReset" class="q-gutter-md custom-q-form">
+            <q-input outlined id="input-1" v-model="form.url" label="GitHub Link *"
+              hint="Provide the GitHub repository link" required :rules="[
                 (val) => /^https?:\/\/.+$/.test(val) || 'Enter a valid URL',
-              ]"
-            >
+              ]">
               <template v-slot:prepend>
                 <q-avatar>
                   <img src="/src/assets/github.svg" />
                 </q-avatar>
               </template>
             </q-input>
-            <q-input
-              outlined
-              id="input-3"
-              v-model="form.branch"
-              label="Branch name *"
-              hint="Specify the branch name (e.g., development, feature, etc.)"
-              :rules="[
+            <q-input outlined id="input-3" v-model="form.branch" label="Branch name *"
+              hint="Specify the branch name (e.g., development, feature, etc.)" :rules="[
                 (val) => (val && val.length > 0) || 'Enter branch name ',
-              ]"
-            >
+              ]">
               <template v-slot:prepend>
                 <q-avatar>
                   <img src="/src/assets/git-branch.svg" />
@@ -65,12 +39,7 @@
             </q-input>
             <div>
               <q-btn label=" Submit" type="submit" color="primary" />
-              <q-btn
-                label="Reset"
-                type="reset"
-                color="primary"
-                class="q-ml-sm"
-              />
+              <q-btn label="Reset" type="reset" color="primary" class="q-ml-sm" />
             </div>
           </q-form>
         </div>
@@ -80,19 +49,12 @@
       <div v-if="licenses && Object.keys(licenses).length > 0">
         <h6>Your code has following license</h6>
 
-        <q-expansion-item
-          v-for="(paths, license) in licenses"
-          :key="license"
-          header-class="bg-teal text-white"
-        >
+        <q-expansion-item v-for="(paths, license) in licenses" :key="license" header-class="bg-teal text-white">
           <!-- Use a slot for the expansion item header -->
           <template v-slot:header>
             <q-item>
               <q-item-section>
-                <q-checkbox
-                  v-model="checkboxSelection[license]"
-                  :label="` ${license}`"
-                ></q-checkbox>
+                <q-checkbox v-model="checkboxSelection[license]" :label="` ${license}`"></q-checkbox>
               </q-item-section>
             </q-item>
           </template>
@@ -106,11 +68,7 @@
 
 
       <!-- Step 3: Button to get compatible licenses -->
-      <q-btn
-        label="Compatible Licences"
-        color="primary"
-        @click="compatibleLicenses"
-      />
+      <q-btn label="Compatible Licences" color="primary" @click="compatibleLicenses" />
 
       <!-- Step 3: Button to get compatible licenses -->
     </div>
@@ -119,6 +77,7 @@
 
 <script>
 import axios from "axios";
+import { Notify } from 'quasar';
 
 export default {
   name: "License-Recommendation",
@@ -142,6 +101,7 @@ export default {
       responseArray: [],
       showDiv1: true,
     };
+
   },
   methods: {
     generaterepoName: function () {
@@ -157,8 +117,8 @@ export default {
 
       axios
         .get(
-          "http://253caac3-21ac-4f4b-be0a-076655c66384.ma.bw-cloud-instance.org:7000/api/v1/software/status/" +
-            this.generateSoftwareid()
+          "http://localhost:7000/api/v1/software/status/" +
+          this.generateSoftwareid()
         )
 
         .then((response) => {
@@ -190,16 +150,19 @@ export default {
             setTimeout(() => {
               // Check if there is an error message
               if (this.errorMessage) {
-                // Display an error notification with action buttons
+                console.log("Error Message...")
+
                 this.$q.notify({
-                  message: this.errorMessage,
+                  message: "The software has been analyzed already.",
+                  caption: "Do you want to utilize the current results or initiate a new analysis?",
                   position: "center",
-                  timeout: 0, // Set timeout to 0 to make the notification persistent
-                  class: "my-class",
+                  icon: "info",
+                  timeout: 0,
+                  classes: "custom-notification",
                   actions: [
                     {
                       label: "Reanalyze",
-                      color: "white",
+                      color: "primary",
                       class: "retry-button",
                       handler: () => {
                         this.reanalyze();
@@ -265,9 +228,9 @@ export default {
 
       axios
         .get(
-          "http://253caac3-21ac-4f4b-be0a-076655c66384.ma.bw-cloud-instance.org:7000/api/v1/software/" +
-            this.generateSoftwareid() +
-            "/licenses"
+          "http://localhost:7000/api/v1/software/" +
+          this.generateSoftwareid() +
+          "/licenses"
         )
 
         .then((response) => {
@@ -342,10 +305,6 @@ export default {
 </script>
 
 <style scoped>
-.retry-button {
-  color: rgb(223, 23, 23) !important;
-}
-
 .custom-q-form {
   width: 60%;
   box-sizing: border-box;
@@ -402,9 +361,5 @@ export default {
 
 .blur-background {
   filter: blur(5px);
-}
-
-.my-class {
-  color: #2f60ac !important;
 }
 </style>
