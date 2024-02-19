@@ -3,6 +3,7 @@ import { createPinia } from "pinia";
 import "@fortawesome/fontawesome-free/css/all.css";
 import App from "./App.vue";
 import router from "./router";
+import './styles/quasar.sass';
 
 import { Quasar } from "quasar";
 import quasarUserOptions from "./quasar-user-options";

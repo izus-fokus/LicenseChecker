@@ -2,28 +2,14 @@
   <div>
     <q-layout view="hHh lpR fff">
       <q-page-container>
-        <Header_nav
-          :header_label="header_label"
-          @changeHeaderLabel="changeHeaderLabel"
-        />
+        <Header_nav :header_label="header_label" @changeHeaderLabel="changeHeaderLabel" />
 
-        <router-view
-          :licenseid="licenseid"
-          @changeHeaderLabel="changeHeaderLabel"
-          @githubpost="githubpost"
-          @generateid="generateid"
-          @changeLicenseName="changeLicenseName"
-          @listCompatibleLicenses="listCompatibleLicenses"
-          :errorMessage="errorMessage"
-          :compatibleLicenses="compatibleLicenses"
-          :allLicenses="allLicenses"
+        <router-view :licenseid="licenseid" @changeHeaderLabel="changeHeaderLabel" @githubpost="githubpost"
+          @generateid="generateid" @changeLicenseName="changeLicenseName" @listCompatibleLicenses="listCompatibleLicenses"
+          :errorMessage="errorMessage" :compatibleLicenses="compatibleLicenses" :allLicenses="allLicenses"
           :detailedCompatibleLicenses="detailedCompatibleLicenses"
-          :detailedCompatibleLicensesId="detailedCompatibleLicensesId"
-          @changedetailedCompatibleLicensesId="
-            changedetailedCompatibleLicensesId
-          "
-          @getCompatibleLicenses="getCompatibleLicenses"
-        />
+          :detailedCompatibleLicensesId="detailedCompatibleLicensesId" @changedetailedCompatibleLicensesId="changedetailedCompatibleLicensesId
+            " @getCompatibleLicenses="getCompatibleLicenses" />
       </q-page-container>
 
       <Footer_nav />
@@ -80,7 +66,7 @@ export default {
     githubpost: function (bodyFormData, repoName, softwareid) {
       axios({
         method: "post",
-        url: "http://253caac3-21ac-4f4b-be0a-076655c66384.ma.bw-cloud-instance.org:7000/api/v1/software",
+        url: "http://localhost:7000/api/v1/software",
         data: {
           id: softwareid,
           name: repoName,
@@ -109,16 +95,16 @@ export default {
     listCompatibleLicenses: function (cl) {
       this.compatibleLicenses = cl;
     },
-   getCompatibleLicenses:function(list){
-    axios
-      .post("http://127.0.0.1:8000/licenses/check/", list)
-      .then((response) => {
-        this.compatibleLicenses = response.data;
-      })
-      .catch((error) => {
-        console.error("Error fetching results:", error);
-      });
-   }
+    getCompatibleLicenses: function (list) {
+      axios
+        .post("http://127.0.0.1:8000/licenses/check/", list)
+        .then((response) => {
+          this.compatibleLicenses = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching results:", error);
+        });
+    }
   },
   mounted() {
     axios.get("http://127.0.0.1:8000/licenses/").then(
