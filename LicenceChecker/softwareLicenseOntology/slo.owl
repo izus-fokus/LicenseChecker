@@ -1447,6 +1447,7 @@ Also known as &quot;downstream&quot;-compatibility and referrs to code feeding o
         <isForwardCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#Copyleft"/>
         <isForwardCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#Permissive"/>
         <isForwardCompatibleWith rdf:resource="http://www.softwarelicenseontology.org#PublicDomain"/>
+        <terms:description xml:lang="en">Public Domain materials are works exempt from intellectual property laws, allowing unrestricted use without permissions, and cannot be owned by individuals.</terms:description>
     </owl:NamedIndividual>
     
 
