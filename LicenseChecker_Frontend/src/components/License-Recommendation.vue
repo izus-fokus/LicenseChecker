@@ -117,7 +117,7 @@ export default {
 
       axios
         .get(
-          "http://253caac3-21ac-4f4b-be0a-076655c66384.ma.bw-cloud-instance.org:7000/api/v1/software/status/" +
+          "http://localhost:7000/api/v1/software/status/" +
           this.generateSoftwareid()
         )
 
@@ -150,6 +150,7 @@ export default {
             setTimeout(() => {
               // Check if there is an error message
               if (this.errorMessage) {
+                console.log("Error Message...")
 
                 this.$q.notify({
                   message: "The software has been analyzed already.",
@@ -227,7 +228,7 @@ export default {
 
       axios
         .get(
-          "http://253caac3-21ac-4f4b-be0a-076655c66384.ma.bw-cloud-instance.org:7000/api/v1/software/" +
+          "http://localhost:7000/api/v1/software/" +
           this.generateSoftwareid() +
           "/licenses"
         )

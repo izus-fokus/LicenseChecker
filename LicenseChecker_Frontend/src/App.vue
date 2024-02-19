@@ -38,7 +38,7 @@ export default {
     allLicensesFields: null,
     compatibleLicenses: [],
     licenseid: null,
-    detailedCompatibleLicensesId:[],
+    detailedCompatibleLicensesId: [],
 
     errorMessage: null,
     // uploadSucess: false,
@@ -49,8 +49,8 @@ export default {
       sessionStorage.setItem("licenseid", licenseid);
       this.licenseid = sessionStorage.getItem("licenseid");
     },
-    changedetailedCompatibleLicensesId: function(changedId){
-      this.detailedCompatibleLicensesId=changedId
+    changedetailedCompatibleLicensesId: function (changedId) {
+      this.detailedCompatibleLicensesId = changedId
     },
     changeHeaderLabel: function (headerlabel) {
       this.header_label = headerlabel;
@@ -66,7 +66,7 @@ export default {
     githubpost: function (bodyFormData, repoName, softwareid) {
       axios({
         method: "post",
-        url: "http://253caac3-21ac-4f4b-be0a-076655c66384.ma.bw-cloud-instance.org:7000/api/v1/software",
+        url: "http://localhost:7000/api/v1/software",
         data: {
           id: softwareid,
           name: repoName,
