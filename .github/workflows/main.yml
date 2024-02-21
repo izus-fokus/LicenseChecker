@@ -8,7 +8,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: MetadataMapper Action Step
-        uses: izus-fokus/metadata2dataverse@latest
+        uses: izus-fokus/metadata2dataverse@d0d270a51b46f5ab03a4c783c6272b1e1aca5a12  
         id: api
         with:
           path: 'LicenseChecker/codemeta.json'
