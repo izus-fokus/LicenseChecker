@@ -1,0 +1,22 @@
+on: [workflow_dispatch]
+
+jobs:
+  api_request_job:
+    runs-on: ubuntu-latest
+    name: A job to make a post request to the MetadataMapper
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: MetadataMapper Action Step
+        uses: izus-fokus/metadata2dataverse@latest
+        id: api
+        with:
+          path: 'LicenseChecker/codemeta.json'
+          dataverse-url: 'https://darus.uni-stuttgart.de'
+          doi: '10.18419/darus-4029'
+          api-key: '${{ secrets.DATAVERSE_API_TOKEN }}'
+      # Use the output from the `MetadataMapper` step
+      - name: Get the output
+        run: |
+          echo ${{ steps.api.outputs.metadata-mapper-result }}
+          echo ${{ steps.api.outputs.post-result }}
