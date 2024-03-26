@@ -25,6 +25,7 @@ const router = createRouter({
       path: "/licenseRecommendation",
       name: "LicenseRecommendation",
       component: LicenseRecommendation,
+
     },
     {
       path: "/licenseSearch", // camel case

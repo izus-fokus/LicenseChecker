@@ -1,0 +1,83 @@
+{
+    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+    "@type": "SoftwareSourceCode",
+    "license": "https://spdx.org/licenses/MIT",
+    "codeRepository": "git+https://github.com/izus-fokus/LicenseChecker",
+    "name": "License Checker API",
+    "version": "0.0.1",
+    "description": "REST API to check the compatibility of open source software licenses",
+    "applicationCategory": "Research Software Engineering",
+    "funding": "425911815",
+    "developmentStatus": "active",
+    "funder": {
+        "@type": "Organization",
+        "name": "DFG"
+    },
+    "keywords": [
+        "Software license",
+        "compatibility"
+    ],
+    "programmingLanguage": [
+        "Python 3"
+    ],
+    "softwareRequirements": [
+        "owlready2",
+        "bcrypt",
+        "passlib",
+        "tortoise-orm 0.16.5",
+        "python-multipart",
+        "fastapi",
+        "uvicorn",
+        "PyJWT",
+        "pydantic 1.10.11"
+    ],
+    "author": [
+        {
+            "@type": "Person",
+            "givenName": "Faisal",
+            "familyName": "Khan",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "University Library, University of Stuttgart"
+            }
+        },
+        {
+            "@type": "Person",
+            "givenName": "Markus",
+            "familyName": "Hirsch",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "University Library, University of Stuttgart"
+            }
+        },
+        {
+            "@type": "Person",
+            "givenName": "Evgenia",
+            "familyName": "Yangulova",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "University Library, University of Stuttgart"
+            }
+        },
+        {
+            "@type": "Person",
+            "@id": "https://orcid.org/0000-0002-8524-0569",
+            "givenName": "Dorothea",
+            "familyName": "Iglezakis",
+            "email": "dorothea.iglezakis@ub.uni-stuttgart.de",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "University Library, University of Stuttgart"
+            }
+        },
+        {
+            "@type": "Person",
+            "givenName": "Usman",
+            "familyName": "Ghani Amin",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "University Library, University of Stuttgart"
+            }
+        }
+    ]
+}
