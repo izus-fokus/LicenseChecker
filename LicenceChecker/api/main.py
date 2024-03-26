@@ -525,7 +525,7 @@ def rank(license_name, counts):
     return rslt
 
 
-@app.post("/uploadfile/")
+@app.post("/uploaddependencyfile/")
 async def create_upload_file(file: UploadFile):
     contents = await file.read()
     lic_info=check_python_dependency(contents)
