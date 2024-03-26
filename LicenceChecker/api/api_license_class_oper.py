@@ -8,6 +8,8 @@ from typing import List, Optional
 from owl_class import *
 from util import *
 from conf import *
+import requests
+import prettytable
 #from license_oper import *
 
 
@@ -158,10 +160,14 @@ def check_compatiblity(license_id):
     print("Sorted Licenses",license_)
 
     return license_
-    
+
 def get_license_object(license_id: str):
     correct_case_license_id = return_correct_case(license_id)
     lic = slo[correct_case_license_id]
+    get_ids()
+    
+   
+    #print(lic.LicenseName[0])
     if lic is None:
         return lic
     cond_list = []
@@ -171,7 +177,7 @@ def get_license_object(license_id: str):
     
     typ = add_space(remove_prefix(str(lic.hasLicenseType[0])))
     typ_description=''.join(remove_prefix(lic.hasLicenseType[0].description.en))
-   
+    #print(lic.licenseName[0].spdxID[0])
 
 
     for condition in lic.hasCondition:
@@ -245,3 +251,29 @@ def create_new_license_object(newlic: License):
     print(slo.idd)
     return None
 
+def check_python_dependency(my_file):
+        #t = prettytable.PrettyTable(['Package', 'License'])
+        data={}
+        packages=my_file.decode('utf-8').split()
+        
+        for package in packages:
+            check_lic_remove_char=re.match('([\w-]*)(\[.*\])?[ ]*([=~<>]{0,2})[ ]*(.*)',package)
+            lic=check_lic_remove_char.group(1)     #print(lic)
+            response = requests.get("https://pypi.org/pypi/{}/json".format(lic))
+            json=response.json()
+            if('info' in json):
+                if(len(json['info']['classifiers'])!=0):
+                    res = (list(filter(lambda x: 'License' in x, json['info']['classifiers'])))
+                    #print(type(res))
+                    lic_name=re.match('([\w\s]*)(::)([\w\s]*)(:: )([\w\s]*)',res[0])
+                    data[lic]=lic_name.group(5)
+                    #t.add_row((lic, lic_name.group(5)))
+                elif(len(json['info']['license'])!=0):
+                    lic_name=json['info']['license']
+                    data[lic]=lic_name
+                    #t.add_row((lic, lic_name))
+                else:
+                     lic_name= "No record found"
+                     data[lic]=lic_name
+                     #t.add_row((lic, lic_name))
+        return data

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status,Depends,HTTPException
+from fastapi import FastAPI, status,Depends,HTTPException,  File, UploadFile
 import jwt
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Optional,Dict,Union
@@ -525,7 +525,13 @@ def rank(license_name, counts):
     return rslt
 
 
-
+@app.post("/uploadfile/")
+async def create_upload_file(file: UploadFile):
+    contents = await file.read()
+    lic_info=check_python_dependency(contents)
+    return {"filename": file.filename,
+            "Content": lic_info
+            }
 
 
 
