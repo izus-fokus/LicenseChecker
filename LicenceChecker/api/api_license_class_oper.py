@@ -266,14 +266,17 @@ def check_python_dependency(my_file):
                     res = (list(filter(lambda x: 'License' in x, json['info']['classifiers'])))
                     #print(type(res))
                     lic_name=re.match('([\w\s]*)(::)([\w\s]*)(:: )([\w\s]*)',res[0])
-                    data[lic]=lic_name.group(5)
+                    data[lic]= {"license_name":lic_name.group(5),
+                                "license_id":"MIT"}
                     #t.add_row((lic, lic_name.group(5)))
                 elif(len(json['info']['license'])!=0):
                     lic_name=json['info']['license']
-                    data[lic]=lic_name
+                    data[lic]={"license_name":lic_name,
+                               "license_id":"MIT"}
                     #t.add_row((lic, lic_name))
                 else:
                      lic_name= "No record found"
-                     data[lic]=lic_name
+                     data[lic]={"license_name":lic_name,
+                                "license_id":"MIT"}
                      #t.add_row((lic, lic_name))
         return data
