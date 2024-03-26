@@ -3,7 +3,7 @@
     <div v-show="showDiv1">
       <!-- Step 1: User provides GitHub link and branch name -->
       <div class="row q-mt-md justify-center">
-        <div class="col-3 text-center q-pt-sm" style="border: dotted 1px; padding-bottom: none">
+        <div class="col-3 text-center q-pt-sm" style="border:0.1px solid  #2F60AC ; background-color: #feddd6;">
           <p class="text">Retrieve code from a GitHub repository</p>
         </div>
       </div>
@@ -17,7 +17,7 @@
           'flex-center': !$q.screen.lt.md,
         }">
           <q-form @submit="submitForm()" @reset="onReset" class="q-gutter-md custom-q-form">
-            <q-input outlined id="input-1" v-model="form.url" label="GitHub Link *"
+            <q-input class="custom-input" outlined id="input-1" v-model="form.url" label="GitHub Link *"
               hint="Provide the GitHub repository link" required :rules="[
                 (val) => /^https?:\/\/.+$/.test(val) || 'Enter a valid URL',
               ]">
@@ -47,31 +47,38 @@
     </div>
     <div v-show="!showDiv1">
       <div v-if="licenses && Object.keys(licenses).length > 0">
-        <h6>Your code has following license</h6>
+        <div class="row q-mt-md justify-center">
+          <div class="col-3 text-center q-pt-sm" style="border:0.1px solid  #2F60AC ; background-color: #feddd6;">
+            <p class="text">Your code has following licenses </p>
+          </div>
+        </div>
 
-        <q-expansion-item v-for="(paths, license) in licenses" :key="license" header-class="bg-teal text-white">
-          <!-- Use a slot for the expansion item header -->
-          <template v-slot:header>
-            <q-item>
-              <q-item-section>
-                <q-checkbox v-model="checkboxSelection[license]" :label="` ${license}`"></q-checkbox>
-              </q-item-section>
-            </q-item>
-          </template>
-          <q-card class="bg-teal-2">
-            <q-card-section>
-              <q-list v-for="path in paths" :key="path">{{ path }}</q-list>
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
+        <div class="q-mx-xl q-mt-md ">
+
+
+          <q-expansion-item v-for="(paths, license) in licenses" :key="license" class="custom-headerclass">
+            <!-- Use a slot for the expansion item header -->
+            <template v-slot:header>
+              <q-item>
+                <q-item-section>
+                  <q-checkbox v-model="checkboxSelection[license]" :label="` ${license}`"></q-checkbox>
+                </q-item-section>
+              </q-item>
+            </template>
+            <q-card class="custom-detailclass">
+              <q-card-section>
+                <p class="text-subtitle1">License file paths </p>
+                <q-list v-for="path in paths" :key="path">{{ path }}</q-list>
+              </q-card-section>
+            </q-card>
+          </q-expansion-item>
+          <q-btn style="text-transform: capitalize; margin-top:20px;" label=" Find Compatible Licences" color="primary"
+            @click="compatibleLicenses" />
+
+        </div>
       </div>
-
-
-      <!-- Step 3: Button to get compatible licenses -->
-      <q-btn label="Compatible Licences" color="primary" @click="compatibleLicenses" />
-
-      <!-- Step 3: Button to get compatible licenses -->
     </div>
+
   </div>
 </template>
 
@@ -160,39 +167,61 @@ export default {
                   timeout: 0,
                   classes: "custom-notification",
                   actions: [
+
                     {
                       label: "Reanalyze",
                       color: "primary",
-                      class: "retry-button",
+                      class: "action-button",
+                      title: "Initiate a new analysis",
+
                       handler: () => {
                         this.reanalyze();
                       },
                     },
                     {
                       label: "Show Licenses",
-                      color: "white",
+                      color: "primary",
+                      class: "action-button",
+                      title: "Show already analyzed licenses",
                       handler: () => {
                         this.foundLincences();
+
                       },
+
                     },
+                    {
+                      label: 'Dismiss',
+                      color: 'primary',
+                      class: "action-button",
+                      title: "Close",
+                      handler: () => { /* ... */ }
+                    },
+
                   ],
                 });
               } else {
                 // Display a success notification
                 this.$q.notify({
-                  color: "positive",
-                  message:
-                    "Your code was successfully uploaded. You can get the list of found licenses.",
+                  message: "Your code has been successfully uploaded.",
+                  caption: "You may now access the list of found licenses.",
                   position: "center",
-                  timeout: 0,
                   icon: "check",
+                  timeout: 0,
+                  classes: "pos-custom-notification",
                   actions: [
                     {
                       label: "Show Licenses",
-                      color: "white",
+                      class: "pos-action-button",
+                      title: "Show found licenses",
                       handler: () => {
                         this.foundLincences();
                       },
+                    },
+                    {
+                      label: 'Dismiss',
+                      class: "pos-action-button",
+                      title: "Close",
+                      handler: () => { /* ... */ }
                     },
                   ],
                 });
@@ -290,7 +319,7 @@ export default {
       // Delete the software with the specified software-id
       axios
         .delete(
-          "http://253caac3-21ac-4f4b-be0a-076655c66384.ma.bw-cloud-instance.org:7000/api/v1/software/" + this.generateSoftwareid()
+          "http://localhost:7000/api/v1/software/" + this.generateSoftwareid()
         )
         .then(() => {
           console.log("the software is deleted", this.generateSoftwareid());
@@ -308,7 +337,7 @@ export default {
 .custom-q-form {
   width: 60%;
   box-sizing: border-box;
-  /* Optional: Include padding and border in the width */
+
 
   @media (max-width: 599px) {
     width: 100%;
@@ -341,8 +370,9 @@ export default {
 }
 
 .custom-background-color {
-  background-color: #feddd6;
-  border-radius: 10px;
+  border: 2px dotted #2F60AC;
+  /* background-color: #feddd6;
+  border-radius: 10px; */
 }
 
 .center-container {
@@ -357,6 +387,23 @@ export default {
   font-size: 14px;
   color: #2f60ac;
   font-weight: bold;
+  padding-top: 3px;
+}
+
+.custom-headerclass {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 2px solid #2f60ac;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+
+
+.custom-detailclass {
+  border-top: 2px solid #2F60AC;
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
 }
 
 .blur-background {

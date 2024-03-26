@@ -1,26 +1,55 @@
 @import './quasar.variables.sass'
-// @import '~quasar-addon-styl'
 
+// Customize styles for custom notifications
 .q-notification.custom-notification
   background-color: #EDF5FF
-  border-left-width: 3px
-  border-left-style: groove
-  border-left-color:#0242CE
+  border-left: 3px solid #0242CE
   color: #2F60AC !important
 
-.q-notification.custom-notification .q-notification__message
-  font-weight:600 !important
-  font-size:15px !important
+  .q-notification__message
+    font-weight: 600 !important
+    font-size: 15px !important
 
-.q-notification.custom-notification .q-notification__caption
-    padding-top:10px !important
-    opacity:0.9
+  .q-notification__caption
+    padding-top: 10px !important
+    opacity: 0.9
     max-width: 255px
     text-align: justify
 
-.q-notification.custom-notification .q-notification__icon
+  .q-notification__icon
     margin-right: 15px
     margin-top: -53px
 
-.q-notification.retry-button .q-notification__actions 
-    background-color: aquamarine
+  .q-notification__actions .action-button 
+    text-transform: capitalize
+    border: 0.5px solid #2f60accf
+    margin: 7px 3px 0 0
+    padding: 0 5px 0 5px
+
+// Customize styles for positive notifications
+.q-notification.pos-custom-notification
+  background-color: #DDFBE5
+  border-left: 3px solid #25A249
+  color: #2F60AC !important
+
+  .q-notification__message
+    font-weight: 600 !important
+    font-size: 15px !important
+
+  .q-notification__caption
+    padding-top: 10px !important
+    opacity: 0.9
+    max-width: 255px
+    text-align: justify
+
+  .q-notification__icon
+    margin-right:8px
+    margin-top: -53px
+
+  .q-notification__actions .pos-action-button 
+    text-transform: capitalize
+    border: 0.5px solid #25A249
+    margin: 7px 3px 0 0
+    padding: 0 5px 0 5px
+
+ 
