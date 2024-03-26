@@ -267,16 +267,16 @@ def check_python_dependency(my_file):
                     #print(type(res))
                     lic_name=re.match('([\w\s]*)(::)([\w\s]*)(:: )([\w\s]*)',res[0])
                     data[lic]= {"license_name":lic_name.group(5),
-                                "license_id":"MIT"}
+                                "license_id":["MIT"]}
                     #t.add_row((lic, lic_name.group(5)))
                 elif(len(json['info']['license'])!=0):
                     lic_name=json['info']['license']
                     data[lic]={"license_name":lic_name,
-                               "license_id":"MIT"}
+                               "license_id":["MIT"]}
                     #t.add_row((lic, lic_name))
                 else:
                      lic_name= "No record found"
                      data[lic]={"license_name":lic_name,
-                                "license_id":"MIT"}
+                                "license_id":["MIT"]}
                      #t.add_row((lic, lic_name))
         return data
