@@ -1,4 +1,4 @@
-#!/Users/usmandaula/Documents/GitHub/LicenceChecker/lcvenv/bin/python
+#!/Users/usmandaula/Documents/GitHub/LicenseChecker/LicenceChecker/lcvenv/bin/python3.11
 # -*- coding: utf-8 -*-
 import re
 import sys

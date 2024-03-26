@@ -1488,6 +1488,15 @@ Also known as &quot;downstream&quot;-compatibility and referrs to code feeding o
     
 
 
+    <!-- http://www.softwarelicenseontology.org#Test_instance -->
+
+    <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#Test_instance">
+        <licenseName>test_instance</licenseName>
+        <spdxID>TI</spdxID>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.softwarelicenseontology.org#TrademarkUseLimitation -->
 
     <owl:NamedIndividual rdf:about="http://www.softwarelicenseontology.org#TrademarkUseLimitation">

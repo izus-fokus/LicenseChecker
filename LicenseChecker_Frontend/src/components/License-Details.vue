@@ -42,7 +42,11 @@
               to="/compatibleLicenses"
               label="Detailed View"
               color="primary"
-              @click=" $parent.$emit('changedetailedCompatibleLicensesId', [license.id])"
+              @click="
+                $parent.$emit('changedetailedCompatibleLicensesId', [
+                  license.id,
+                ])
+              "
             />
           </q-card>
         </q-expansion-item>
