@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <div v-show="showDiv1">
+<div>
+ <!-- QTabs for selecting options -->
+ <q-tabs v-model="selectedOption" align="left" class="q-mx-xl q-mt-md" style="background-color: #feddd6;" indicator-class="custom-indicator">
+      <q-tab v-for="option in options" :key="option.value" :name="option.value" :label="option.label"></q-tab>
+    </q-tabs>
+
+<!-- Display license recommendation when selectedOption is 'github' -->
+<div v-if="selectedOption === 'github'">
+  <div v-show="showDiv1">
       <!-- Step 1: User provides GitHub link and branch name -->
-      <div class="row q-mt-md justify-center">
-        <div class="col-3 text-center q-pt-sm" style="border:0.1px solid  #2F60AC ; background-color: #feddd6;">
-          <p class="text">Retrieve code from a GitHub repository</p>
-        </div>
-      </div>
       <div class="row q-mx-xl q-mt-md center-container" :class="{
         'custom-background-color': !$q.screen.lt.md,
         'max-width-1000': !$q.screen.lt.md,
@@ -17,7 +19,7 @@
           'flex-center': !$q.screen.lt.md,
         }">
           <q-form @submit="submitForm()" @reset="onReset" class="q-gutter-md custom-q-form">
-            <q-input class="custom-input" outlined id="input-1" v-model="form.url" label="GitHub Link *"
+            <q-input class="custom-input" outlined id="input-1" v-model="form.url" label="Public Git Link *"
               hint="Provide the GitHub repository link" required :rules="[
                 (val) => /^https?:\/\/.+$/.test(val) || 'Enter a valid URL',
               ]">
@@ -78,23 +80,36 @@
         </div>
       </div>
     </div>
-
+</div>
+ <!-- Display desktop upload when selectedOption is 'desktop' -->
+ <div v-show="selectedOption === 'desktop'">
+      <DesktopUpload />
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import DesktopUpload from './Desktop-Upload.vue'
 import { Notify } from 'quasar';
 
 export default {
   name: "License-Recommendation",
   props: ["errorMessage"],
+  components: {
+    DesktopUpload
+  },
   data() {
-    return {
+    return  {
+      selectedOption: 'github', // Default to license recommendation
+      options: [
+        { value: 'github', label: 'Retrieve Code from GitHub Link' },
+        { value: 'desktop', label: 'Desktop Upload' }
+      ],
       form: {
         id: " ",
-        url: "https://github.com/izus-fokus/metadata2dataverse",
-        branch: "main",
+        url: "",
+        branch: "",
       },
       status: " ",
       name: " ",
@@ -408,5 +423,9 @@ export default {
 
 .blur-background {
   filter: blur(5px);
+}
+.custom-indicator {
+ color: yellow; /* Example custom styling for the indicator */
+  height: 3px; /* Example custom height for the indicator */
 }
 </style>
