@@ -273,7 +273,7 @@ def check_python_dependency(my_file):
                 elif(len(json['info']['license'])!=0):
                     lic_name=json['info']['license']
                     data[lic]={"license_name":lic_name,
-                               "license_id":["BSD"]}
+                               "license_id":["BSD","MIT"]}
                     #t.add_row((lic, lic_name))
                 else:
                      lic_name= "No record found"
