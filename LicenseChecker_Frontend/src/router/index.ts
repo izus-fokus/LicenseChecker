@@ -7,6 +7,7 @@ import Imprint from "../components/Imprint.vue";
 import Help from "../components/Help.vue";
 import LicenseDetails from "../components/License-Details.vue";
 import CompatibleLicenses from "../components/Compatible-Licenses.vue";
+import AddLicenses from "../components/AddLicenses.vue";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -51,6 +52,11 @@ const router = createRouter({
       path: "/Imprint",
       name: "Imprint",
       component: Imprint,
+    },
+    {
+      path: '/add-license',
+      name: 'AddLicenses',
+      component: AddLicenses,
     },
   ],
 });
