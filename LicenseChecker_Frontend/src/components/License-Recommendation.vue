@@ -1,10 +1,11 @@
 <template>
 <div>
  <!-- QTabs for selecting options -->
+ <div style="max-width: 600px; margin: 0 auto;">
  <q-tabs v-model="selectedOption" align="left" class="q-mx-xl q-mt-md" style="background-color: #feddd6;" indicator-class="custom-indicator">
       <q-tab v-for="option in options" :key="option.value" :name="option.value" :label="option.label"></q-tab>
     </q-tabs>
-
+  </div>
 <!-- Display license recommendation when selectedOption is 'github' -->
 <div v-if="selectedOption === 'github'">
   <div v-show="showDiv1">
@@ -74,9 +75,11 @@
               </q-card-section>
             </q-card>
           </q-expansion-item>
-          <q-btn style="text-transform: capitalize; margin-top:20px;" label=" Find Compatible Licences" color="primary"
+          <div class="q-pa-md q-gutter-sm">
+          <q-btn style="text-transform: capitalize; " label=" Find Compatible Licences" color="primary"
             @click="compatibleLicenses" />
-
+          <q-btn  style="text-transform: capitalize;" @click="goToAddLicenses" label="Add more Licenses" color="primary" />
+        </div>
         </div>
       </div>
     </div>
@@ -330,6 +333,9 @@ export default {
       this.form.url = null;
       this.form.branch = null;
     },
+    goToAddLicenses() {
+      this.$router.push({ name: 'AddLicenses' });
+    },
     reanalyze() {
       // Delete the software with the specified software-id
       axios
@@ -344,6 +350,7 @@ export default {
           console.error("Error deleting software:", error);
         });
     },
+    
   },
 };
 </script>

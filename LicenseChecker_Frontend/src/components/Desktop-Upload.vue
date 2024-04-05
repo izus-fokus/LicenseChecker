@@ -13,7 +13,7 @@
         }">
             <q-uploader
             class=".custom-q-form"
-            url="/api/upload"
+            url="/api/upload" 
               label="Click or Drop files here to upload"
               accept=".zip,.rar"
               :auto-upload="false"
