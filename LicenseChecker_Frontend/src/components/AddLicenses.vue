@@ -8,7 +8,7 @@
     </div>
     <div v-if="selectedOption === 'DependencyFileUpload'">
       <q-uploader auto-upload label="Upload Dependency File" @added="onFileAdded" :url="null" />
-      <q-expansion-item v-for="(license, index) in licenses" :key="index" :label="getExpansionLabel(license)">
+      <q-expansion-item v-for="(license, index) in dependencyLicenses" :key="index" :label="getExpansionLabel(license)">
         <q-checkbox v-model="selectedLicenseIds[index]" label="Select All" @input="selectAll(index)" />
         <q-checkbox v-for="id in license.license_id" :key="id" v-model="selectedLicenseIds[index]" :label="id" />
       </q-expansion-item>
@@ -39,6 +39,8 @@ export default {
 
   data() {
     return {
+      dependencyLicenses: [], //array to fetch licenses from dependency file 
+      selectedLicenseIds: [],
       permissiveLicenses: [], // Array of permissive licenses
       copyleftLicenses: [], // Array of copyleft licenses
       selectedLicenses: {}, // Object to store selected licenses
@@ -52,10 +54,9 @@ export default {
           name: "name",
         }
       ],
-      licenses: [],
-      selectedLicenseIds: [],
-      licenseIds: [], // Array to store the list of license ID
-      selectedOption: 'DependencyFileUpload', // Default to license recommendation
+
+      // licenseIds: [], // Array to store the list of license ID
+      selectedOption: 'DependencyFileUpload', // Default to upload Dependency file upload (requirement.txt file)
       options: [
         { value: 'DependencyFileUpload', label: 'Dependency File Upload' },
         { value: 'addLicensesManually', label: 'Add Licenses' }
@@ -68,8 +69,37 @@ export default {
 
   },
   methods: {
+    async onFileAdded(files) {
+      const file = files[0];
+      const formData = new FormData();
+      formData.append('file', file);
 
+      try {
+        const response = await fetch('http://127.0.0.1:8000/uploaddependencyfile/', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await response.json();
+        this.dependencyLicenses = Object.entries(data.Content).map(([key, value]) => ({
+          package_name: key,
+          license_name: value.license_name,
+          license_id: value.license_id,
+        }));
+        this.selectedLicenseIds = Array(this.dependencyLicenses.length).fill([]);
 
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
+    },
+    getExpansionLabel(license) {
+      if (license.license_id.length === 1) {
+        return license.license_id[0];
+      } else {
+        return `Choose License for ${license.package_name}`;
+      }
+    },
+
+    // function to fetch list of permissive and copyleft licenses
     async fetchLicenses() {
       try {
         const permissiveResponse = await fetch("http://127.0.0.1:8000/types/permissive");
@@ -121,41 +151,9 @@ export default {
     // submitSelectedLicenses() {
     //   console.log("Selected licenses:", this.selectedLicenses);
     // },
-    async onFileAdded(files) {
-      const file = files[0];
-      const formData = new FormData();
-      formData.append('file', file);
 
-      try {
-        const response = await fetch('http://127.0.0.1:8000/uploaddependencyfile/', {
-          method: 'POST',
-          body: formData
-        });
-        const data = await response.json();
-        this.licenses = Object.entries(data.Content).map(([key, value]) => ({
-          package_name: key,
-          license_name: value.license_name,
-          license_id: value.license_id,
-        }));
-        this.selectedLicenseIds = Array(this.licenses.length).fill([]);
-
-      } catch (error) {
-        console.error('Error uploading file:', error);
-      }
-    },
-    getExpansionLabel(license) {
-      if (license.license_id.length === 1) {
-        return license.license_id[0];
-      } else {
-        return `Choose License for ${license.package_name}`;
-      }
-    },
 
 
   },
-
-  // created() {
-  //   this.fetchLicenseIds(); // Call the fetchLicenseIds method when the component is created
-  // },
 };
 </script>
