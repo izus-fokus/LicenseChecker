@@ -7,11 +7,40 @@
       </q-tabs>
     </div>
     <div v-if="selectedOption === 'DependencyFileUpload'">
-      <q-uploader auto-upload label="Upload Dependency File" @added="onFileAdded" :url="null" />
-      <q-expansion-item v-for="(license, index) in dependencyLicenses" :key="index" :label="getExpansionLabel(license)">
-        <q-checkbox v-model="selectedLicenseIds[index]" label="Select All" @input="selectAll(index)" />
-        <q-checkbox v-for="id in license.license_id" :key="id" v-model="selectedLicenseIds[index]" :label="id" />
-      </q-expansion-item>
+      <q-uploader :auto-upload="false" label="Upload Dependency File" @added="onFileAdded" />
+      <q-table :rows="dependencyLicenses" row-key="package_name" wrap-cells no-data-label="No data available">
+        <template v-slot:header="props">
+          <q-tr :props="props">
+            <q-th>
+              Select
+            </q-th>
+            <q-th>
+              Package Name
+            </q-th>
+            <q-th>
+              License IDs
+            </q-th>
+          </q-tr>
+        </template>
+        <template v-slot:body="props">
+          <q-tr :props="props">
+            <q-td>
+              <q-checkbox v-model="props.row.checked" />
+            </q-td>
+            <q-td>
+              {{ props.row.package_name }}
+            </q-td>
+            <q-td>
+              <q-select v-if="props.row.license_id.length > 1" v-model="props.row.dropdown"
+                :options="props.row.license_id" label="Select License ID" :multiple="false" />
+              <template v-else>
+                {{ props.row.license_id[0] }}
+              </template>
+            </q-td>
+          </q-tr>
+        </template>
+      </q-table>
+      <q-btn label="Add to Compatibility List" color="primary" @click="addToCompatibilityList" />
     </div>
     <div v-if="selectedOption === 'addLicensesManually'">
 
@@ -26,24 +55,23 @@
           <q-checkbox v-model="selectedLicenses[props.row]" />
         </template>
       </q-table>
-
-
-
     </div>
-
   </q-page>
 </template>
 
 <script>
+
+
 export default {
 
   data() {
     return {
-      dependencyLicenses: [], //array to fetch licenses from dependency file 
-      selectedLicenseIds: [],
+      dependencyLicenses: [], //array to fetch licenses from dependency file (req.txt)
+      selectedLicenseIds: [], //array to store selected license ids of dependenies (req.txt)  
       permissiveLicenses: [], // Array of permissive licenses
       copyleftLicenses: [], // Array of copyleft licenses
       selectedLicenses: {}, // Object to store selected licenses
+      dropdown: "null",
       permissiveColumns: [
         {
           name: "name",
@@ -69,6 +97,7 @@ export default {
 
   },
   methods: {
+
     async onFileAdded(files) {
       const file = files[0];
       const formData = new FormData();
@@ -84,20 +113,35 @@ export default {
           package_name: key,
           license_name: value.license_name,
           license_id: value.license_id,
+          checked: false, // Added property to track checkbox state
+          //selectedLicenseId: '', // Added property to track selected license ID
+          dropdown: '',
+
         }));
-        this.selectedLicenseIds = Array(this.dependencyLicenses.length).fill([]);
+        this.selectedLicenseIds = [];
+
+        // this.selectedLicenseIds = Array(this.dependencyLicenses.length).fill([]);
 
       } catch (error) {
         console.error('Error uploading file:', error);
       }
     },
-    getExpansionLabel(license) {
-      if (license.license_id.length === 1) {
-        return license.license_id[0];
-      } else {
-        return `Choose License for ${license.package_name}`;
-      }
+    addToCompatibilityList() {
+      this.selectedLicenseIds = [];
+      this.dependencyLicenses.forEach(row => {
+        if (row.checked && (row.dropdown || row.license_id.length === 1)) {
+          const selectedLicenseId = row.dropdown || row.license_id[0];
+          this.selectedLicenseIds.push(selectedLicenseId);
+        }
+      });
+      this.selectedLicenseIds = [...new Set(this.selectedLicenseIds)];
+      console.log("Selected license id", this.selectedLicenseIds);
+      // const plainArray = JSON.parse(JSON.stringify(this.selectedLicenseIds));
+      // this.$emit('getselectedLicenseids', plainArray);
+      // this.$router.push("/LicenseRecommedation");
+
     },
+
 
     // function to fetch list of permissive and copyleft licenses
     async fetchLicenses() {
@@ -121,39 +165,40 @@ export default {
         this.selectedLicenses = {};
 
         this.permissiveLicenses.forEach(license => {
-          this.$set(this.selectedLicenses, license, false);
+          this.selectedLicenses[license] = false;
         });
 
         this.copyleftLicenses.forEach(license => {
-          this.$set(this.selectedLicenses, license, false);
+          this.selectedLicenses[license] = false;
         });
       } catch (error) {
         console.error("Error fetching licenses:", error);
       }
     },
 
-    //async fetchLicenseIds() {
-    //try {
-    // const response = await fetch("http://127.0.0.1:8000/licenseList/");
-    //if (!response.ok) {
-    // throw new Error("Failed to fetch license IDs");
-    //}
-    //this.licenseIds = await response.json();
-    // Initialize selectedLicenses object with false for each license ID
-    //this.selectedLicenses = {};
-    //this.licenseIds.forEach(licenseId => {
-    // this.selectedLicenses[licenseId] = false;
-    // });
-    // } catch (error) {
-    // console.error("Error fetching license IDs:", error);
-    // }
-    //},
-    // submitSelectedLicenses() {
-    //   console.log("Selected licenses:", this.selectedLicenses);
-    // },
-
-
-
   },
+  watch: {
+    dependencyLicenses: {
+      handler(newVal) {
+        // Clear selectedLicenseIds array
+        this.selectedLicenseIds = [];
+
+        // Filter out selected license IDs from rows where checkbox is checked
+        newVal.forEach(row => {
+          if (row.checked) {
+            this.selectedLicenseIds.push(...row.license_id);
+          }
+        });
+
+        // Add selected license ID from the dropdown if it exists
+        // newVal.forEach(row => {
+        //   if (row.checked && row.selectedLicenseId && !this.selectedLicenseIds.includes(row.selectedLicenseId)) {
+        //     this.selectedLicenseIds.push(row.selectedLicenseId);
+        //   }
+        // });
+      },
+      deep: true
+    }
+  }
 };
 </script>
