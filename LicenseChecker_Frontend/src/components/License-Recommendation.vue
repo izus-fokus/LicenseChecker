@@ -1,100 +1,123 @@
 <template>
   <div>
-    <div v-show="showDiv1">
-      <!-- Step 1: User provides GitHub link and branch name -->
-      <div class="row q-mt-md justify-center">
-        <div class="col-3 text-center q-pt-sm" style="border:0.1px solid  #2F60AC ; background-color: #feddd6;">
-          <p class="text">Retrieve code from a GitHub repository</p>
-        </div>
-      </div>
-      <div class="row q-mx-xl q-mt-md center-container" :class="{
-        'custom-background-color': !$q.screen.lt.md,
-        'max-width-1000': !$q.screen.lt.md,
-        'margin-20-auto-0': !$q.screen.lt.md,
-      }">
-        <div class="col" :class="{
-          'max-width-700': !$q.screen.lt.md,
-          'flex-center': !$q.screen.lt.md,
-        }">
-          <q-form @submit="submitForm()" @reset="onReset" class="q-gutter-md custom-q-form">
-            <q-input class="custom-input" outlined id="input-1" v-model="form.url" label="GitHub Link *"
-              hint="Provide the GitHub repository link" required :rules="[
-                (val) => /^https?:\/\/.+$/.test(val) || 'Enter a valid URL',
-              ]">
-              <template v-slot:prepend>
-                <q-avatar>
-                  <img src="/src/assets/github.svg" />
-                </q-avatar>
-              </template>
-            </q-input>
-            <q-input outlined id="input-3" v-model="form.branch" label="Branch name *"
-              hint="Specify the branch name (e.g., development, feature, etc.)" :rules="[
-                (val) => (val && val.length > 0) || 'Enter branch name ',
-              ]">
-              <template v-slot:prepend>
-                <q-avatar>
-                  <img src="/src/assets/git-branch.svg" />
-                </q-avatar>
-              </template>
-            </q-input>
-            <div>
-              <q-btn label=" Submit" type="submit" color="primary" />
-              <q-btn label="Reset" type="reset" color="primary" class="q-ml-sm" />
-            </div>
-          </q-form>
-        </div>
-      </div>
+    <!-- QTabs for selecting options -->
+    <div style="max-width: 600px; margin: 0 auto;">
+      <q-tabs v-model="selectedOption" align="left" class="q-mx-xl q-mt-md" style="background-color: #feddd6;"
+        indicator-class="custom-indicator">
+        <q-tab v-for="option in options" :key="option.value" :name="option.value" :label="option.label"></q-tab>
+      </q-tabs>
     </div>
-    <div v-show="!showDiv1">
-      <div v-if="licenses && Object.keys(licenses).length > 0">
-        <div class="row q-mt-md justify-center">
-          <div class="col-3 text-center q-pt-sm" style="border:0.1px solid  #2F60AC ; background-color: #feddd6;">
-            <p class="text">Your code has following licenses </p>
+    <!-- Display license recommendation when selectedOption is 'github' -->
+    <div v-if="selectedOption === 'github'">
+      <div v-show="showDiv1">
+        <!-- Step 1: User provides GitHub link and branch name -->
+        <div class="row q-mx-xl q-mt-md center-container" :class="{
+          'custom-background-color': !$q.screen.lt.md,
+          'max-width-1000': !$q.screen.lt.md,
+          'margin-20-auto-0': !$q.screen.lt.md,
+        }">
+          <div class="col" :class="{
+            'max-width-700': !$q.screen.lt.md,
+            'flex-center': !$q.screen.lt.md,
+          }">
+            <q-form @submit="submitForm()" @reset="onReset" class="q-gutter-md custom-q-form">
+              <q-input class="custom-input" outlined id="input-1" v-model="form.url" label="Public Git Link *"
+                hint="Provide the GitHub repository link" required :rules="[
+                  (val) => /^https?:\/\/.+$/.test(val) || 'Enter a valid URL',
+                ]">
+                <template v-slot:prepend>
+                  <q-avatar>
+                    <img src="/src/assets/github.svg" />
+                  </q-avatar>
+                </template>
+              </q-input>
+              <q-input outlined id="input-3" v-model="form.branch" label="Branch name *"
+                hint="Specify the branch name (e.g., development, feature, etc.)" :rules="[
+                  (val) => (val && val.length > 0) || 'Enter branch name ',
+                ]">
+                <template v-slot:prepend>
+                  <q-avatar>
+                    <img src="/src/assets/git-branch.svg" />
+                  </q-avatar>
+                </template>
+              </q-input>
+              <div>
+
+                <q-btn label=" Submit" type="submit" color="primary" />
+                <q-btn label="Reset" type="reset" color="primary" class="q-ml-sm" />
+              </div>
+            </q-form>
           </div>
         </div>
+      </div>
+      <div v-show="!showDiv1">
+        <div v-if="licenses && Object.keys(licenses).length > 0">
+          <div class="row q-mt-md justify-center">
+            <div class="col-3 text-center q-pt-sm" style="border:0.1px solid  #2F60AC ; background-color: #feddd6;">
+              <p class="text">Your code has following licenses </p>
+            </div>
+          </div>
 
-        <div class="q-mx-xl q-mt-md ">
+          <div class="q-mx-xl q-mt-md ">
+            <q-expansion-item v-for="(paths, license) in licenses" :key="license" class="custom-headerclass">
+              <!-- Use a slot for the expansion item header -->
+              <template v-slot:header>
+                <q-item>
+                  <q-item-section>
+                    <q-checkbox v-model="checkboxSelection[license]" :label="` ${license}`"></q-checkbox>
+                  </q-item-section>
+                </q-item>
+              </template>
+              <q-card class="custom-detailclass">
+                <q-card-section>
+                  <p class="text-subtitle1">License file paths </p>
+                  <q-list v-for="path in paths" :key="path">{{ path }}</q-list>
+                </q-card-section>
+              </q-card>
+            </q-expansion-item>
 
-
-          <q-expansion-item v-for="(paths, license) in licenses" :key="license" class="custom-headerclass">
-            <!-- Use a slot for the expansion item header -->
-            <template v-slot:header>
-              <q-item>
-                <q-item-section>
-                  <q-checkbox v-model="checkboxSelection[license]" :label="` ${license}`"></q-checkbox>
-                </q-item-section>
-              </q-item>
-            </template>
-            <q-card class="custom-detailclass">
-              <q-card-section>
-                <p class="text-subtitle1">License file paths </p>
-                <q-list v-for="path in paths" :key="path">{{ path }}</q-list>
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-          <q-btn style="text-transform: capitalize; margin-top:20px;" label=" Find Compatible Licences" color="primary"
-            @click="compatibleLicenses" />
-
+            <div class="q-pa-md q-gutter-sm">
+              <q-btn style="text-transform: capitalize; " label=" Find Compatible Licences" color="primary"
+                @click="compatibleLicenses" />
+              <q-btn style="text-transform: capitalize;" @click="goToAddLicenses" label="Add more Licenses"
+                color="primary" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
+    <!-- Display desktop upload when selectedOption is 'desktop' -->
+    <div v-show="selectedOption === 'desktop'">
+      <DesktopUpload />
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import DesktopUpload from './Desktop-Upload.vue'
 import { Notify } from 'quasar';
 
 export default {
   name: "License-Recommendation",
   props: ["errorMessage"],
+  components: {
+    DesktopUpload
+  },
   data() {
     return {
+      props: {
+        selectedLicenseIds: [],
+      },
+      selectedOption: 'github', // Default to license recommendation
+      options: [
+        { value: 'github', label: 'Retrieve Code from GitHub Link' },
+        { value: 'desktop', label: 'Desktop Upload' }
+      ],
       form: {
         id: " ",
-        url: "https://github.com/izus-fokus/metadata2dataverse",
-        branch: "main",
+        url: "",
+        branch: "",
       },
       status: " ",
       name: " ",
@@ -111,6 +134,7 @@ export default {
 
   },
   methods: {
+
     generaterepoName: function () {
       this.name = this.form.url.split("/").pop();
       console.log("Repo Name", this.name);
@@ -296,17 +320,6 @@ export default {
       const licensesArray = Array.isArray(selectedLicenses)
         ? selectedLicenses
         : [selectedLicenses];
-      // let result = await axios
-      //   .post("http://127.0.0.1:8000/licenses/check/", licensesArray)
-      //   .then((res) => {
-      //     console.log("asyncawait");
-      //     return res.data;
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
-      // //      this.compatibleLicenses = result;
-
       this.$emit("getCompatibleLicenses", licensesArray);
       this.$router.push("/compatibleLicenses");
     },
@@ -314,6 +327,9 @@ export default {
     onReset() {
       this.form.url = null;
       this.form.branch = null;
+    },
+    goToAddLicenses() {
+      this.$router.push({ name: 'AddLicenses' });
     },
     reanalyze() {
       // Delete the software with the specified software-id
@@ -329,6 +345,7 @@ export default {
           console.error("Error deleting software:", error);
         });
     },
+
   },
 };
 </script>
@@ -408,5 +425,12 @@ export default {
 
 .blur-background {
   filter: blur(5px);
+}
+
+.custom-indicator {
+  color: yellow;
+  /* Example custom styling for the indicator */
+  height: 3px;
+  /* Example custom height for the indicator */
 }
 </style>
