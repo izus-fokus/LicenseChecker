@@ -9,10 +9,8 @@ from owl_class import *
 from util import *
 from conf import *
 import requests
-import prettytable
+import json
 #from license_oper import *
-
-
 '''
 class CompLic(BaseModel):
     response: str
@@ -164,7 +162,7 @@ def check_compatiblity(license_id):
 def get_license_object(license_id: str):
     correct_case_license_id = return_correct_case(license_id)
     lic = slo[correct_case_license_id]
-    get_ids()
+   # get_ids()
     
    
     #print(lic.LicenseName[0])
@@ -254,30 +252,36 @@ def create_new_license_object(newlic: License):
 def check_python_dependency(my_file):
         #t = prettytable.PrettyTable(['Package', 'License'])
         data={}
-        packages=my_file.decode('utf-8').split()
+        packages=my_file.decode('utf-8').splitlines()
+        #print(packages)
         
         for package in packages:
+         #   print(package)
             check_lic_remove_char=re.match('([\w-]*)(\[.*\])?[ ]*([=~<>]{0,2})[ ]*(.*)',package)
-            lic=check_lic_remove_char.group(1)     #print(lic)
+            lic=check_lic_remove_char.group(1)     
+          #  print(lic)
             response = requests.get("https://pypi.org/pypi/{}/json".format(lic))
             json=response.json()
             if('info' in json):
-                if(len(json['info']['classifiers'])!=0):
+                #if(len(json['info']['classifiers'])!=0  ):
+                #if('classifiers' in json['info'] and len(json['info']['classifiers'])!=0 ):
+                if( 'license' in json['info'] and json['info']['license'] is not None and len(json['info']['license'])!=0):
+                    lic_name=json['info']['license'].split()
+                    data[lic]={"license_name":lic_name[0],
+                               "license_id":rank(lic_name[0],1)}
+                elif (len(list(filter(lambda x: 'License' in x, json['info']['classifiers'])))!=0):
+                    #print(len(list(filter(lambda x: 'License' in x, json['info']['classifiers']))))
                     res = (list(filter(lambda x: 'License' in x, json['info']['classifiers'])))
-                    #print(type(res))
-                    lic_name=re.match('([\w\s]*)(::)([\w\s]*)(:: )([\w\s]*)',res[0])
-                   
-                    data[lic]= {"license_name":lic_name.group(5),
-                                 "license_id":["MIT"]}
-                    #t.add_row((lic, lic_name.group(5)))
-                elif(len(json['info']['license'])!=0):
-                    lic_name=json['info']['license']
-                    data[lic]={"license_name":lic_name,
-                               "license_id":["BSD","MIT"]}
-                    #t.add_row((lic, lic_name))
+                    #print(res)
+                    lic_name=re.match('([\w\s]*)(::)([\w\s]*)(:: )([\w]*)',res[0])
+                    if(lic_name is not None):
+                     #  print(lic_name)
+                       data[lic]= {"license_name":lic_name.group(5),
+                                    "license_id":rank(str(lic_name.group(5)),1)}
+                  
                 else:
-                     lic_name= "No record found"
-                     data[lic]={"license_name":lic_name,
-                                "license_id":["MIT"]}
+                     lic_name= "No License found"
+                     data[lic]={
+                                "license_id":[lic_name]}
                      #t.add_row((lic, lic_name))
         return data

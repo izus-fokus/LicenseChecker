@@ -1,7 +1,11 @@
 from conf import *
 import conf
 import sqlite3
+from statistics import mean 
+import difflib
+import numpy as np
 
+    
 def create_connection():
 
     con = sqlite3.connect('owl-db.db',check_same_thread=False)
@@ -222,3 +226,73 @@ def cosdis(v1, v2):
     # by definition of cosine distance we have
     return sum(v1[0][ch]*v2[0][ch] for ch in common)/v1[2]/v2[2]
     
+
+
+def similar(a, b):
+    return difflib.SequenceMatcher(None, a, b).ratio()
+
+#This code calculates the similarity between two strings using the ndiff method from the difflib library. 
+def compute_similarity(input_string, reference_string):
+#The ndiff method returns a list of strings representing the differences between the two input strings.
+    diff = difflib.ndiff(input_string, reference_string)
+    diff_count = 0
+    for line in diff:
+      # a "-", indicating that it is a deleted character from the input string.
+        if line.startswith("-"):
+            diff_count += 1
+# calculates the similarity by subtracting the ratio of the number of deleted characters to the length of the input string from 1
+    return 1 - (diff_count / len(input_string))
+
+def rank(license_name, counts):
+#def check_license(usedLicenses: license_request):
+#def check_license(usedLicenses: CompLic):
+
+    '''
+    # two endpoint
+    1. only compatible
+    2. all result
+    Returns which licenses are compatible with a certain license.
+
+
+   
+    **Basic functionality is working. Currently returns hard coded compatibilities.**
+    '''
+    #usedLicenses = license_request['license']
+    #log.debug(license_request)
+    all_licenses_object_list = slo.search(type=slo.SoftwareLicense)
+    ids = []
+    names = []
+    data=[]
+
+    for ls in all_licenses_object_list:
+        ids.append(remove_prefix(str(ls)))
+        names.append(ls.licenseName[0])
+        data.append(ls.licenseName[0].lower().split())
+        
+    lic_2_vec = {}
+    scores_lic={}
+    
+    for id,name in zip(ids,names):
+        lic_2_vec[id] = word2vec(name)
+    scores = []
+    ipn_word2vec = word2vec(license_name)
+    #print(ipn_word2vec)
+    
+    
+    
+    for key, val in lic_2_vec.items():
+        scores_lic[key]=cosdis(ipn_word2vec,val)
+        scores.append((key, cosdis(ipn_word2vec,val)))
+    scores.sort(key=lambda tup: tup[1],reverse=True)
+    #print(scores)
+    scores_lic=dict(sorted(scores_lic.items()))
+   
+    ranked = []
+    scored = []
+    for val in scores:
+        #print(val)
+        ranked.append(val[0])
+        scored.append(val[1])
+    rslt = ranked[:int(counts)]
+    return rslt
+

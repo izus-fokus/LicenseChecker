@@ -1,3 +1,4 @@
+
 def word2vec(word):
     from collections import Counter
     from math import sqrt
