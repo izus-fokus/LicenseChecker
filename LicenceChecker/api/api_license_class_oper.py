@@ -10,6 +10,7 @@ from util import *
 from conf import *
 import requests
 import json
+import tomllib
 #from license_oper import *
 '''
 class CompLic(BaseModel):
@@ -256,12 +257,14 @@ def check_python_dependency(my_file):
         data={}
         packages=my_file.decode('utf-8').splitlines()
         #print(packages)
-        
+        line=0
         for package in packages:
+            line+=1
+            #print(line)
          #   print(package)
             check_lic_remove_char=re.match('([\w-]*)(\[.*\])?[ ]*([=~<>]{0,2})[ ]*(.*)',package)
             lic=check_lic_remove_char.group(1)     
-          #  print(lic)
+            print(lic)
             response = requests.get("https://pypi.org/pypi/{}/json".format(lic))
             json=response.json()
             if('info' in json):
@@ -286,4 +289,61 @@ def check_python_dependency(my_file):
                      data[lic]={
                                 "license_id":[lic_name]}
                      #t.add_row((lic, lic_name))
+        
+        return data
+
+def check_python_toml_dependency(my_file):
+    decode_contents=my_file.decode('utf-8')
+    data_toml=tomllib.loads(decode_contents)
+    data={}
+    if(data_toml['tool']['poetry']['dependencies'] is not None):
+        for lic in data_toml['tool']['poetry']['dependencies']:
+         
+            response = requests.get("https://pypi.org/pypi/{}/json".format(lic))
+            json=response.json()
+         
+            if('info' in json):
+                #if(len(json['info']['classifiers'])!=0  ):
+                #if('classifiers' in json['info'] and len(json['info']['classifiers'])!=0 ):
+                if( 'license' in json['info'] and json['info']['license'] is not None and len(json['info']['license'])!=0):
+                    lic_name=json['info']['license'].split()
+                   # print(lic_name) {"license_name":lic_name[0],
+                    data[lic]={"license_id":rank(lic_name[0],1)}
+                elif (len(list(filter(lambda x: 'License' in x, json['info']['classifiers'])))!=0):
+                    #print(len(list(filter(lambda x: 'License' in x, json['info']['classifiers']))))
+                    res = (list(filter(lambda x: 'License' in x, json['info']['classifiers'])))
+                    #print(res)
+                    lic_name=re.match('([\w\s]*)(::)([\w\s]*)(:: )([\w]*)',res[0])
+                    
+                    if(lic_name is not None):
+                     #  print(lic_name){"license_name":lic_name.group(5),
+                       data[lic]= {"license_id":rank(str(lic_name.group(5)),1)}
+                  
+                else:
+                     lic_name= "No License found"
+                     data[lic]={
+                                "license_id":[lic_name]}
+                     #t.add_row((lic, lic_name))
+    else:
+        return "No Dependency Available"
+    return data
+
+def check_js_dependency(my_file):
+        #print(my_file)
+        data={}
+        packages=my_file.decode('utf-8')
+        print(type(packages))
+        packages_json=json.loads(packages)
+        print(packages_json['dependencies'])
+        for k,v in packages_json['dependencies'].items():
+            #print(k,v)
+            version=v[1:len(v)]
+            #print(version)
+            response = requests.get(" https://registry.npmjs.org/{}/{}".format(k,version))
+            response_json=response.json()
+            lic=response_json['name']
+            print(type(response_json['license']))
+            data[lic]={"license_name":response_json['license'],
+                                "license_id":response_json['license']}
+       
         return data
