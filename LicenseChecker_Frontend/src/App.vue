@@ -5,8 +5,9 @@
         <Header_nav :header_label="header_label" @changeHeaderLabel="changeHeaderLabel" />
 
         <router-view :licenseid="licenseid" @changeHeaderLabel="changeHeaderLabel" @githubpost="githubpost"
-          @generateid="generateid" @changeLicenseName="changeLicenseName" @listCompatibleLicenses="listCompatibleLicenses"
-          :errorMessage="errorMessage" :compatibleLicenses="compatibleLicenses" :allLicenses="allLicenses"
+          @generateid="generateid" @changeLicenseName="changeLicenseName"
+          @listCompatibleLicenses="listCompatibleLicenses" :errorMessage="errorMessage"
+          :compatibleLicenses="compatibleLicenses" :allLicenses="allLicenses"
           :detailedCompatibleLicenses="detailedCompatibleLicenses"
           :detailedCompatibleLicensesId="detailedCompatibleLicensesId" @changedetailedCompatibleLicensesId="changedetailedCompatibleLicensesId
             " @getCompatibleLicenses="getCompatibleLicenses" />
@@ -39,6 +40,9 @@ export default {
     compatibleLicenses: [],
     licenseid: null,
     detailedCompatibleLicensesId: [],
+    // getselectedLicenseids: null,
+    // selectedLicenseIds: [],
+    // plainArray: [],
 
     errorMessage: null,
     // uploadSucess: false,
@@ -52,6 +56,12 @@ export default {
     changedetailedCompatibleLicensesId: function (changedId) {
       this.detailedCompatibleLicensesId = changedId;
     },
+    // getselectedLicenseids: function (plainArray) {
+    //   console.log("Running");
+    //   this.plainArray = plainArray;
+    //   console.log('Selected License IDs', plainArray);
+    // },
+
     changeHeaderLabel: function (headerlabel) {
       this.header_label = headerlabel;
     },

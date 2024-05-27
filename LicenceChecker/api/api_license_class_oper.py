@@ -163,7 +163,9 @@ def check_compatiblity(license_id):
 def get_license_object(license_id: str):
     correct_case_license_id = return_correct_case(license_id)
     lic = slo[correct_case_license_id]
+
    # get_ids()
+
     
    
     #print(lic.LicenseName[0])
