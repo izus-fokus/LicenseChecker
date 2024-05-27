@@ -24,6 +24,8 @@ from owl_class import *
 from api_license_class_oper import *
 from util import *
 #JWT_SECRET = 'myjwtsecret'
+from typing import Literal
+import pathlib
 
 app = FastAPI(
     title="License Checker",
@@ -593,19 +595,44 @@ def rank(license_name, counts):
 
 
 @app.post("/uploaddependencyfile/")
-async def create_upload_file(file: UploadFile):
-    #choice: Literal['Python','JS'] = Form(...)
+async def create_upload_file(file: UploadFile,choice: Literal['Python','JS'] = "Python"):
+    print(choice)
     contents = await file.read()
+    file_extension = pathlib.Path(file.filename).suffix
+    print(file_extension)
     try:
-        lic_info=check_python_dependency(contents)
-        return {"filename": file.filename,
+        if (choice=="JS"):
+            lic_info=check_js_dependency(contents)
+            return {"filename": file.filename,
             "Content": lic_info
-            }
+                }
+        elif (choice=="Python"):
+            if(file_extension==".txt"):
+                lic_info=check_python_dependency(contents)
+                return {"filename": file.filename,
+                "Content": lic_info
+                        }
+            elif(file_extension==".toml"):
+                lic_info=check_python_toml_dependency(contents)
+                return {"filename": file.filename,
+                "Content": lic_info
+                }
+            else:
+                raise HTTPException(
+            status_code=415,
+            detail="Invalid Dependency File Please Upload a Valid Python file",
+            )
     except:
-        raise HTTPException(
-            status_code=500,
-            detail="Invalid Dependency File",
-        )
+        if (choice=="JS"):
+            raise HTTPException(
+            status_code=415,
+            detail="Invalid Dependency File Please Upload a JS file",
+            )
+        elif (choice=="Python"):
+            raise HTTPException(
+            status_code=415,
+            detail="Invalid Dependency File Please Upload a  Valid Python file",
+            )
 
 
 

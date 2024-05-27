@@ -1,0 +1,6 @@
+pytest = "^5.4.1"
+pyyaml = "^5.3.1"
+pytest-mock = "^3.0.0"
+coverage = "^5.1"
+pytest-cov = "^2.8.1"
+black = "^19.10b0"

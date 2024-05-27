@@ -24,57 +24,58 @@ def test_basic_functionality_get_license():
   "url": "https://choosealicense.com/licenses/zlib/",
   "type": {
     "id": "Permissive",
-    "name": "Permissive"
+    "name": "Permissive",
+    "description": "A permissive software license carries only minimal restrictions on how the software can be used, modified, and redistributed, usually including a warranty disclaimer."
   },
-  "description": "",
+  "description": "A short permissive license, compatible with GPL. Requires altered source versions to be documented as such.",
   "conditions": [
     {
-      "id": "Copyright Notice",
-      "name": "Copyright Notice",
+      "id": "CopyrightNoticeCondition",
+      "name": "Copyright Notice ",
       "description": "A copy of the license and copyright notice must be included with the licensed material."
     },
     {
-      "id": "License Notice",
-      "name": "License Notice",
+      "id": "LicenseNoticeCondition",
+      "name": "License Notice ",
       "description": "A copy of the license and copyright notice must be included with the licensed material in source form, but is not required for binaries."
     },
     {
-      "id": "State Changes",
-      "name": "State Changes",
+      "id": "StateChangesCondition",
+      "name": "State Changes ",
       "description": "Changes made to the licensed material must be documented."
     }
   ],
   "permissions": [
     {
-      "id": "Commercial Use",
-      "name": "Commercial Use",
+      "id": "CommercialUsePermission",
+      "name": "Commercial Use ",
       "description": "  The licensed material and derivatives may be used for commercial purposes."
     },
     {
-      "id": "Distribution",
-      "name": "Distribution",
+      "id": "DistributionPermission",
+      "name": "Distribution ",
       "description": "The licensed material may be distributed"
     },
     {
-      "id": "Modification",
-      "name": "Modification",
+      "id": "ModificationPermission",
+      "name": "Modification ",
       "description": "   The licensed material may be modified."
     },
     {
-      "id": "Private Use",
-      "name": "Private Use",
+      "id": "PrivateUsePermission",
+      "name": "Private Use ",
       "description": "   The licensed material may be used and modified in private."
     }
   ],
   "limitations": [
     {
-      "id": "Liability",
-      "name": "Liability",
+      "id": "LiabilityLimitation",
+      "name": "Liability ",
       "description": "This license includes a limitation of liability."
     },
     {
-      "id": "Warranty",
-      "name": "Warranty",
+      "id": "WarrantyLimitation",
+      "name": "Warranty ",
       "description": "This license explicitly states that it does NOT provide any warranty."
     }
   ],
