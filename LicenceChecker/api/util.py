@@ -3,7 +3,6 @@ import conf
 import sqlite3
 from statistics import mean 
 import difflib
-import numpy as np
 
     
 def create_connection():
