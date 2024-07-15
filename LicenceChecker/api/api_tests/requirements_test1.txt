@@ -1,0 +1,15 @@
+calar 2.5.1
+openstack_user_management 0.1.0.dev4
+lix 3.8.3
+flowa 10.5.5
+maddy5 6.6.6
+clygon 0.0.5
+simple-interpolator 0.1.2
+zenfilter 0.6.5
+herbal 0.1.3
+ER3 0.0.1
+streamlit-otp-auth 1.0.0
+ranni 0.0.1.dev1
+scriptgen 0.0.5
+anonknight 0.0.1
+numpy
