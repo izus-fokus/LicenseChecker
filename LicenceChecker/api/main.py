@@ -483,8 +483,6 @@ def delete_license(license_id: str, user: User_Pydantic = Depends(get_current_us
 
 @app.post("/licenses/rank/", response_model=List[str], tags=["Accessing information from the license ontology"])
 def rank(license_name, counts):
-#def check_license(usedLicenses: license_request):
-#def check_license(usedLicenses: CompLic):
 
     '''
     # two endpoint
@@ -509,63 +507,17 @@ def rank(license_name, counts):
         data.append(ls.licenseName[0].lower().split())
         
     lic_2_vec = {}
-    lic_2_vec_2={}
-    lic_2_vec_3={}
-    compute_similarity_lic_id={}
-    # print(data)
-    # dictionary = corpora.Dictionary(data)
-    # print(dictionary)
-    # pprint.pprint(dictionary.token2id)
-    # bow_corpus = [dictionary.doc2bow(text) for text in data]
-    # pprint.pprint(bow_corpus)
-    # tfidf = models.TfidfModel(bow_corpus)
-    # words = "Apache Software License".lower().split()
-    # print(tfidf[dictionary.doc2bow(words)])
-    
-
-    # index = similarities.SparseMatrixSimilarity(tfidf[bow_corpus], num_features=2)
-    # #pprint.pprint(index)
-    # query_document = 'Apache'.split()
-    # query_bow = dictionary.doc2bow(query_document)
-    # sims = index[tfidf[query_bow]]
-    # print(list(enumerate(sims)))
-    # for document_number, score in sorted(enumerate(sims), key=lambda x: x[1], reverse=True):
-    #     print(document_number, score)
+   
     scores_lic={}
-    mean_lic={}
+
     
-    model1 = gensim.models.Word2Vec(data, min_count=1,vector_size=100, window=5) 
-   # print("Similarity Gensim:",model1.wv.similarity('License', 'Apache'))
+ 
     for id,name in zip(ids,names):
         lic_2_vec[id] = word2vec(name)
-        #lic_2_vec_2[id] = mean([compute_similarity(name,license_name),float('0.8559079373463852')])
-        #print(word2vec(id))
-        lic_2_vec_2[id]=similar(name,license_name)
-        lic_2_vec_3[id]=compute_similarity(name,license_name)
-        compute_similarity_lic_id[id]=compute_similarity(id,license_name)
-    # for name in names:
-    #       lic_2_vec_2[name]=similar(name,license_name)
-    #       lic_2_vec_3[name]=compute_similarity(name,license_name)
-          
-          #lic_2_vec_3[name]=mean([compute_similarity(name,license_name),float('0.8559079373463852')])
-    #print(lic_2_vec_2)    
+       
     scores = []
     ipn_word2vec = word2vec(license_name)
-    #print(ipn_word2vec)
-    lic_2_vec_2=dict(sorted(lic_2_vec_2.items()))
-    lic_2_vec_3=dict(sorted(lic_2_vec_3.items() ))
-    #print(lic_2_vec)
-
-    #print("lic_2",lic_2_vec_2)
-    #print("lic_3",lic_2_vec_3) 
-    # print("{:<50} {:<15} ".format('Label','Similarity'))
-    # for k, v in lic_2_vec_2.items():
-        
-    #       print("{:<50} {:<15} ".format(k, v))
-    # print("{:<50} {:<15} ".format('Label','Computed_Similarity'))
-    # for k, v in lic_2_vec_3.items():
-        
-    #       print("{:<50} {:<15} ".format(k, v))
+    
     
     for key, val in lic_2_vec.items():
         scores_lic[key]=cosdis(ipn_word2vec,val)
@@ -573,17 +525,7 @@ def rank(license_name, counts):
     scores.sort(key=lambda tup: tup[1],reverse=True)
     #print(scores)
     scores_lic=dict(sorted(scores_lic.items()))
-    # print("{:<50} {:<15} ".format('Label','Cosine_Similarity'))
-    # for k, v in scores_lic.items():
-        
-    #        print("{:<50} {:<15} ".format(k, v))
-    # for (k1,v1) ,(k2,v2)in zip(lic_2_vec_3.items(),scores_lic.items()):
-    #      mean_lic[k1]=mean([v1,v2])
-    # mean_lic=dict(sorted(mean_lic.items(),key=lambda item: item[1],reverse=True))
-    # compute_similarity_lic_id=dict(sorted(compute_similarity_lic_id.items(),key=lambda item: item[1],reverse=True))
-    # print('Compute Similarity ID:',compute_similarity_lic_id)
-    
-    # print("Mean Similarity:",mean_lic)
+   
     ranked = []
     scored = []
     for val in scores:
