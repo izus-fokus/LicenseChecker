@@ -2,15 +2,28 @@
   <div>
     <q-layout view="hHh lpR fff">
       <q-page-container>
-        <Header_nav :header_label="header_label" @changeHeaderLabel="changeHeaderLabel" />
+        <Header_nav
+          :header_label="header_label"
+          @changeHeaderLabel="changeHeaderLabel"
+        />
 
-        <router-view :licenseid="licenseid" @changeHeaderLabel="changeHeaderLabel" @githubpost="githubpost"
-          @generateid="generateid" @changeLicenseName="changeLicenseName"
-          @listCompatibleLicenses="listCompatibleLicenses" :errorMessage="errorMessage"
-          :compatibleLicenses="compatibleLicenses" :allLicenses="allLicenses"
+        <router-view
+          :licenseid="licenseid"
+          @changeHeaderLabel="changeHeaderLabel"
+          @githubpost="githubpost"
+          @generateid="generateid"
+          @changeLicenseName="changeLicenseName"
+          @listCompatibleLicenses="listCompatibleLicenses"
+          :errorMessage="errorMessage"
+          :compatibleLicenses="compatibleLicenses"
+          :allLicenses="allLicenses"
           :detailedCompatibleLicenses="detailedCompatibleLicenses"
-          :detailedCompatibleLicensesId="detailedCompatibleLicensesId" @changedetailedCompatibleLicensesId="changedetailedCompatibleLicensesId
-            " @getCompatibleLicenses="getCompatibleLicenses" />
+          :detailedCompatibleLicensesId="detailedCompatibleLicensesId"
+          @changedetailedCompatibleLicensesId="
+            changedetailedCompatibleLicensesId
+          "
+          @getCompatibleLicenses="getCompatibleLicenses"
+        />
       </q-page-container>
 
       <Footer_nav />
@@ -49,7 +62,7 @@ export default {
   }),
   methods: {
     changeLicenseName: function (licenseid) {
-      console.log("Running");
+      /*Stores the license id in session storage to make it persistent   */
       sessionStorage.setItem("licenseid", licenseid);
       this.licenseid = sessionStorage.getItem("licenseid");
     },
@@ -63,6 +76,7 @@ export default {
     // },
 
     changeHeaderLabel: function (headerlabel) {
+      /* Change header label */
       this.header_label = headerlabel;
     },
     generateid: function generateId() {
@@ -73,7 +87,9 @@ export default {
         Date.now().toString(36);
       //console.log(this.id)
     },
+
     githubpost: function (bodyFormData, repoName, softwareid) {
+      /* Posts data to github */
       axios({
         method: "post",
         url: "http://localhost:7000/api/v1/software",
@@ -106,6 +122,7 @@ export default {
       this.compatibleLicenses = cl;
     },
     getCompatibleLicenses: function (list) {
+      /* Gets Compatible Licenses from backend */
       axios
         .post("http://127.0.0.1:8000/licenses/check/", list)
         .then((response) => {
@@ -114,7 +131,7 @@ export default {
         .catch((error) => {
           console.error("Error fetching results:", error);
         });
-    }
+    },
   },
   mounted() {
     axios.get("http://127.0.0.1:8000/licenses/").then(
@@ -124,6 +141,7 @@ export default {
     );
   },
   watch: {
+    /* Changes header label based on routes */
     $route() {
       if (this.$route.path == "/") {
         this.header_label = "License Checker";
@@ -142,6 +160,7 @@ export default {
   },
   computed: {
     detailedCompatibleLicenses: function () {
+      /* Filters the detail of compatible Licenses */
       return this.allLicenses.filter((item) =>
         this.compatibleLicenses.includes(item.id)
       );

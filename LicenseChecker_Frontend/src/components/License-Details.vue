@@ -182,6 +182,7 @@ export default {
     };
   },
   beforeMount: function () {
+    /* get the license id from session storage to make it persisten */
     axios
       .get(
         "http://127.0.0.1:8000/licenses/" + sessionStorage.getItem("licenseid")
