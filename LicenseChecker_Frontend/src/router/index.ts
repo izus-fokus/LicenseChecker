@@ -21,11 +21,6 @@ const router = createRouter({
       component: Home,
     },
     {
-      path: "/signup",
-      name: "SignUp",
-      component: Signup,
-    },
-    {
       path: "/licenseRecommendation",
       name: "LicenseRecommendation",
       component: LicenseRecommendation,
