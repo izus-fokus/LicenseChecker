@@ -6,58 +6,29 @@
       <h6><span v-html="license.description"></span></h6>
 
       <div class="q-pa-md border-primary pillshapedborder">
-        <!-- <q-toggle
-          v-model="expanded"
-          @click="
-            $parent.$emit('listCompatibleLicenses', this.compatibleLicenses)
-          "
-          label="Show/Hide"
-          class="q-mb-md"
-        ></q-toggle> -->
 
-        <q-expansion-item
-          v-model="expanded"
-          icon="img:/Compatible.svg"
-          label="Compatible Licenses"
-          class="text-primary text-h6 text-center"
-          @click="
+        <q-expansion-item v-model="expanded" icon="img:/Compatible.svg" label="Compatible Licenses"
+          class="text-primary text-h6 text-center" @click="
             $parent.$emit('listCompatibleLicenses', this.compatibleLicenses)
-          "
-        >
+            ">
           <q-card>
             <q-card-section>
               <q-list dense padding class="rounded-borders">
-                <q-table
-                  color="primary"
-                  :visible-columns="visibleColumns"
-                  table-class="text-grey-8"
-                  table-header-class="text-brown"
-                  flat
-                  :rows="detailedCompatibleLicenses"
-                  row-key="name"
-                ></q-table>
+                <q-table color="primary" :visible-columns="visibleColumns" table-class="text-grey-8"
+                  table-header-class="text-brown" flat :rows="detailedCompatibleLicenses" row-key="name"></q-table>
               </q-list>
             </q-card-section>
-            <q-btn
-              to="/compatibleLicenses"
-              label="Detailed View"
-              color="primary"
-              @click="
-                $parent.$emit('changedetailedCompatibleLicensesId', [
-                  license.id,
-                ])
-              "
-            />
+            <q-btn to="/compatibleLicenses" label="Detailed View" color="primary" @click="
+              $parent.$emit('changedetailedCompatibleLicensesId', [
+                license.id,
+              ])
+              " />
           </q-card>
         </q-expansion-item>
       </div>
 
       <div class="q-pa-md q-mt-lg border-primary pillshapedborder">
-        <q-expansion-item
-          icon="img:/permission.svg"
-          label="Permissions"
-          class="text-primary text-h6 text-center"
-        >
+        <q-expansion-item icon="img:/permission.svg" label="Permissions" class="text-primary text-h6 text-center">
           <q-card>
             <q-card-section>
               <span v-for="(per, i) in license.permissions" :key="i">
@@ -71,25 +42,17 @@
                     </q-item-section>
 
                     <q-item-section side top>
-                      <q-icon
-                        :name="this.iconvar + per.id + '.svg'"
-                        class="q-mr-sm"
-                      ></q-icon>
+                      <q-icon :name="this.iconvar + per.id + '.svg'" class="q-mr-sm"></q-icon>
                     </q-item-section>
                   </q-item>
 
-                  <q-separator spaced inset></q-separator> </q-list
-              ></span>
+                  <q-separator spaced inset></q-separator> </q-list></span>
             </q-card-section>
           </q-card>
         </q-expansion-item>
       </div>
       <div class="q-pa-md q-mt-lg border-primary pillshapedborder">
-        <q-expansion-item
-          icon="img:/condition.svg"
-          label="Conditions"
-          class="text-primary text-h6 text-center"
-        >
+        <q-expansion-item icon="img:/condition.svg" label="Conditions" class="text-primary text-h6 text-center">
           <q-card>
             <q-card-section>
               <span v-for="(cond, i) in license.conditions" :key="i">
@@ -103,25 +66,17 @@
                     </q-item-section>
 
                     <q-item-section side top>
-                      <q-icon
-                        :name="this.iconvar + cond.id + '.svg'"
-                        class="q-mr-sm"
-                      ></q-icon>
+                      <q-icon :name="this.iconvar + cond.id + '.svg'" class="q-mr-sm"></q-icon>
                     </q-item-section>
                   </q-item>
 
-                  <q-separator spaced inset></q-separator> </q-list
-              ></span>
+                  <q-separator spaced inset></q-separator> </q-list></span>
             </q-card-section>
           </q-card>
         </q-expansion-item>
       </div>
       <div class="q-pa-md q-mt-lg border-primary pillshapedborder">
-        <q-expansion-item
-          icon="img:/limitation.svg"
-          label="Limitations"
-          class="text-primary text-h6 text-center"
-        >
+        <q-expansion-item icon="img:/limitation.svg" label="Limitations" class="text-primary text-h6 text-center">
           <q-card>
             <q-card-section>
               <span v-for="(lim, i) in license.limitations" :key="i">
@@ -135,15 +90,11 @@
                     </q-item-section>
 
                     <q-item-section side top>
-                      <q-icon
-                        :name="this.iconvar + lim.id + '.svg'"
-                        class="q-mr-sm"
-                      ></q-icon>
+                      <q-icon :name="this.iconvar + lim.id + '.svg'" class="q-mr-sm"></q-icon>
                     </q-item-section>
                   </q-item>
 
-                  <q-separator spaced inset></q-separator> </q-list
-              ></span>
+                  <q-separator spaced inset></q-separator> </q-list></span>
             </q-card-section>
           </q-card>
         </q-expansion-item>
@@ -151,17 +102,14 @@
       <br />
     </div>
     <div class="col-6 q-pa-xl border-primary">
-      <q-scroll-area
-        style="
+      <q-scroll-area style="
           height: 100%;
           max-width: 100%;
           border: 1px solid black;
           border-radius: 4px;
           padding: 10px;
-        "
-      >
-        <span v-html="licenseText"></span
-      ></q-scroll-area>
+        ">
+        <span v-html="licenseText"></span></q-scroll-area>
     </div>
   </div>
 </template>
@@ -188,13 +136,13 @@ export default {
       )
       .then(
         (response) => (this.license = response.data)
-        //this.allLicensesFields=Object.values(Object.values(this.allLicenses)
+
       );
     axios
       .get(
-        "http://253caac3-21ac-4f4b-be0a-076655c66384.ma.bw-cloud-instance.org:7000/api/v1/licenses/" +
-          sessionStorage.getItem("licenseid") +
-          "/text",
+        "http://127.0.0.1:7000/api/v1/licenses/" +
+        sessionStorage.getItem("licenseid") +
+        "/text",
         {
           headers: {
             Accept: "text/html",

@@ -13,7 +13,8 @@
       <template v-slot:body="props">
         <q-tr :props="props">
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
-            <span v-if="col.name == 'id'"><q-checkbox v-model="selectedLicensesCompatibilityCheck" :val="col.value"
+            <span v-if="col.name == 'id'">
+              <q-checkbox v-model="selectedLicensesCompatibilityCheck" :val="col.value"
                 color="teal"></q-checkbox></span>
             <span v-if="col.name == 'conditions'"><span v-for="(cond, i) in col.value" :key="i">
                 <q-tooltip class="bg-primary">
@@ -45,7 +46,7 @@
                   {{ lim.description }}
                 </q-tooltip></span></span>
             <span v-else-if="col.name == 'compatibility'"><span v-for="(comp, i) in col.value" :key="i">{{ comp
-            }}<br /></span></span>
+                }}<br /></span></span>
             <span v-else-if="col.name == 'type'"><q-tooltip class="bg-primary">{{
               col.value.description
             }}</q-tooltip>
@@ -111,18 +112,7 @@ export default {
         },
       },
       filter: ref(""),
-
-      // url:this.allLicenses.url
-      // columnName:this.allLicenses.flatMap(x => Object.keys(x)),
     };
   },
-
-  // beforeCreate: function () {
-  //   axios.get("http://127.0.0.1:8000/licenses/").then(
-  //     (response) => (this.licenses = response.data)
-  //     //this.allLicensesFields=Object.values(Object.values(this.allLicenses)
-  //   );
-
-  // },
 };
 </script>

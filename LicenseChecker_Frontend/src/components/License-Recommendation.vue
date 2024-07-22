@@ -1,15 +1,23 @@
 <template>
   <div>
     <!-- QTabs for selecting options -->
+    <h6 style="text-align: center;"> To identify compatible licenses provide your code or
+      dependency file. </h6>
     <div style="max-width: 600px; margin: 0 auto;">
       <q-tabs v-model="selectedOption" align="left" class="q-mx-xl q-mt-md" style="background-color: #feddd6;"
         indicator-class="custom-indicator">
-        <q-tab v-for="option in options" :key="option.value" :name="option.value" :label="option.label"></q-tab>
+        <q-tab v-for="option in options" :key="option.value" :name="option.value" :label="option.label">
+          <q-tooltip class="bg-indigo" :offset="[10, 10]">
+            Github!
+          </q-tooltip>
+        </q-tab>
       </q-tabs>
     </div>
+
     <!-- Display license recommendation when selectedOption is 'github' -->
     <div v-if="selectedOption === 'github'">
       <div v-show="showDiv1">
+        {{ licenses }}
         <!-- Step 1: User provides GitHub link and branch name -->
         <div class="row q-mx-xl q-mt-md center-container" :class="{
           'custom-background-color': !$q.screen.lt.md,
@@ -22,7 +30,7 @@
           }">
             <q-form @submit="submitForm()" @reset="onReset" class="q-gutter-md custom-q-form">
               <q-input class="custom-input" outlined id="input-1" v-model="form.url" label="Public Git Link *"
-                hint="Provide the GitHub repository link" required :rules="[
+                hint="Provide the repository link (e.g https://gitlab.com/...) " required :rules="[
                   (val) => /^https?:\/\/.+$/.test(val) || 'Enter a valid URL',
                 ]">
                 <template v-slot:prepend>
@@ -43,7 +51,7 @@
               </q-input>
               <div>
 
-                <q-btn label=" Submit" type="submit" color="primary" />
+                <q-btn label=" Analyze Code" type="submit" color="primary" />
                 <q-btn label="Reset" type="reset" color="primary" class="q-ml-sm" />
               </div>
             </q-form>
@@ -51,36 +59,63 @@
         </div>
       </div>
       <div v-show="!showDiv1">
+
         <div v-if="licenses && Object.keys(licenses).length > 0">
           <div class="row q-mt-md justify-center">
             <div class="col-3 text-center q-pt-sm" style="border:0.1px solid  #2F60AC ; background-color: #feddd6;">
-              <p class="text">Your code has following licenses </p>
+              <p class="text">Your code includes the following licenses </p>
             </div>
+
           </div>
+          <br>
+          <p class="text" style="text-align: center;"> Please choose all licenses that should be included in the
+            compatibility
+            check. You can also add additional licenses manually or from a dependency file. </p>
+          <div>
+            <div class="q-mx-xl q-mt-md ">
+              <q-expansion-item v-for="(paths, license) in licenses" :key="license" class="custom-headerclass">
+                <!-- Use a slot for the expansion item header -->
+                <template v-slot:header>
+                  <q-item>
+                    <q-item-section>
+                      <q-checkbox v-model="checkboxSelection[license]" :label="` ${license}`"></q-checkbox>
+                    </q-item-section>
+                  </q-item>
+                </template>
+                <q-card class="custom-detailclass">
+                  <q-card-section>
+                    <p class="text-subtitle1">This license was found in the following file(s) </p>
+                    <q-list v-for="path in paths" :key="path">{{ path }}</q-list>
+                    <!-- <div v-if="this.selectedRows.length > 0">
+                      <p class="text-subtitle1">Selected License Rows</p>
+                      <q-list v-for="row in selectedRows" :key="row">{{ row }}</q-list>
+                    </div> -->
+                  </q-card-section>
+                </q-card>
+              </q-expansion-item>
+              <q-expansion-item v-if="selectedRows.length > 0" :key="'selected-rows'" class="custom-headerclass">
+                <template v-slot:header>
+                  <q-item>
+                    <q-item-section>
+                      <q-checkbox v-model="checkboxSelection['selected-rows']"
+                        label="Selected License Rows"></q-checkbox>
+                    </q-item-section>
+                  </q-item>
+                </template>
+                <q-card class="custom-detailclass">
+                  <q-card-section>
+                    <p class="text-subtitle1">Selected License Rows</p>
+                    <q-list v-for="row in selectedRows" :key="row">{{ row }}</q-list>
+                  </q-card-section>
+                </q-card>
+              </q-expansion-item>
 
-          <div class="q-mx-xl q-mt-md ">
-            <q-expansion-item v-for="(paths, license) in licenses" :key="license" class="custom-headerclass">
-              <!-- Use a slot for the expansion item header -->
-              <template v-slot:header>
-                <q-item>
-                  <q-item-section>
-                    <q-checkbox v-model="checkboxSelection[license]" :label="` ${license}`"></q-checkbox>
-                  </q-item-section>
-                </q-item>
-              </template>
-              <q-card class="custom-detailclass">
-                <q-card-section>
-                  <p class="text-subtitle1">License file paths </p>
-                  <q-list v-for="path in paths" :key="path">{{ path }}</q-list>
-                </q-card-section>
-              </q-card>
-            </q-expansion-item>
-
-            <div class="q-pa-md q-gutter-sm">
-              <q-btn style="text-transform: capitalize; " label=" Find Compatible Licences" color="primary"
-                @click="compatibleLicenses" />
-              <q-btn style="text-transform: capitalize;" @click="goToAddLicenses" label="Add more Licenses"
-                color="primary" />
+              <div class="q-pa-md q-gutter-sm">
+                <q-btn style="text-transform: capitalize; " label=" Find Compatible Licences" color="primary"
+                  @click="compatibleLicenses" />
+                <q-btn style="text-transform: capitalize; " label=" Add more licenses" color="primary" @click=" goToAddLicenses()
+                  " />
+              </div>
             </div>
           </div>
         </div>
@@ -96,23 +131,31 @@
 <script>
 import axios from "axios";
 import DesktopUpload from './Desktop-Upload.vue'
-import { Notify } from 'quasar';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
+
   name: "License-Recommendation",
-  props: ["errorMessage"],
+  props: {
+    errorMessage: String,
+    selectedRows: {
+      type: Array,
+      required: true
+    }
+  },
+
   components: {
     DesktopUpload
   },
+
   data() {
     return {
-      props: {
-        selectedLicenseIds: [],
-      },
+
+
       selectedOption: 'github', // Default to license recommendation
       options: [
-        { value: 'github', label: 'Retrieve Code from GitHub Link' },
-        { value: 'desktop', label: 'Desktop Upload' }
+        { value: 'github', label: 'Retrieve Code from GitHub' },
+        { value: 'desktop', label: 'Upload Code from Local Machine' }
       ],
       form: {
         id: " ",
@@ -130,10 +173,44 @@ export default {
       checkboxSelection: {},
       responseArray: [],
       showDiv1: true,
+      scrollPosition: 0,
+      savedState: null,
+
     };
 
+
   },
+
+  computed: { // accessing the state from store
+    ...mapGetters(['getSelectedOption', 'getShowDiv1', 'getLicenses']),
+
+  },
+  mounted() {
+    this.selectedOption = this.getSelectedOption;
+    this.showDiv1 = this.getShowDiv1;
+    this.licenses = this.getLicenses;
+    this.logValues();
+  },
+
   methods: {
+    logValues() {
+      console.log('selectedOption:afer ', this.selectedOption);
+      console.log('showDiv1:', this.showDiv1);
+      console.log('licenses:', this.licenses);
+    },
+    ...mapActions(['updateSelectedOption', 'updateShowDiv1', 'updateLicenses']),
+    goToAddLicenses() {
+      // Store the current state before navigating away
+      this.updateSelectedOption(this.selectedOption);
+      this.updateShowDiv1(this.showDiv1);
+      this.updateLicenses(this.licenses);
+      console.log("Selected Option", this.selectedOption);
+      console.log("Showdiv1", this.showDiv1);
+      console.log("Available licenses", this.licenses);
+
+      // Navigate to AddLicenses.vue
+      this.$router.push({ name: 'AddLicenses' });
+    },
 
     generaterepoName: function () {
       this.name = this.form.url.split("/").pop();
@@ -184,24 +261,13 @@ export default {
                 console.log("Error Message...")
 
                 this.$q.notify({
-                  message: "The software has been analyzed already.",
-                  caption: "Do you want to utilize the current results or initiate a new analysis?",
+                  message: "This software has been analyzed already.",
+                  caption: "Do you want to use the existing results or start a new analysis?",
                   position: "center",
                   icon: "info",
                   timeout: 0,
                   classes: "custom-notification",
                   actions: [
-
-                    {
-                      label: "Reanalyze",
-                      color: "primary",
-                      class: "action-button",
-                      title: "Initiate a new analysis",
-
-                      handler: () => {
-                        this.reanalyze();
-                      },
-                    },
                     {
                       label: "Show Licenses",
                       color: "primary",
@@ -213,6 +279,18 @@ export default {
                       },
 
                     },
+
+                    {
+                      label: "Reanalyze",
+                      color: "primary",
+                      class: "action-button",
+                      title: "Initiate a new analysis",
+
+                      handler: () => {
+                        this.reanalyze();
+                      },
+                    },
+
                     {
                       label: 'Dismiss',
                       color: 'primary',
@@ -269,6 +347,7 @@ export default {
         spinnerColor: "primary",
       });
       console.log("SENDING FORM");
+      this.updateShowDiv1(false);
     },
     ready: function () {
       this.checkTimer = setInterval(() => {
@@ -276,6 +355,8 @@ export default {
       }, 5000);
     },
     foundLincences() {
+
+
       this.showDiv1 = !this.showDiv1;
 
 
@@ -328,9 +409,7 @@ export default {
       this.form.url = null;
       this.form.branch = null;
     },
-    goToAddLicenses() {
-      this.$router.push({ name: 'AddLicenses' });
-    },
+
     reanalyze() {
       // Delete the software with the specified software-id
       axios
@@ -414,8 +493,6 @@ export default {
   max-width: 800px;
   margin: 0 auto;
 }
-
-
 
 .custom-detailclass {
   border-top: 2px solid #2F60AC;

@@ -4,10 +4,10 @@
       <q-page-container>
         <Header_nav :header_label="header_label" @changeHeaderLabel="changeHeaderLabel" />
 
-        <router-view :licenseid="licenseid" @changeHeaderLabel="changeHeaderLabel" @githubpost="githubpost"
-          @generateid="generateid" @changeLicenseName="changeLicenseName"
-          @listCompatibleLicenses="listCompatibleLicenses" :errorMessage="errorMessage"
-          :compatibleLicenses="compatibleLicenses" :allLicenses="allLicenses"
+        <router-view @selected-rows="updateSelectedRows" :selected-rows="selectedRows" :licenseid="licenseid"
+          @changeHeaderLabel="changeHeaderLabel" @githubpost="githubpost" @generateid="generateid"
+          @changeLicenseName="changeLicenseName" @listCompatibleLicenses="listCompatibleLicenses"
+          :errorMessage="errorMessage" :compatibleLicenses="compatibleLicenses" :allLicenses="allLicenses"
           :detailedCompatibleLicenses="detailedCompatibleLicenses"
           :detailedCompatibleLicensesId="detailedCompatibleLicensesId" @changedetailedCompatibleLicensesId="changedetailedCompatibleLicensesId
             " @getCompatibleLicenses="getCompatibleLicenses" />
@@ -32,6 +32,7 @@ export default {
 
   data: () => ({
     header_label: "License Checker",
+    header_icon: 'home',
     hello: null,
     id: null,
     postResponse: null,
@@ -40,6 +41,7 @@ export default {
     compatibleLicenses: [],
     licenseid: null,
     detailedCompatibleLicensesId: [],
+    selectedRows: [],
     // getselectedLicenseids: null,
     // selectedLicenseIds: [],
     // plainArray: [],
@@ -47,7 +49,11 @@ export default {
     errorMessage: null,
     // uploadSucess: false,
   }),
+
   methods: {
+    updateSelectedRows(rows) {
+      this.selectedRows = rows;
+    },
     changeLicenseName: function (licenseid) {
       console.log("Running");
       sessionStorage.setItem("licenseid", licenseid);
@@ -64,7 +70,10 @@ export default {
 
     changeHeaderLabel: function (headerlabel) {
       this.header_label = headerlabel;
+
     },
+
+
     generateid: function generateId() {
       this.id =
         "id-" +

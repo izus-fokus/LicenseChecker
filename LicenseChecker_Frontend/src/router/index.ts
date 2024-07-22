@@ -9,9 +9,11 @@ import LicenseDetails from "../components/License-Details.vue";
 import CompatibleLicenses from "../components/Compatible-Licenses.vue";
 import AddLicenses from "../components/AddLicenses.vue";
 
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+
     {
       path: "/",
 

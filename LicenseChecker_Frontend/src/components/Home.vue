@@ -2,7 +2,7 @@
   <div>
     <div class="row q-mt-md justify-center">
       <div class="col-3 text-center q-pt-sm" style="border: dotted 1px; padding-bottom: none">
-        <p class="text">Choose an Open Source Licence</p>
+        <p class="text">Give your code a license to facilitate the reuse to your terms. </p>
       </div>
     </div>
 
@@ -32,7 +32,7 @@
             </q-card-section>
 
             <q-card-section class="q-pt-none">
-              I need Licence recommendation for existing code
+              I have an existing code and need a recommendation for a compatible license
             </q-card-section>
           </q-card>
         </router-link>
@@ -53,7 +53,7 @@
             </q-card-section>
 
             <q-card-section class="q-pt-none">
-              I need help to get the right license
+              I want to explore existing open source licenses and learn more about their properties and compatibility
             </q-card-section>
           </q-card>
         </router-link>
@@ -73,13 +73,17 @@
             </q-card-section>
 
             <q-card-section class="q-pt-none">
-              I want to search for the Licence
+              I need help to find the right license for my software
             </q-card-section>
           </q-card>
         </router-link>
       </div>
     </div>
   </div>
+  <h6 style="font-size: smaller;">The information provided via this service is of a general nature and is for
+    information purposes only. It does not constitute legal advice. If you need legal advice for your individual
+    situation, you should seek the advice of a
+    qualified lawyer.</h6>
 </template>
 
 <script>
