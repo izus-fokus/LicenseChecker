@@ -47,7 +47,7 @@
                     }}<br /></span></span>
                 <span v-else-if="col.name == 'type'"><q-tooltip class="bg-primary">{{
                   col.value.description
-                    }}</q-tooltip>
+                }}</q-tooltip>
                   {{ col.value.id }}</span>
 
                 <span v-else> {{ col.value }}</span>

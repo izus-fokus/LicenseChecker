@@ -1,9 +1,33 @@
 <template>
-  <div>
+  <div class="custom-content">
+    <div class="row q-mt-md justify-center">
+      <div class="col-3 text-center q-pt-sm"
+        style="border: dotted 1px; padding-bottom: none; height: fit-content; width:inherit;">
+        <q-item>
+          <q-item-section>
+            <p class="text text">To identify compatible licenses provide your code or
+              dependency file.</p>
+          </q-item-section>
+
+          <q-avatar size="21px" style="padding:3px 3px 0 0 ">
+            <img src="/questionMark.svg" />
+            <q-tooltip max-width="500px" class="bg-primary text-white shadow-4" :offset="[12, 22]">Identify existing
+              licenses in your code or in the dependencies of your code.
+              List these licenses and allow you to remove or add licenses.
+              Suggest open-source licenses that are compatible to this list of licenses
+
+            </q-tooltip>
+          </q-avatar>
+
+        </q-item>
+
+      </div>
+    </div>
+
+
     <!-- QTabs for selecting options -->
-    <h6 style="text-align: center;"> To identify compatible licenses provide your code or
-      dependency file. </h6>
-    <div style="max-width: 600px; margin: 0 auto;">
+
+    <div style="max-width: 650px; margin: 0 auto;">
       <q-tabs v-model="selectedOption" align="left" class="q-mx-xl q-mt-md" style="background-color: #feddd6;"
         indicator-class="custom-indicator">
         <q-tab v-for="option in options" :key="option.value" :name="option.value" :label="option.label">
@@ -51,8 +75,9 @@
               </q-input>
               <div>
 
-                <q-btn label=" Analyze Code" type="submit" color="primary" />
-                <q-btn label="Reset" type="reset" color="primary" class="q-ml-sm" />
+                <q-btn label=" Analyze Code" type="submit"
+                  style=" background-color:#039855; text-transform:capitalize; color: white;" />
+                <q-btn label="Reset" type="reset" color="grey" class="q-ml-sm" style=" text-transform:capitalize;" />
               </div>
             </q-form>
           </div>
@@ -212,16 +237,17 @@ export default {
       this.$router.push({ name: 'AddLicenses' });
     },
 
-    generaterepoName: function () {
+    generaterepoName() {
       this.name = this.form.url.split("/").pop();
       console.log("Repo Name", this.name);
       return this.name;
     },
-    generateSoftwareid: function () {
+    generateSoftwareid() {
       this.softwareid = this.generaterepoName() + this.form.branch;
+      console.log("Software ID", this.softwareid);
       return this.softwareid;
     },
-    getStatus: function () {
+    getStatus() {
 
       axios
         .get(
@@ -332,7 +358,7 @@ export default {
           }
         });
     },
-    submitForm: function () {
+    submitForm() {
       this.repoName = this.generaterepoName();
       this.$parent.$emit(
         "githubpost",
@@ -349,17 +375,13 @@ export default {
       console.log("SENDING FORM");
       this.updateShowDiv1(false);
     },
-    ready: function () {
+    ready() {
       this.checkTimer = setInterval(() => {
         this.getStatus();
       }, 5000);
     },
     foundLincences() {
-
-
       this.showDiv1 = !this.showDiv1;
-
-
       axios
         .get(
           "http://localhost:7000/api/v1/software/" +
@@ -430,6 +452,11 @@ export default {
 </script>
 
 <style scoped>
+.custom-content {
+  padding-bottom: 6rem;
+  padding-top: 1rem;
+}
+
 .custom-q-form {
   width: 60%;
   box-sizing: border-box;

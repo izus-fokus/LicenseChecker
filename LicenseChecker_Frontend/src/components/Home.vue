@@ -1,8 +1,24 @@
 <template>
-  <div>
+  <div class="home-content">
     <div class="row q-mt-md justify-center">
-      <div class="col-3 text-center q-pt-sm" style="border: dotted 1px; padding-bottom: none">
-        <p class="text">Give your code a license to facilitate the reuse to your terms. </p>
+      <div class="col-3 text-center q-pt-sm"
+        style="border: dotted 1px; padding-bottom: none; height: fit-content; width:inherit;">
+        <q-item>
+          <q-item-section>
+            <p class="text text">Give your code a license to facilitate the reuse to
+              your terms</p>
+          </q-item-section>
+
+          <q-avatar size="21px" style="padding:3px 5px 0 0 ">
+            <img src="/questionMark.svg" />
+            <q-tooltip class="bg-primary text-white shadow-4" :offset="[12, 22]">If your code reuses libraries or
+              other
+              third party code that is already licensed, you are not free in your choice of a software license for
+              your own code.
+            </q-tooltip>
+          </q-avatar>
+
+        </q-item>
       </div>
     </div>
 
@@ -10,7 +26,7 @@
       <q-card-section class="hide" style="
           position: absolute;
           width: 75%;
-          height: 35%;
+          height: 15rem;
           border-radius: 6px;
           transform: translate(160px, 100px);
           background-color: #2f61aca8;
@@ -31,7 +47,7 @@
               <div class="text">Licence Recommendation</div>
             </q-card-section>
 
-            <q-card-section class="q-pt-none">
+            <q-card-section class="q-pt-none text-justify text-primary">
               I have an existing code and need a recommendation for a compatible license
             </q-card-section>
           </q-card>
@@ -52,7 +68,7 @@
               <div class="text">License Search</div>
             </q-card-section>
 
-            <q-card-section class="q-pt-none">
+            <q-card-section class="q-pt-none text-justify text-primary">
               I want to explore existing open source licenses and learn more about their properties and compatibility
             </q-card-section>
           </q-card>
@@ -72,7 +88,7 @@
               <div class="text">Help</div>
             </q-card-section>
 
-            <q-card-section class="q-pt-none">
+            <q-card-section class="q-pt-none text-justify text-primary">
               I need help to find the right license for my software
             </q-card-section>
           </q-card>
@@ -80,10 +96,8 @@
       </div>
     </div>
   </div>
-  <h6 style="font-size: smaller;">The information provided via this service is of a general nature and is for
-    information purposes only. It does not constitute legal advice. If you need legal advice for your individual
-    situation, you should seek the advice of a
-    qualified lawyer.</h6>
+
+
 </template>
 
 <script>
@@ -98,11 +112,12 @@ export default {
   color: #2f60ac;
   font-weight: bold;
   padding-top: 3px;
+  margin: 0 4px 9px 4px;
 }
 
 .my-card {
   width: 50%;
-  /* height: 17.5rem; */
+  height: 19rem;
   border: none;
   border-width: 0;
   box-shadow: none;
@@ -111,6 +126,12 @@ export default {
 
 .rih {
   float: right;
+}
+
+.home-content {
+  padding-bottom: 6rem;
+  padding-top: 1rem;
+  /* Add bottom padding for space between content and footer */
 }
 
 @media (max-width: 992px) {

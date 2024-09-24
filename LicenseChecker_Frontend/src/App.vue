@@ -2,7 +2,8 @@
   <div>
     <q-layout view="hHh lpR fff">
       <q-page-container>
-        <Header_nav :header_label="header_label" @changeHeaderLabel="changeHeaderLabel" />
+        <Header_nav @scroll-to-disclaimer="scrollToDisclaimer" :header_label="header_label" :header_icon="header_icon"
+          @changeHeaderLabel="changeHeaderLabel" />
 
         <router-view @selected-rows="updateSelectedRows" :selected-rows="selectedRows" :licenseid="licenseid"
           @changeHeaderLabel="changeHeaderLabel" @githubpost="githubpost" @generateid="generateid"
@@ -13,7 +14,11 @@
             " @getCompatibleLicenses="getCompatibleLicenses" />
       </q-page-container>
 
-      <Footer_nav />
+      <q-footer elevated>
+        <Footer_nav ref="footerNav" />
+      </q-footer>
+
+
     </q-layout>
   </div>
 </template>
@@ -21,6 +26,13 @@
 <script>
 import Header_nav from "./components/Header.vue";
 import Footer_nav from "./components/Footer.vue";
+import recommendationIcon from '@/assets/License-Recommendation.svg';
+import licensesearch from '@/assets/License-Search.svg';
+import licensechecker from '@/assets/License-Checker.svg';
+import help from '@/assets/License-Help.svg';
+
+
+
 import axios from "axios";
 
 export default {
@@ -28,11 +40,13 @@ export default {
   components: {
     Header_nav,
     Footer_nav,
+
   },
 
   data: () => ({
     header_label: "License Checker",
-    header_icon: 'home',
+    header_icon: "licensechecker",
+
     hello: null,
     id: null,
     postResponse: null,
@@ -42,39 +56,57 @@ export default {
     licenseid: null,
     detailedCompatibleLicensesId: [],
     selectedRows: [],
-    // getselectedLicenseids: null,
-    // selectedLicenseIds: [],
-    // plainArray: [],
-
     errorMessage: null,
-    // uploadSucess: false,
+
+
   }),
 
   methods: {
+
+    scrollToDisclaimer() {
+      this.$nextTick(() => {
+        // Ensure the footer component is rendered and available
+        const footer = this.$refs.footerNav?.$el;
+        console.log('Footer Element:', footer);  // Debugging
+
+        const disclaimer = footer?.querySelector('.disclaimer-text');
+        console.log('Disclaimer Element:', disclaimer);  // Debugging
+
+        if (disclaimer) {
+          // Scroll smoothly to the disclaimer section
+          disclaimer.scrollIntoView({ behavior: 'smooth' });
+
+          // Add a class to highlight the disclaimer
+          disclaimer.classList.add('highlight');
+
+          // Remove the highlight after 3 seconds
+          setTimeout(() => {
+            disclaimer.classList.remove('highlight');
+          }, 3000);
+        } else {
+          console.error("Disclaimer section not found!");
+        }
+      });
+    },
     updateSelectedRows(rows) {
       this.selectedRows = rows;
     },
-    changeLicenseName: function (licenseid) {
-      console.log("Running");
+    changeLicenseName(licenseid) {
+      /*Stores the license id in session storage to make it persistent   */
       sessionStorage.setItem("licenseid", licenseid);
       this.licenseid = sessionStorage.getItem("licenseid");
     },
-    changedetailedCompatibleLicensesId: function (changedId) {
+    changedetailedCompatibleLicensesId(changedId) {
       this.detailedCompatibleLicensesId = changedId;
     },
-    // getselectedLicenseids: function (plainArray) {
-    //   console.log("Running");
-    //   this.plainArray = plainArray;
-    //   console.log('Selected License IDs', plainArray);
-    // },
 
-    changeHeaderLabel: function (headerlabel) {
+    changeHeaderLabel(headerlabel) {
+      /* Change header label */
       this.header_label = headerlabel;
 
     },
 
-
-    generateid: function generateId() {
+    generateid() {
       this.id =
         "id-" +
         Math.random().toString(36).substring(2, 9) +
@@ -82,7 +114,9 @@ export default {
         Date.now().toString(36);
       //console.log(this.id)
     },
-    githubpost: function (bodyFormData, repoName, softwareid) {
+
+    githubpost(bodyFormData, repoName, softwareid) {
+      /* Posts data to github */
       axios({
         method: "post",
         url: "http://localhost:7000/api/v1/software",
@@ -111,10 +145,11 @@ export default {
           }
         });
     },
-    listCompatibleLicenses: function (cl) {
+    listCompatibleLicenses(cl) {
       this.compatibleLicenses = cl;
     },
-    getCompatibleLicenses: function (list) {
+    getCompatibleLicenses(list) {
+      /* Gets Compatible Licenses from backend */
       axios
         .post("http://127.0.0.1:8000/licenses/check/", list)
         .then((response) => {
@@ -123,7 +158,7 @@ export default {
         .catch((error) => {
           console.error("Error fetching results:", error);
         });
-    }
+    },
   },
   mounted() {
     axios.get("http://127.0.0.1:8000/licenses/").then(
@@ -131,26 +166,36 @@ export default {
 
       //this.allLicensesFields=Object.values(Object.values(this.allLicenses)
     );
+
   },
   watch: {
+    /* Changes header label based on routes */
     $route() {
       if (this.$route.path == "/") {
         this.header_label = "License Checker";
+        this.header_icon = licensechecker;
       } else if (this.$route.path == "/licenseRecommendation") {
         this.header_label = "License Recommendation";
+        this.header_icon = recommendationIcon;
       } else if (this.$route.path == "/LicenseSearch") {
         this.header_label = "License Search";
+        this.header_icon = licensesearch;
       } else if (this.$route.path == "/LicenseDetails") {
         this.header_label = "License Details";
       } else if (this.$route.path == "/compatibleLicenses") {
         this.header_label = "Compatible Licenses";
+      } else if (this.$route.path == "/help") {
+        this.header_label = "Help";
+        this.header_icon = help;
       } else {
         //do nothing
       }
+
     },
   },
   computed: {
-    detailedCompatibleLicenses: function () {
+    detailedCompatibleLicenses() {
+      /* Filters the detail of compatible Licenses */
       return this.allLicenses.filter((item) =>
         this.compatibleLicenses.includes(item.id)
       );
