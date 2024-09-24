@@ -9,4 +9,3 @@ PyJWT
 pydantic==1.10.11
 requests
 prettytable
-tomllib
