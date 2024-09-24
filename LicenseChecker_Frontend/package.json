@@ -14,6 +14,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
     "@quasar/extras": "^1.16.12",
+    "@rollup/rollup-linux-x64-gnu": "^4.22.4",
     "@vue/cli-service": "^5.0.8",
     "axios": "^1.7.7",
     "core-js": "^3.38.1",
