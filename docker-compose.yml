@@ -7,7 +7,7 @@ services:
       context: ./LicenseChecker_Frontend
       dockerfile: Dockerfile
     ports:
-      - '5173:80'
+      - '5173:5173'
     networks:
       - resus
   backend:
@@ -16,7 +16,7 @@ services:
       context: ./LicenceChecker
       dockerfile: Dockerfile
     ports:
-      - '8000:80'
+      - '8000:8000'
     networks:
       - resus
   fossology:
@@ -24,7 +24,7 @@ services:
     image: fossology/fossology:3.10.0
     platform: linux/amd64
     ports:
-      - '7100:80'
+      - '7100:7100'
     networks:
       - resus
   license-engine:
