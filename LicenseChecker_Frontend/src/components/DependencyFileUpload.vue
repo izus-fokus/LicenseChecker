@@ -1,11 +1,6 @@
 <template>
-  <q-page>
-    <div style="max-width: 600px; margin: 0 auto;">
-      <q-tabs v-model="selectedOption" no-caps align="left" class="q-mx-xl q-mt-md" style="background-color: #feddd6;"
-        indicator-class="custom-indicator">
-        <q-tab v-for="option in options" :key="option.value" :name="option.value" :label="option.label"></q-tab>
-      </q-tabs>
-    </div>
+  <q-page class="custom-content">
+
     <!-- Section for uploading dependency files -->
     <div v-if="selectedOption === 'DependencyFileUpload'">
       <div v-show="!showTable" class="center-container custom-background-color">
@@ -13,18 +8,27 @@
           <q-form @submit="uploadFile">
             <q-select outlined hint="Python (requirements.txt, Pipfile, pyproject.toml)"
               :rules="[val => !!val || 'This field is required']" v-model="selectedChoice" :options="choices"
-              label="Select Dependency File Type">
+              label="Select Dependency File Type" style="margin-bottom: 15px;">
             </q-select>
-            <q-uploader hide-upload-btn label="Upload your files" @added="handleFileUpload">
+            <q-uploader hide-upload-btn label="Upload dependency file" @added="handleFileUpload">
             </q-uploader>
-            <q-btn :label="loading ? 'Uploading...' : 'Submit'" type="submit" :loading="loading" :disable="loading" />
+
+
+
+            <q-btn style=" margin-top: 15px; background-color:#1A8917; text-transform:capitalize; color: white;"
+              :label="loading ? 'Uploading...' : 'Submit'" type="submit" :loading="loading" :disable="loading" />
           </q-form>
+          <q-banner v-if="fileError" dense inline-actions class="text-white bg-red q-mt-lg ">
+            {{ fileError }}
+            <template v-slot:action>
+              <q-btn flat color="white" label="Dismiss" @click="dismissError" />
+            </template>
+          </q-banner>
         </div>
+
       </div>
-      <!-- Table showing dependency licenses -->
-      <div v-show="showTable">
-        <q-btn label="Back" @click="goBack" />
-        <q-btn label="Add to Compatibility List" @click="saveSelected" />
+      <!-- Table showing  found licenses from uploaded dependecy file  -->
+      <div class="q-pa-md" v-show="showTable">
         <q-table :rows="dependencyLicenses" :columns="columns" row-key="package_name">
           <template v-slot:body="props">
             <q-tr :props="props">
@@ -54,46 +58,24 @@
             </q-tr>
           </template>
         </q-table>
+        <div class="q-mt-md">
+          <q-btn v-if="!fromLR" label="Find Compatible Licenses" @click="saveSelected" class="btn q-mr-xs" />
+          <q-btn v-if="fromLR" @click="updateSelected" label="Add to Compatiblity list" class="btn q-mr-xs" />
+          <q-btn label="Back" @click="goBack" color="primary" />
+        </div>
       </div>
+
     </div>
-    <!-- Section for manually adding licenses -->
-    <div v-if="selectedOption === 'addLicensesManually'">
-      <!-- Table for Permissive Licenses -->
-      <q-table :rows="permissiveLicenses" :columns="licenseColumns" row-key="license" title="Permissive Licenses"
-        class="q-table-striped">
-        <template v-slot:body="props">
-          <q-tr :props="props">
-            <q-td>
-              <q-checkbox v-model="selectedPermissiveLicenses[props.row]" />
-            </q-td>
-            <q-td>
-              {{ props.row }}
-            </q-td>
-          </q-tr>
-        </template>
-      </q-table>
-      <!-- Table for Copyleft Licenses -->
-      <q-table :rows="copyleftLicenses" :columns="licenseColumns" row-key="license" title="Copyleft Licenses"
-        class="q-table-striped">
-        <template v-slot:body="props">
-          <q-tr :props="props">
-            <q-td>
-              <q-checkbox v-model="selectedCopyleftLicenses[props.row]" />
-            </q-td>
-            <q-td>
-              {{ props.row }}
-            </q-td>
-          </q-tr>
-        </template>
-      </q-table>
-    </div>
+
   </q-page>
 </template>
 
 <script>
 import axios from 'axios';
 
+
 export default {
+  name: "DependencyFileUpload",
   data() {
     return {
       showTable: false,
@@ -105,10 +87,11 @@ export default {
       selectedPermissiveLicenses: {},
       selectedCopyleftLicenses: {},
       selectedLicenses: {},
+      fileError: null,
       selectedOption: 'DependencyFileUpload',
       options: [
         { value: 'DependencyFileUpload', label: 'Dependency File Upload' },
-        { value: 'addLicensesManually', label: 'Add Licenses' }
+
       ],
       choices: ['Python', 'JS'],
       columns: [
@@ -120,13 +103,24 @@ export default {
       licenseColumns: [
         { name: 'checkbox', label: 'Select', align: 'left' },
         { name: 'license', label: 'License Name', align: 'left' }
-      ]
+      ],
+      fromLR: false,
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    // Check if the user came from LR.vue by its route name or path
+    next((vm) => {
+      vm.fromLR = from.name === 'LicenseRecommendation'; // Or use `from.path === '/path-to-LR'` if route name is not set
+    });
   },
   methods: {
     // Function to handle file upload
     handleFileUpload(files) {
       this.file = files[0];
+      this.validateFileType();
+    },
+    dismissError() {
+      this.fileError = ''; // Clear the error message
     },
     // Function to upload file and fetch dependency licenses
     async uploadFile() {
@@ -181,50 +175,62 @@ export default {
     },
     // Function to sanitize license name
     sanitizeLicenseName(name) {
-      return name.replace(/^\(|\)$/g, '');
+      // Check if name is a string, otherwise return it as is
+      if (typeof name === 'string') {
+        return name.replace(/^\(|\)$/g, '');
+      }
+      // If name is not a string, return an empty string or the original value
+      return name || '';
     },
+
     // Function to go back from table view
     goBack() {
       this.showTable = false;
     },
+    updateSelected() {
+      const addtocompatiblelist = this.dependencyLicenses.filter(row => row.selected).map(row => row.dropdown);
+      this.$parent.$emit('selected-rows', addtocompatiblelist);
+      this.$router.push('/licenseRecommendation'); // Navigate programmatically
+
+    },
     // Function to save selected licenses and move to License-Recommendation.vue 
     saveSelected() {
       // Filter selected licenses and extract IDs
-      const selectedRows = this.dependencyLicenses
-        .filter(row => row.selected)
-        .map(row => row.dropdown);
+      const selectedRows = this.dependencyLicenses.filter(row => row.selected).map(row => row.dropdown);
 
       console.log('Selected Rows:', selectedRows);
-      this.$emit('selected-rows', selectedRows);
-      this.$router.push({ name: 'LicenseRecommendation' });
+      this.$parent.$emit('changedetailedCompatibleLicensesId',
+        selectedRows
+      );
+      this.$parent.$emit(
+        'getCompatibleLicenses',
+        selectedRows
+      );
+      this.$router.push("/compatibleLicenses");
     },
-    // Function to fetch permissive and copyleft licenses for manual display
-    async fetchLicenses() {
-      try {
-        const [permissiveResponse, copyleftResponse] = await Promise.all([
-          axios.get("http://127.0.0.1:8000/types/permissive"),
-          axios.get("http://127.0.0.1:8000/types/copyleft")
-        ]);
-        this.permissiveLicenses = permissiveResponse.data;
-        this.copyleftLicenses = copyleftResponse.data;
-        console.log("Permissive Liceses", this.permissiveLicenses);
-        console.log("Copyleft Liceses", this.copyleftLicenses);
+    validateFileType() {
+      if (!this.file || !this.selectedChoice) {
+        this.fileError = null;
+        return;
+      }
 
-        [...this.permissiveLicenses, ...this.copyleftLicenses].forEach(license => {
-          this.selectedLicenses[license] = false;
-        });
+      const fileName = this.file.name.toLowerCase();
+      if (
+        (this.selectedChoice === 'Python' && !fileName.endsWith('.txt') && !fileName.endsWith('.toml') && !fileName.includes('Pipfile')) ||
+        (this.selectedChoice === 'JSON' && !fileName.endsWith('.json'))
+      ) {
+        this.fileError = `The uploaded file does not match the selected file type (${this.selectedChoice}).`;
+      } else {
+        this.fileError = null;
       }
-      catch (error) {
-        console.error("Error fetching licenses:", error);
-      }
-    }
+    },
   },
 
-  mounted() {
-    this.fetchLicenses();
-  },
   // Watcher for dependencyLicenses to update selectedLicenseIds
   watch: {
+    selectedChoice() {
+      this.validateFileType();
+    },
     dependencyLicenses: {
       handler(newVal) {
         this.selectedLicenseIds = [];
@@ -241,6 +247,11 @@ export default {
 </script>
 
 <style scoped>
+.custom-content {
+  padding-bottom: 6rem;
+  padding-top: 1rem;
+}
+
 .center-container {
   display: flex;
   justify-content: center;
@@ -257,5 +268,12 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.btn {
+  text-transform: capitalize;
+  background-color: #1A8917;
+  text-transform: capitalize;
+  color: white;
 }
 </style>

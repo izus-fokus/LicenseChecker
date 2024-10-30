@@ -6,7 +6,9 @@ import Imprint from "../components/Imprint.vue";
 import Help from "../components/Help.vue";
 import LicenseDetails from "../components/License-Details.vue";
 import CompatibleLicenses from "../components/Compatible-Licenses.vue";
-import AddLicenses from "../components/AddLicenses.vue";
+import DependencyFileUpload from "../components/DependencyFileUpload.vue";
+import AddLicensesManually from "../components/AddLicensesManually.vue"
+
 
 
 const router = createRouter({
@@ -59,11 +61,23 @@ const router = createRouter({
 
     },
     {
-      path: '/add-license',
-      name: 'AddLicenses',
-      component: AddLicenses,
+      path: '/DependencyFileUpload',
+      name: 'DependencyFileUpload',
+      component: DependencyFileUpload,
 
     },
+    {
+      path: '/AddLicensesManually',
+      name: 'AddLicensesManually',
+      component: AddLicensesManually,
+
+    },
+    // {
+    //   path: '/DesktopUpload',
+    //   name: 'DesktopUpload',
+    //   component: DesktopUpload,
+
+    // },
   ],
 });
 

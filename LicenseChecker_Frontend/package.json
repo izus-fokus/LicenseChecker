@@ -14,7 +14,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
     "@quasar/extras": "^1.16.12",
-    "@rollup/rollup-linux-x64-gnu": "^4.22.4",
     "@vue/cli-service": "^5.0.8",
     "axios": "^1.7.7",
     "core-js": "^3.38.1",
@@ -30,6 +29,7 @@
     "@rushstack/eslint-patch": "^1.10.4",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.6.1",
+    "@types/vue": "^2.0.0",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "@vue/eslint-config-prettier": "^9.0.0",

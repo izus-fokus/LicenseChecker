@@ -1,39 +1,39 @@
 <template>
   <div class="custom-content">
-    <div class="row q-mt-md justify-center">
-      <div class="col-3 text-center q-pt-sm"
-        style="border: dotted 1px; padding-bottom: none; height: fit-content; width:inherit;">
+    <div v-show="showDiv1" class="row q-mt-md justify-center">
+      <div class="col-3 text-center" style="border: dotted 1px; height:41px; width:inherit;">
         <q-item>
           <q-item-section>
-            <p class="text text">To identify compatible licenses provide your code or
+            <p class="text">To identify compatible licenses provide your code or
               dependency file.</p>
           </q-item-section>
 
-          <q-avatar size="21px" style="padding:3px 3px 0 0 ">
+          <q-avatar size="21px" style="padding:3px 5px 0 0">
             <img src="/questionMark.svg" />
-            <q-tooltip max-width="500px" class="bg-primary text-white shadow-4" :offset="[12, 22]">Identify existing
+            <q-tooltip max-width="500px" class="bg-primary text-white shadow-4" :offset="[12, 22]">
+              Identify existing
               licenses in your code or in the dependencies of your code.
               List these licenses and allow you to remove or add licenses.
               Suggest open-source licenses that are compatible to this list of licenses
-
             </q-tooltip>
           </q-avatar>
 
         </q-item>
-
       </div>
     </div>
 
 
+
     <!-- QTabs for selecting options -->
 
-    <div style="max-width: 650px; margin: 0 auto;">
-      <q-tabs v-model="selectedOption" align="left" class="q-mx-xl q-mt-md" style="background-color: #feddd6;"
+    <div style="max-width: 752px; margin: 0 auto;">
+      <q-tabs v-model="selectedOption" align="left" class="q-mx-xl q-mt-md text" style="background-color: #feddd6;"
         indicator-class="custom-indicator">
         <q-tab v-for="option in options" :key="option.value" :name="option.value" :label="option.label">
-          <q-tooltip class="bg-indigo" :offset="[10, 10]">
-            Github!
+          <q-tooltip class="bg-primary text-white shadow-4" :offset="[10, 10]">
+            {{ getTooltipContent(option.value) }}
           </q-tooltip>
+
         </q-tab>
       </q-tabs>
     </div>
@@ -76,24 +76,28 @@
               <div>
 
                 <q-btn label=" Analyze Code" type="submit"
-                  style=" background-color:#039855; text-transform:capitalize; color: white;" />
+                  style=" background-color:#1A8917; text-transform:capitalize; color: white;" />
                 <q-btn label="Reset" type="reset" color="grey" class="q-ml-sm" style=" text-transform:capitalize;" />
               </div>
             </q-form>
           </div>
         </div>
       </div>
+      <!-- Show licenses extracted from github code -->
+
       <div v-show="!showDiv1">
 
         <div v-if="licenses && Object.keys(licenses).length > 0">
           <div class="row q-mt-md justify-center">
-            <div class="col-3 text-center q-pt-sm" style="border:0.1px solid  #2F60AC ; background-color: #feddd6;">
+            <div class="col-3 text-center q-pt-sm">
               <p class="text">Your code includes the following licenses </p>
             </div>
 
           </div>
-          <br>
-          <p class="text" style="text-align: center;"> Please choose all licenses that should be included in the
+
+          <p class="text" style="text-align: center;">Please choose all
+            licenses that
+            should be included in the
             compatibility
             check. You can also add additional licenses manually or from a dependency file. </p>
           <div>
@@ -109,37 +113,46 @@
                 </template>
                 <q-card class="custom-detailclass">
                   <q-card-section>
-                    <p class="text-subtitle1">This license was found in the following file(s) </p>
-                    <q-list v-for="path in paths" :key="path">{{ path }}</q-list>
-                    <!-- <div v-if="this.selectedRows.length > 0">
-                      <p class="text-subtitle1">Selected License Rows</p>
-                      <q-list v-for="row in selectedRows" :key="row">{{ row }}</q-list>
-                    </div> -->
+                    <p class="text-subtitle1 text-primary">This license was found in the following file(s) </p>
+                    <q-list class="text-primary" v-for="path in paths" :key="path">{{ path }}</q-list>
                   </q-card-section>
                 </q-card>
               </q-expansion-item>
-              <q-expansion-item v-if="selectedRows.length > 0" :key="'selected-rows'" class="custom-headerclass">
+
+              <!-- Shows additional licenses selected from DependencyFileUpload and AddLicensesManually -->
+
+              <q-expansion-item v-if="selectedRows.length > 0" :key="'selected-rows'"
+                class="custom-headerclass expansion-background">
                 <template v-slot:header>
                   <q-item>
                     <q-item-section>
-                      <q-checkbox v-model="checkboxSelection['selected-rows']"
-                        label="Selected License Rows"></q-checkbox>
+                      <span class="text-primary">Added Licenses</span>
                     </q-item-section>
                   </q-item>
                 </template>
                 <q-card class="custom-detailclass">
                   <q-card-section>
-                    <p class="text-subtitle1">Selected License Rows</p>
-                    <q-list v-for="row in selectedRows" :key="row">{{ row }}</q-list>
+                    <q-list>
+                      <q-item v-for="row in selectedRows" :key="row">
+                        <q-item-section>
+                          <!-- Checkbox for each row item -->
+                          <q-checkbox v-model="checkboxSelection[row]" :label="row"></q-checkbox>
+                        </q-item-section>
+                      </q-item>
+                    </q-list>
                   </q-card-section>
                 </q-card>
               </q-expansion-item>
-
               <div class="q-pa-md q-gutter-sm">
-                <q-btn style="text-transform: capitalize; " label=" Find Compatible Licences" color="primary"
-                  @click="compatibleLicenses" />
-                <q-btn style="text-transform: capitalize; " label=" Add more licenses" color="primary" @click=" goToAddLicenses()
-                  " />
+                <q-btn
+                  style="text-transform: capitalize; background-color:#1A8917; text-transform:capitalize; color: white;"
+                  label=" Find Compatible Licences" @click="compatibleLicenses" />
+                <q-btn style="text-transform: capitalize; " label=" Add Licenses from Dependency File" color="primary"
+                  @click=" goToAddLicenses('fromDependencyFile')
+                    " />
+                <q-btn style="text-transform: capitalize; " label=" Add Licenses from License List" color="primary"
+                  @click=" goToAddLicenses('manually')
+                    " />
               </div>
             </div>
           </div>
@@ -147,15 +160,28 @@
       </div>
     </div>
     <!-- Display desktop upload when selectedOption is 'desktop' -->
-    <div v-show="selectedOption === 'desktop'">
+    <!-- <div v-show="selectedOption === 'desktop'">
       <DesktopUpload />
+    </div> -->
+    <!-- Display Addlicense when selectedOption is 'addlicense' -->
+    <div v-show="selectedOption === 'AddLicensesManually'">
+      <AddLicensesManually />
     </div>
+    <div v-show="selectedOption === 'DependencyFileUpload'">
+      <DependencyFileUpload />
+    </div>
+
   </div>
+
+
 </template>
 
 <script>
 import axios from "axios";
-import DesktopUpload from './Desktop-Upload.vue'
+// import DesktopUpload from './Desktop-Upload.vue'
+import AddLicensesManually from './AddLicensesManually.vue'
+import DependencyFileUpload from './DependencyFileUpload.vue'
+
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
@@ -166,21 +192,25 @@ export default {
     selectedRows: {
       type: Array,
       required: true
-    }
+    },
   },
 
   components: {
-    DesktopUpload
+    // DesktopUpload,
+    AddLicensesManually,
+    DependencyFileUpload,
   },
 
   data() {
     return {
 
-
       selectedOption: 'github', // Default to license recommendation
       options: [
         { value: 'github', label: 'Retrieve Code from GitHub' },
-        { value: 'desktop', label: 'Upload Code from Local Machine' }
+        // { value: 'desktop', label: 'Upload Code from Local Machine' },
+        { value: 'DependencyFileUpload', label: 'Dependency File Upload' },
+        { value: 'AddLicensesManually', label: 'Add Licenses Manually' },
+
       ],
       form: {
         id: " ",
@@ -209,6 +239,8 @@ export default {
   computed: { // accessing the state from store
     ...mapGetters(['getSelectedOption', 'getShowDiv1', 'getLicenses']),
 
+
+
   },
   mounted() {
     this.selectedOption = this.getSelectedOption;
@@ -218,23 +250,44 @@ export default {
   },
 
   methods: {
+    // Function to show tooltips to each option available
+    getTooltipContent(value) {
+      switch (value) {
+        case 'github':
+          return 'Retrieve code from github';
+        case 'DependencyFileUpload':
+          return 'Upload dependencies (upload a dependency file like a requirements.txt or a project.toml)';
+        case 'AddLicensesManually':
+          return 'Select licenses from the list of Premissive and Copyleft licenses';
+        default:
+          return '';
+      }
+    },
     logValues() {
       console.log('selectedOption:afer ', this.selectedOption);
       console.log('showDiv1:', this.showDiv1);
       console.log('licenses:', this.licenses);
     },
     ...mapActions(['updateSelectedOption', 'updateShowDiv1', 'updateLicenses']),
-    goToAddLicenses() {
+    goToAddLicenses(actionType) {
       // Store the current state before navigating away
       this.updateSelectedOption(this.selectedOption);
       this.updateShowDiv1(this.showDiv1);
       this.updateLicenses(this.licenses);
+
       console.log("Selected Option", this.selectedOption);
       console.log("Showdiv1", this.showDiv1);
       console.log("Available licenses", this.licenses);
 
-      // Navigate to AddLicenses.vue
-      this.$router.push({ name: 'AddLicenses' });
+
+
+      // Navigate to DependencyFileUpload.vue
+      if (actionType === 'fromDependencyFile') {
+        this.$router.push('/DependencyFileUpload');
+      } else if (actionType === 'manually') {
+        this.$router.push('/AddLicensesManually');
+      }
+
     },
 
     generaterepoName() {
@@ -248,6 +301,7 @@ export default {
       return this.softwareid;
     },
     getStatus() {
+      console.log("In status", this.generateSoftwareid())
 
       axios
         .get(
@@ -296,6 +350,7 @@ export default {
                   actions: [
                     {
                       label: "Show Licenses",
+
                       color: "primary",
                       class: "action-button",
                       title: "Show already analyzed licenses",
@@ -401,23 +456,12 @@ export default {
           console.error("Error fetching licenses:", error);
         });
     },
-    getCompatibleLicenses() {
-      axios
-        .post("http://127.0.0.1:8000/licenses/check/", ["MIT"])
-        .then((response) => {
-          console.log("getClic");
-          this.responseArray = response.data;
-        })
-        .catch((error) => {
-          console.error("Error in getCompatibleLicenses:", error);
-        });
-    },
 
     async compatibleLicenses() {
       const selectedLicenses = Object.keys(this.checkboxSelection).filter(
         (license) => this.checkboxSelection[license]
       );
-      // console.log("Selected Licenses:", selectedLicenses);
+      console.log("changedetailedCompatibleLicensesId fromLR", selectedLicenses);
       this.$emit("changedetailedCompatibleLicensesId", selectedLicenses);
       //  Ensure selectedLicenses is an array
       const licensesArray = Array.isArray(selectedLicenses)
@@ -446,8 +490,9 @@ export default {
           console.error("Error deleting software:", error);
         });
     },
-
   },
+
+
 };
 </script>
 

@@ -34,9 +34,15 @@ export default {
   name: 'DesktopUpload',
   data() {
     return {
-      files: []
+      files: [],
+      onUploading: false,
+      onFileAdded: false,
+      onUploadFailed: false,
     }
   },
+  methods:{
+    
+  }
 
 }
 </script>

@@ -17,8 +17,6 @@
       <q-footer elevated>
         <Footer_nav ref="footerNav" />
       </q-footer>
-
-
     </q-layout>
   </div>
 </template>
@@ -30,11 +28,12 @@ import recommendationIcon from '@/assets/License-Recommendation.svg';
 import licensesearch from '@/assets/License-Search.svg';
 import licensechecker from '@/assets/License-Checker.svg';
 import help from '@/assets/License-Help.svg';
+import detailinfo from '@/assets/detail-info.svg';
 
 
 
 import axios from "axios";
-
+import { mapGetters } from 'vuex';
 export default {
   name: "App",
   components: {
@@ -56,7 +55,9 @@ export default {
     licenseid: null,
     detailedCompatibleLicensesId: [],
     selectedRows: [],
+
     errorMessage: null,
+
 
 
   }),
@@ -89,6 +90,7 @@ export default {
       });
     },
     updateSelectedRows(rows) {
+      console.log("Selected rows from app.vue", rows);
       this.selectedRows = rows;
     },
     changeLicenseName(licenseid) {
@@ -96,7 +98,9 @@ export default {
       sessionStorage.setItem("licenseid", licenseid);
       this.licenseid = sessionStorage.getItem("licenseid");
     },
+
     changedetailedCompatibleLicensesId(changedId) {
+      console.log("In app.vue: received licenses", changedId);
       this.detailedCompatibleLicensesId = changedId;
     },
 
@@ -129,12 +133,13 @@ export default {
         headers: {
           "Content-Type": "application/json",
         },
+
       })
         .then((response) => {
           this.postResponse = response;
           this.errorMessage = null;
           // this.uploadSuccess = true;
-          // console.log("Upload is Sucessful:", this.uploadSuccess)
+          console.log("Upload is Sucessful:", this.uploadSuccess)
         })
         .catch((error) => {
           // Handle error
@@ -163,8 +168,6 @@ export default {
   mounted() {
     axios.get("http://127.0.0.1:8000/licenses/").then(
       (response) => (this.allLicenses = response.data)
-
-      //this.allLicensesFields=Object.values(Object.values(this.allLicenses)
     );
 
   },
@@ -182,6 +185,7 @@ export default {
         this.header_icon = licensesearch;
       } else if (this.$route.path == "/LicenseDetails") {
         this.header_label = "License Details";
+        this.header_icon = detailinfo;
       } else if (this.$route.path == "/compatibleLicenses") {
         this.header_label = "Compatible Licenses";
       } else if (this.$route.path == "/help") {

@@ -1,9 +1,10 @@
 <template>
-  <div class="row">
-    <div class="col-6 q-pa-xl">
+
+  <div class="row custom-content">
+    <div class="col-6 q-pa-xl text-primary">
       <h6>{{ license.name }}</h6>
 
-      <h6><span v-html="license.description"></span></h6>
+      <p style="font-size: 14px; padding-bottom: 20px;"><span v-html="license.description"></span></p>
 
       <div class="q-pa-md border-primary pillshapedborder">
 
@@ -101,15 +102,20 @@
       </div>
       <br />
     </div>
-    <div class="col-6 q-pa-xl border-primary">
+    <div class="col-6 q-pa-xl border-primary text-primary">
       <q-scroll-area style="
           height: 100%;
           max-width: 100%;
-          border: 1px solid black;
+          border: 1px solid #2F60AC;
           border-radius: 4px;
           padding: 10px;
         ">
         <span v-html="licenseText"></span></q-scroll-area>
+    </div>
+    <div class="q-pa-xl">
+      <q-btn class="btn" color=" primary" label="Back" @click="$router.back()">
+
+      </q-btn>
     </div>
   </div>
 </template>
@@ -165,9 +171,28 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
+.custom-content {
+  padding-bottom: 6rem;
+  padding-top: 1rem;
+}
+
+.text {
+  font-size: 14px;
+  color: #2f60ac;
+  font-weight: bold;
+  padding-top: 3px;
+}
+
 .pillshapedborder {
   border: 2px solid #2f61aca8;
   border-radius: 20px;
+}
+
+.btn {
+  text-transform: capitalize;
+  background-color: #1A8917;
+  text-transform: capitalize;
+  color: white;
 }
 </style>
