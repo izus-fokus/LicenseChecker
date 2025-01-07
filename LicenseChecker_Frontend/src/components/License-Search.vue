@@ -101,7 +101,7 @@ export default {
           /* Checks the compatibility of the selected licenses */
           axios
             .post(
-              "http://127.0.0.1:8000/licenses/check/",
+              "http://backend:8000/licenses/check/",
               this.selectedLicensesCompatibilityCheck
             )
             .then((response) => {

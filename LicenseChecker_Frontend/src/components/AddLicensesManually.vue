@@ -91,8 +91,8 @@ export default {
         async fetchLicenses() {
             try {
                 const [permissiveResponse, copyleftResponse] = await Promise.all([
-                    axios.get("http://127.0.0.1:8000/types/permissive"),
-                    axios.get("http://127.0.0.1:8000/types/copyleft")
+                    axios.get("http://backend:8000/types/permissive"),
+                    axios.get("http://backend:8000/types/copyleft")
                 ]);
 
                 this.permissiveLicenses = permissiveResponse.data;

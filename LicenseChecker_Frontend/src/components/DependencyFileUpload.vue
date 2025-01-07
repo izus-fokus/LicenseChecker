@@ -142,7 +142,7 @@ export default {
         formData.append('file', this.file);
         formData.append('choice', this.selectedChoice);
 
-        const response = await axios.post(`http://127.0.0.1:8000/uploaddependencyfile/?choice=${this.selectedChoice}`, formData, {
+        const response = await axios.post(`http://backend:8000/uploaddependencyfile/?choice=${this.selectedChoice}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }

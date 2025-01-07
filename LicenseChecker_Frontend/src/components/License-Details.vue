@@ -139,7 +139,7 @@ export default {
     /* get the license id from session storage to make it persisten */
     axios
       .get(
-        "http://127.0.0.1:8000/licenses/" + sessionStorage.getItem("licenseid")
+        "http://backend:8000/licenses/" + sessionStorage.getItem("licenseid")
       )
       .then(
         (response) => (this.license = response.data)
@@ -147,7 +147,7 @@ export default {
       );
     axios
       .get(
-        "http://127.0.0.1:7000/api/v1/licenses/" +
+        "http://license-engine:7000/api/v1/licenses/" +
         sessionStorage.getItem("licenseid") +
         "/text",
         {
@@ -159,7 +159,7 @@ export default {
       .then((response) => (this.licenseText = response.data));
 
     axios
-      .post("http://127.0.0.1:8000/licenses/check/", [
+      .post("http://backend:8000/licenses/check/", [
         sessionStorage.getItem("licenseid"),
       ])
       .then((response) => {
