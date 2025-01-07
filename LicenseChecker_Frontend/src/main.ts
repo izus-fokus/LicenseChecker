@@ -14,6 +14,8 @@ const app = createApp(App).use(Quasar, quasarUserOptions);
 // const pinia = createPinia();
 // app.use(BootstrapVue3)
 // app.use(pinia);
+app.config.globalProperties.backendURL = 'http://localhost:8000';
+app.config.globalProperties.engineURL = 'http://localhost:7000';
 app.use(store)
 app.use(router);
 app.mount("#app");

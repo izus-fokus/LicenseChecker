@@ -305,7 +305,7 @@ export default {
 
       axios
         .get(
-          "http://license-engine:7000/api/v1/software/status/" +
+          this.engineURL + "/api/v1/software/status/" +
           this.generateSoftwareid()
         )
 
@@ -439,7 +439,7 @@ export default {
       this.showDiv1 = !this.showDiv1;
       axios
         .get(
-          "http://license-engine:7000/api/v1/software/" +
+          this.engineURL + "/api/v1/software/" +
           this.generateSoftwareid() +
           "/licenses"
         )
@@ -480,7 +480,7 @@ export default {
       // Delete the software with the specified software-id
       axios
         .delete(
-          "http://license-engine:7000/api/v1/software/" + this.generateSoftwareid()
+          this.engineURL + "/api/v1/software/" + this.generateSoftwareid()
         )
         .then(() => {
           console.log("the software is deleted", this.generateSoftwareid());

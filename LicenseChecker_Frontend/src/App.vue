@@ -123,7 +123,7 @@ export default {
       /* Posts data to github */
       axios({
         method: "post",
-        url: "http://license-engine:7000/api/v1/software",
+        url: this.engineURL + "/api/v1/software",
         data: {
           id: softwareid,
           name: repoName,
@@ -156,7 +156,7 @@ export default {
     getCompatibleLicenses(list) {
       /* Gets Compatible Licenses from backend */
       axios
-        .post("http://backend:8000/licenses/check/", list)
+        .post(this.backendURL + "/licenses/check/", list)
         .then((response) => {
           this.compatibleLicenses = response.data;
         })
@@ -166,7 +166,7 @@ export default {
     },
   },
   mounted() {
-    axios.get("http://backend:8000/licenses/").then(
+    axios.get(this.backendURL + "/licenses/").then(
       (response) => (this.allLicenses = response.data)
     );
 

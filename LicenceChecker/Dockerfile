@@ -13,6 +13,6 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 # 
 COPY . /code
 WORKDIR /code/api
-EXPOSE 80
+EXPOSE 8000
 
 ENTRYPOINT [ "uvicorn", "main:app", "--reload", "--host" ,"0.0.0.0" ,"--port", "8000"]
