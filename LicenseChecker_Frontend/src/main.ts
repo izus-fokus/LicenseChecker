@@ -15,7 +15,7 @@ const app = createApp(App).use(Quasar, quasarUserOptions);
 // app.use(BootstrapVue3)
 // app.use(pinia);
 app.config.globalProperties.backendURL = 'https://checklicense.uni-stuttgart.de'; // port: 8000
-app.config.globalProperties.engineURL = 'https://checklicense.uni-stuttgart.de'; // port: 7000
+app.config.globalProperties.engineURL = 'https://checklicense.uni-stuttgart.de'; // port: 7001
 app.use(store)
 app.use(router);
 app.mount("#app");
