@@ -10,6 +10,7 @@ services:
       - '5173:80'
     networks:
       - resus
+    restart: unless-stopped
   backend:
     container_name: backend
     build:
@@ -19,6 +20,7 @@ services:
       - '8000:8000'
     networks:
       - resus
+    restart: unless-stopped
   fossology:
     container_name: fossology
     image: fossology/fossology:3.10.0
@@ -27,6 +29,7 @@ services:
       - '7100:7100'
     networks:
       - resus
+    restart: unless-stopped
   license-engine:
     container_name: license-engine
     build: ./license-engine
@@ -36,6 +39,7 @@ services:
       - resus
     environment:
       - FOSSOLOGY_ENDPOINT_BASE_PATH=http://fossology:80
+    restart: unless-stopped
 networks:
   resus:
     driver: bridge
