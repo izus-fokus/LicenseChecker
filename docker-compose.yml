@@ -14,7 +14,7 @@ services:
   backend:
     container_name: backend
     build:
-      context: ./LicenceChecker
+      context: ./LicenseChecker_Backend
       dockerfile: Dockerfile
     ports:
       - '8000:8000'
