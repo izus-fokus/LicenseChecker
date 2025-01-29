@@ -536,7 +536,7 @@ def rank(license_name, counts):
     return rslt
 
 
-@app.post("/uploaddependencyfile/")
+@app.post("/licenses/uploaddependencyfile/")
 async def create_upload_file(file: UploadFile,choice: Literal['Python','JS'] = "Python"):
     print(choice)
     contents = await file.read()
