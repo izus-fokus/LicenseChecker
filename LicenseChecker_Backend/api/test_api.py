@@ -440,7 +440,7 @@ typ = [
 
 
 def test_basic_functionality_return_licenses_for_type():
-    response = client.get("/types/COPYLEFT")
+    response = client.get("/licenses/types/COPYLEFT")
     assert response.status_code == 200
     assert response.json() == typ
 
@@ -450,7 +450,7 @@ def test_upload_poetry_file():
     files = {
         "file": open(absolute_path+"/api_tests/pyproject_test1.toml", "rb")
     }
-    response = client.post("/uploaddependencyfile/", files=files)
+    response = client.post("/licenses/uploaddependencyfile/", files=files)
     assert response.status_code == 200
     assert response.json()=={
   "filename": "pyproject_test1.toml",
@@ -477,7 +477,7 @@ def test_upload_build_system_file():
     files = {
         "file": open(absolute_path+"/api_tests/pyproject_test2.toml", "rb")
     }
-    response = client.post("/uploaddependencyfile/", files=files)
+    response = client.post("/licenses/uploaddependencyfile/", files=files)
     assert response.status_code == 200
     assert response.json()=={
   "filename": "pyproject_test2.toml",
@@ -510,7 +510,7 @@ def test_upload_project_dependencies_file():
     files = {
         "file": open(absolute_path+"/api_tests/pyproject_test3.toml", "rb")
     }
-    response = client.post("/uploaddependencyfile/", files=files)
+    response = client.post("/licenses/uploaddependencyfile/", files=files)
     assert response.status_code == 200
     assert response.json()=={
   "filename": "pyproject_test3.toml",
@@ -557,7 +557,7 @@ def test_upload_poetry_second_file():
     files = {
         "file": open(absolute_path+"/api_tests/pyproject_test4.toml", "rb")
     }
-    response = client.post("/uploaddependencyfile/", files=files)
+    response = client.post("/licenses/uploaddependencyfile/", files=files)
     assert response.status_code == 200
     assert response.json()=={
   "filename": "pyproject_test4.toml",
@@ -597,7 +597,7 @@ def test_upload_requirements_file():
     files = {
         "file": open(absolute_path+"/api_tests/requirements_test1.txt", "rb")
     }
-    response = client.post("/uploaddependencyfile/", files=files)
+    response = client.post("/licenses/uploaddependencyfile/", files=files)
     assert response.status_code == 200
     assert response.json()=={
   "filename": "requirements_test1.txt",
@@ -701,7 +701,7 @@ def test_upload_requirements_second_file():
     files = {
         "file": open(absolute_path+"/api_tests/requirements_test2.txt", "rb")
     }
-    response = client.post("/uploaddependencyfile/", files=files)
+    response = client.post("/licenses/uploaddependencyfile/", files=files)
     assert response.status_code == 200
     assert response.json()=={
   "filename": "requirements_test2.txt",
@@ -777,7 +777,7 @@ def test_upload_package_json_file():
         "file": open(absolute_path+"/api_tests/package.json", "rb")
     }
     params={'choice':'JS'}
-    response = client.post("/uploaddependencyfile/", files=files,params=params)
+    response = client.post("/licenses/uploaddependencyfile/", files=files,params=params)
     assert response.status_code == 200
     assert response.json()=={
   "filename": "package.json",

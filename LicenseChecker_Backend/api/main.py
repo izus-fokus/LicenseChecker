@@ -165,7 +165,7 @@ def get_all_licenses():
     return licenses
 
 
-@app.get("/licenseList/", tags=["Accessing information from the license ontology"])
+@app.get("licenses/licenseList/", tags=["Accessing information from the license ontology"])
 def get_license_list():
     '''
     Returns all available software licenses as strings
@@ -255,7 +255,7 @@ def check_osi_popularity(license_id: str):
                             content=f"The license id {license_id} does not exist")
 
 
-@app.get("/condition", tags=["Accessing information from the license ontology"])
+@app.get("/conditions", tags=["Accessing information from the license ontology"])
 def get_condition():
     '''
     Returns all popular licenses according to the Open Software Initiative.
@@ -266,7 +266,7 @@ def get_condition():
     return conditions
     
     
-@app.get("/permission", tags=["Accessing information from the license ontology"])
+@app.get("/permissions", tags=["Accessing information from the license ontology"])
 def get_permission():
     '''
     Returns all popular licenses according to the Open Software Initiative.
@@ -277,7 +277,7 @@ def get_permission():
     return permission
     
 
-@app.get("/limitation", tags=["Accessing information from the license ontology"])
+@app.get("/limitations", tags=["Accessing information from the license ontology"])
 def get_limitation():
     '''
     Returns all popular licenses according to the Open Software Initiative.
@@ -288,7 +288,7 @@ def get_limitation():
     return limitation
     
 
-@app.get("/popular", tags=["Accessing information from the license ontology"])
+@app.get("/licenses/popular", tags=["Accessing information from the license ontology"])
 def return_osi_popular_licenses():
     '''
     Returns all popular licenses according to the Open Software Initiative.
@@ -300,7 +300,7 @@ def return_osi_popular_licenses():
 
     return popular_list
 
-@app.get("/types/{license_type}", tags=["Accessing information from the license ontology"])
+@app.get("/licenses/types/{license_type}", tags=["Accessing information from the license ontology"])
 def return_licenses_for_type(license_type: str):
     '''
     Returns a list of licenses of a certain type.
