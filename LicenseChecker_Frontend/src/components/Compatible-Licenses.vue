@@ -2,10 +2,10 @@
 
   <div class="q-pa-md custom-content">
     <div v-if="this.detailedCompatibleLicensesId.length > 0">
-      <h5 class="text-primary" v-if="detailedCompatibleLicenses.length > 0">
+      <h5 class="text-secondary" v-if="detailedCompatibleLicenses.length > 0">
         List of Compatible Licenses with
         <!-- change the line below for multiple items -->
-        <span class="text-primary q-pr-md" v-for="(compId, k) in detailedCompatibleLicensesId" :key="k">{{ compId }}
+        <span class="text-secondary q-pr-md" v-for="(compId, k) in detailedCompatibleLicensesId" :key="k">{{ compId }}
         </span>
       </h5>
       <q-table ref="table" :rows="detailedCompatibleLicenses" flat bordered row-key="name"
@@ -22,7 +22,7 @@
           <q-tr :props="props">
             <q-td v-for="col in props.cols" :key="col.name" :props="props">
               <span v-if="col.name == 'conditions'"><span v-for="(cond, i) in col.value" :key="i">
-                  <q-tooltip class="bg-primary">
+                  <q-tooltip class="bg-primary text-secondary shadow-4">
                     {{ cond.description }}
                   </q-tooltip>
                   <q-icon :name="this.iconvar + cond.id + '.svg'" class="q-mr-sm" size="25px"></q-icon>
@@ -34,18 +34,18 @@
               </span>
 
               <span v-else-if="col.name == 'permissions'"><span v-for="(per, i) in col.value" :key="i">
-                  <q-tooltip class="bg-primary">
+                  <q-tooltip class="bg-primary text-secondary shadow-4">
                     {{ per.description }}
                   </q-tooltip>
                   <q-icon :name="this.iconvar + per.id + '.svg'" class="q-mr-sm" size="25px"></q-icon></span></span>
               <span v-else-if="col.name == 'limitations'"><span v-for="(lim, i) in col.value" :key="i">
                   <q-icon :name="this.iconvar + lim.id + '.svg'" class="q-mr-sm" size="25px"></q-icon><q-tooltip
-                    class="bg-primary">
+                    class="bg-primary text-secondary shadow-4">
                     {{ lim.description }}
                   </q-tooltip></span></span>
               <span v-else-if="col.name == 'compatibility'"><span v-for="(comp, i) in col.value" :key="i">{{ comp
                   }}<br /></span></span>
-              <span v-else-if="col.name == 'type'"><q-tooltip class="bg-primary">{{
+              <span v-else-if="col.name == 'type'"><q-tooltip class="bg-primary text-secondary shadow-4">{{
                 col.value.description
                   }}</q-tooltip>
                 {{ col.value.id }}</span>
@@ -55,13 +55,13 @@
           </q-tr>
         </template>
       </q-table>
-      <h5 class="text-primary" v-else> No compatible license found for selected licenses</h5>
+      <h5 class="text-secondary" v-else> No compatible license found for selected licenses</h5>
     </div>
-    <h5 class="text-primary" v-else>No Licenses Selected</h5>
+    <h5 class="text-secondary" v-else>No Licenses Selected</h5>
 
     <div class="q-mt-xl">
-      <q-btn color="primary" label="Back" @click="$router.back()">
-        <q-tooltip class="bg-primary text-white">
+      <q-btn color="secondary" label="Back" @click="$router.back()">
+        <q-tooltip class="bg-primary text-secondary shadow-4">
           Going back to the License Choosing page
         </q-tooltip>
       </q-btn>

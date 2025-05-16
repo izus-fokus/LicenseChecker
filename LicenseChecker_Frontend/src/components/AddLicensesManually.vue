@@ -4,12 +4,12 @@
 
         <div class="license-table">
             <q-table bordered virtual-scroll :rows="permissiveLicenses" :columns="licenseColumns" row-key="license"
-                title="Permissive Licenses" class="text-primary license-table-content sticky-header">
+                title="Permissive Licenses" class="text-secondary license-table-content sticky-header">
                 <template v-slot:body="props">
                     <q-tr :props="props">
                         <q-td>
                             <q-checkbox v-model="selectedPermissiveLicenses[props.row]"
-                                @update:model-value="updateSelected" />
+                                @update:model-value="updateSelected" color="green" />
                         </q-td>
                         <q-td>
                             {{ props.row }}
@@ -21,12 +21,12 @@
         <!-- Table for Copyleft Licenses -->
         <div class="license-table">
             <q-table flat bordered virtual-scroll :rows="copyleftLicenses" :columns="licenseColumns" row-key="license"
-                title="Copyleft Licenses" class="sticky-header license-table-content text-primary">
+                title="Copyleft Licenses" class="sticky-header license-table-content text-secondary">
                 <template v-slot:body="props">
                     <q-tr :props="props">
                         <q-td>
                             <q-checkbox v-model="selectedCopyleftLicenses[props.row]"
-                                @update:model-value="updateSelected" />
+                                @update:model-value="updateSelected" color="green"/>
                         </q-td>
                         <q-td>
                             {{ props.row }}
@@ -157,7 +157,7 @@ export default {
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: white;
+    background-color: #323232;
 }
 
 .btn {

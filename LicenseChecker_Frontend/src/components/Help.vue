@@ -1,6 +1,6 @@
 <template>
   <div class="help-content q-pa-md">
-    <h5 class="text-center text-primary">FoKUS – Kompetenzzentrum für Forschungsdaten</h5>
+    <h5 class="text-center text-secondary">FoKUS – Kompetenzzentrum für Forschungsdaten</h5>
 
     <div class="contact-info q-mt-lg q-pa-lg">
       <!-- Phone Information -->
@@ -58,18 +58,18 @@ export default {
 
 .icon {
   font-size: 24px;
-  color: #2f60ac;
+  color: "secondary";
   margin-right: 10px;
 }
 
 .info-text {
   font-size: 16px;
-  color: #2f60ac;
+  color: "secondary";
 }
 
 .link {
   text-decoration: none;
-  color: #2f60ac;
+  color: "secondary";
 }
 
 .link:hover {

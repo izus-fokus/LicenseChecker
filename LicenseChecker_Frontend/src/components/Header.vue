@@ -17,8 +17,12 @@
       </q-toolbar-title>
 
       <!-- <q-btn flat color="primary" icon="img:/unistuttgart_logo_de.svg" /> -->
-      <img class="header-logo" src="\unistuttgart_logo_de.svg"
+      <img class="header-logo1" src="\unistuttgart_logo_de.svg"
         @click="navigateTo('https://izus.uni-stuttgart.de/fokus')" />
+
+      <!-- <q-btn flat color="primary" icon="img:/NFDI4ING_logo.svg" /> -->
+      <img class="header-logo2" src="\NFDI4ING_logo.svg"
+        @click="navigateTo('https://nfdi4ing.de/')" />
 
     </q-toolbar>
   </q-header>
@@ -70,7 +74,7 @@ export default {
 }
 
 .my-custom-header {
-  background-color: white;
+  background-color: rgb(0, 81, 158);
 }
 
 .custom_title {
@@ -78,7 +82,16 @@ export default {
   padding-bottom: 10px;
 }
 
-.header-logo {
+.header-logo1 {
+  margin-right: auto;
+  /* Push the logo to the right side */
+  width: 11%;
+  /* Set a more reasonable width for the logo */
+  height: auto;
+  cursor: pointer;
+}
+
+.header-logo2 {
   margin-left: auto;
   /* Push the logo to the right side */
   width: 11%;

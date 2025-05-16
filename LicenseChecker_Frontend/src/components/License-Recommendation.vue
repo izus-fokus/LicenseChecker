@@ -4,13 +4,13 @@
       <div class="col-3 text-center" style="border: dotted 1px; height:41px; width:inherit;">
         <q-item>
           <q-item-section>
-            <p class="text">To identify compatible licenses provide your code or
+            <p class="text-secondary">To identify compatible licenses provide your code or
               dependency file.</p>
           </q-item-section>
 
           <q-avatar size="21px" style="padding:3px 5px 0 0">
             <img src="/questionMark.svg" />
-            <q-tooltip max-width="500px" class="bg-primary text-white shadow-4" :offset="[12, 22]">
+            <q-tooltip max-width="500px" class="bg-primary text-secondary shadow-4" :offset="[12, 22]">
               Identify existing
               licenses in your code or in the dependencies of your code.
               List these licenses and allow you to remove or add licenses.
@@ -27,10 +27,10 @@
     <!-- QTabs for selecting options -->
 
     <div style="max-width: 752px; margin: 0 auto;">
-      <q-tabs v-model="selectedOption" align="left" class="q-mx-xl q-mt-md text" style="background-color: #feddd6;"
+      <q-tabs v-model="selectedOption" align="left" class="q-mx-xl q-mt-md text" style="background-color: #00beff;"
         indicator-class="custom-indicator">
         <q-tab v-for="option in options" :key="option.value" :name="option.value" :label="option.label">
-          <q-tooltip class="bg-primary text-white shadow-4" :offset="[10, 10]">
+          <q-tooltip class="bg-primary text-secondary shadow-4" :offset="[10, 10]">
             {{ getTooltipContent(option.value) }}
           </q-tooltip>
 
@@ -95,7 +95,7 @@
 
           </div>
 
-          <p class="text" style="text-align: center;">Please choose all
+          <p class="text-secondary" style="text-align: center;">Please choose all
             licenses that
             should be included in the
             compatibility
@@ -113,8 +113,8 @@
                 </template>
                 <q-card class="custom-detailclass">
                   <q-card-section>
-                    <p class="text-subtitle1 text-primary">This license was found in the following file(s) </p>
-                    <q-list class="text-primary" v-for="path in paths" :key="path">{{ path }}</q-list>
+                    <p class="text-subtitle1 text-secondary">This license was found in the following file(s) </p>
+                    <q-list class="text-secondary" v-for="path in paths" :key="path">{{ path }}</q-list>
                   </q-card-section>
                 </q-card>
               </q-expansion-item>
@@ -126,7 +126,7 @@
                 <template v-slot:header>
                   <q-item>
                     <q-item-section>
-                      <span class="text-primary">Added Licenses</span>
+                      <span class="text-secondary">Added Licenses</span>
                     </q-item-section>
                   </q-item>
                 </template>
@@ -317,8 +317,8 @@ export default {
             this.status = response.data.status;
             this.$q.loading.show({
               message: this.status,
-              boxClass: "bg-grey-2 text-grey-9",
-              spinnerColor: "primary",
+              boxClass: "bg-grey-2 text-secondary",
+              spinnerColor: "secondary",
             });
             if (this.checkTimer) {
               setTimeout(() => {
@@ -330,7 +330,7 @@ export default {
             this.status = response.data;
             this.$q.loading.show({
               message: this.status,
-              boxClass: "bg-grey-2 text-grey-9",
+              boxClass: "bg-grey-2 text-secondary",
               spinnerColor: "primary",
             });
           }
@@ -424,7 +424,7 @@ export default {
       this.ready();
       this.$q.loading.show({
         message: "Searching for Licenses",
-        boxClass: "bg-grey-2 text-grey-9",
+        boxClass: "bg-grey-2 text-secondary",
         spinnerColor: "primary",
       });
       console.log("SENDING FORM");
@@ -505,6 +505,7 @@ export default {
 .custom-q-form {
   width: 60%;
   box-sizing: border-box;
+  color: #004191;
 
 
   @media (max-width: 599px) {
@@ -526,7 +527,7 @@ export default {
 
 @media (max-width: 599px) {
   .custom-background-color {
-    background-color: transparent;
+    background-color: "secondary";
   }
 }
 
@@ -538,7 +539,7 @@ export default {
 }
 
 .custom-background-color {
-  border: 2px dotted #2F60AC;
+  border: 2px dotted #004191;
   /* background-color: #feddd6;
   border-radius: 10px; */
 }
@@ -553,21 +554,21 @@ export default {
 
 .text {
   font-size: 14px;
-  color: #2f60ac;
+  color: #323232;
   font-weight: bold;
   padding-top: 3px;
 }
 
 .custom-headerclass {
-  background-color: #ffffff;
+  background-color: #323232;
   border-radius: 10px;
-  border: 2px solid #2f60ac;
+  border: 2px solid #004191;
   max-width: 800px;
   margin: 0 auto;
 }
 
 .custom-detailclass {
-  border-top: 2px solid #2F60AC;
+  border-top: 2px solid #004191;
   border-bottom-left-radius: 10px !important;
   border-bottom-right-radius: 10px !important;
 }

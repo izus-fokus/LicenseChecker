@@ -15,9 +15,9 @@
           <q-tr :props="props">
             <q-td v-for="col in props.cols" :key="col.name" :props="props">
               <span v-if="col.name == 'id'"><q-checkbox v-model="selectedLicensesCompatibilityCheck" :val="col.value"
-                  color="teal"></q-checkbox></span>
+                  color="green"></q-checkbox></span>
               <span v-if="col.name == 'conditions'"><span v-for="(cond, i) in col.value" :key="i">
-                  <q-tooltip class="bg-primary">
+                  <q-tooltip class="bg-primary text-secondary shadow-4">
                     {{ cond.description }}
                   </q-tooltip>
                   <q-icon :name="this.iconvar + cond.id + '.svg'" class="q-mr-sm" size="25px"></q-icon>
@@ -36,18 +36,18 @@
               </span>
 
               <span v-else-if="col.name == 'permissions'"><span v-for="(per, i) in col.value" :key="i">
-                  <q-tooltip class="bg-primary">
+                  <q-tooltip class="bg-primary text-secondary shadow-4">
                     {{ per.description }}
                   </q-tooltip>
                   <q-icon :name="this.iconvar + per.id + '.svg'" class="q-mr-sm" size="25px"></q-icon></span></span>
               <span v-else-if="col.name == 'limitations'"><span v-for="(lim, i) in col.value" :key="i">
                   <q-icon :name="this.iconvar + lim.id + '.svg'" class="q-mr-sm" size="25px"></q-icon><q-tooltip
-                    class="bg-primary">
+                    class="bg-primary text-secondary shadow-4">
                     {{ lim.description }}
                   </q-tooltip></span></span>
               <span v-else-if="col.name == 'compatibility'"><span v-for="(comp, i) in col.value" :key="i">{{ comp
                   }}<br /></span></span>
-              <span v-else-if="col.name == 'type'"><q-tooltip class="bg-primary">{{
+              <span v-else-if="col.name == 'type'"><q-tooltip class="bg-primary text-secondary shadow-4">{{
                 col.value.description
               }}</q-tooltip>
                 {{ col.value.id }}</span>

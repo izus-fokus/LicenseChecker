@@ -52,7 +52,7 @@ export default {
 </script>
 <style scoped>
 .custom-footer {
-  background-color: transparent;
+  background-color: #323232;
 }
 
 .footer-top {
@@ -73,7 +73,7 @@ export default {
 
 .disclaimer-text.highlight {
   border: 2px solid red;
-  background-color: transparent;
+  background-color: #323232;
   transition: border 0.5s ease-in-out;
   padding-bottom: 10px;
 
