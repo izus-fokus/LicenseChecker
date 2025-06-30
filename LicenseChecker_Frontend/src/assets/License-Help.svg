@@ -7,7 +7,7 @@
    version="1.1"
    id="svg1"
    sodipodi:docname="License-Help.svg"
-   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -23,14 +23,14 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
      inkscape:zoom="2.9669604"
-     inkscape:cx="140.37936"
+     inkscape:cx="140.54788"
      inkscape:cy="122.51596"
-     inkscape:window-width="1920"
-     inkscape:window-height="1016"
+     inkscape:window-width="2048"
+     inkscape:window-height="1186"
      inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="layer2" />
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
   <g
      id="g2"
      transform="matrix(1.0349411,0,0,1.0349411,-6.6155623,-5.3214167)"
@@ -71,15 +71,13 @@
      id="layer1"
      inkscape:label="FG">
     <g
-       id="g3"
-       style="stroke-width:6.76366993;stroke-dasharray:none"
-       transform="matrix(1.0349411,0,0,1.0349411,-6.6155623,-5.3214167)">
+       id="g1"
+       transform="matrix(1.0309338,0.09098711,-0.09098711,1.0309338,4.6414515,-20.494391)"
+       style="stroke-width:6.76367;stroke-dasharray:none">
       <g
-         id="g1"
-         transform="rotate(5.0436845,171.87523,116.15109)"
-         style="stroke-width:6.76366993;stroke-dasharray:none">
+         id="g3">
         <path
-           style="opacity:0.972;fill:none;fill-opacity:0;stroke:#ffffff;stroke-width:6.76366993;stroke-linecap:square;stroke-miterlimit:3.9;stroke-dasharray:none"
+           style="opacity:0.972;fill:none;fill-opacity:0;stroke:#ffffff;stroke-width:6.76367;stroke-linecap:square;stroke-miterlimit:3.9;stroke-dasharray:none"
            id="path1"
            sodipodi:type="arc"
            sodipodi:cx="-70.898727"
@@ -92,23 +90,17 @@
            sodipodi:arc-type="arc"
            d="m 1.552681,-191.89777 a 72.451408,72.923409 0 0 1 -63.559133,72.37208 72.451408,72.923409 0 0 1 -79.160908,-54.607 72.451408,72.923409 0 0 1 44.12761,-85.77638 72.451408,72.923409 0 0 1 89.9928544,33.55158"
            transform="rotate(142.47711)" />
-        <path
-           style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:6.76366993;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
-           d="m 116.48371,152.93316 -16.873508,41.35926 43.556168,-19.8508"
-           id="path2"
-           sodipodi:nodetypes="ccc" />
       </g>
-      <text
-         xml:space="preserve"
-         style="font-size:93.7149px;line-height:1.25;font-family:Waree;-inkscape-font-specification:'Waree, Normal';font-variant-ligatures:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:6.76366993;stroke-opacity:1;stroke-dasharray:none"
-         x="148.15244"
-         y="144.88029"
-         id="text3"><tspan
-           sodipodi:role="line"
-           id="tspan3"
-           x="148.15244"
-           y="144.88029"
-           style="stroke-width:6.76366993;stroke-dasharray:none">?</tspan></text>
+      <path
+         style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:6.76367;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="m 116.48371,152.93316 -16.873508,41.35926 43.556168,-19.8508"
+         id="path2"
+         sodipodi:nodetypes="ccc" />
     </g>
+    <path
+       d="m 194.30838,90.680271 q 0,4.641095 -1.65753,8.287669 -1.65753,3.59922 -4.35695,6.39334 -2.65205,2.69942 -6.10919,5.06732 -3.45714,2.36791 -7.34051,4.59374 v 10.65557 h -8.4771 v -14.44422 q 3.07828,-1.75225 6.63014,-3.83601 3.59921,-2.08375 5.8724,-4.21487 2.74677,-2.46262 4.26223,-5.067316 1.51546,-2.652054 1.51546,-6.724851 0,-5.351466 -3.64657,-7.956162 -3.59922,-2.652054 -9.32955,-2.652054 -5.11468,0 -9.70841,1.610175 -4.54638,1.610176 -7.19844,3.26771 h -0.47358 v -9.661054 q 3.31507,-1.278669 8.38239,-2.273189 5.11467,-1.041878 9.66105,-1.041878 10.18199,0 16.0544,4.972601 5.91976,4.925243 5.91976,13.023479 z m -18.70645,53.940879 h -9.66105 v -9.99256 h 9.66105 z"
+       id="text3"
+       style="font-size:96.9894px;line-height:1.25;font-family:Waree;-inkscape-font-specification:'Waree, Normal';font-variant-ligatures:none;fill:#ffffff;stroke-width:7"
+       aria-label="?" />
   </g>
 </svg>

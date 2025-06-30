@@ -21,7 +21,7 @@
     </div>
 
     <div class="row" style="margin: 80px 0">
-      <q-card-section class="hide reponsive-card large-screen" style="
+      <q-card-section class="reponsive-card large-screen" style="
        
         ">
       </q-card-section>
@@ -123,7 +123,7 @@ export default {
   height: 15rem;
   border-radius: 6px;
   transform: translate(160px, 100px);
-  background-color: #2f61aca8;
+  background-color: #00beff;
 }
 
 .rih {

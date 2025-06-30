@@ -43,7 +43,7 @@
             $parent.$emit('selected-rows', this.combinedSelectedLicenses);
             this.$router.push('/licenseRecommendation');
         }
-            " label="Add to Compatiblity list" color="primary" />
+            " label="Add to Compatiblity list" color="secondary" />
         <q-btn v-if="!fromLR" @click="
             $parent.$emit(
                 'changedetailedCompatibleLicensesId',

@@ -10,7 +10,7 @@
               :rules="[val => !!val || 'This field is required']" v-model="selectedChoice" :options="choices"
               label="Select Dependency File Type" color="secondary" style="margin-bottom: 15px;">
             </q-select>
-            <q-uploader hide-upload-btn label="Upload dependency file" @added="handleFileUpload">
+            <q-uploader hide-upload-btn label="Upload dependency file" @added="handleFileUpload" color="secondary">
             </q-uploader>
 
 

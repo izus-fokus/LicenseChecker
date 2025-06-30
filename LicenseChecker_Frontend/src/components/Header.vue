@@ -17,12 +17,12 @@
       </q-toolbar-title>
 
       <!-- <q-btn flat color="primary" icon="img:/unistuttgart_logo_de.svg" /> -->
-      <img class="header-logo1" src="\unistuttgart_logo_de.svg"
-        @click="navigateTo('https://izus.uni-stuttgart.de/fokus')" />
+      <img class="header-logo1" src="\NFDI4ING_logo.svg"
+        @click="navigateTo('https://nfdi4ing.de/')" />
 
       <!-- <q-btn flat color="primary" icon="img:/NFDI4ING_logo.svg" /> -->
-      <img class="header-logo2" src="\NFDI4ING_logo.svg"
-        @click="navigateTo('https://nfdi4ing.de/')" />
+      <img class="header-logo2" src="\unistuttgart_logo_de.svg"
+        @click="navigateTo('https://izus.uni-stuttgart.de/fokus')" />
 
     </q-toolbar>
   </q-header>

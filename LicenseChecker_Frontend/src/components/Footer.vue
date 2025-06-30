@@ -36,6 +36,10 @@
           situation, you should seek the advice of a qualified lawyer.
         </span>
 
+        
+        <img style="width: 200px; margin-left: auto " src="/public/DFG_logo.svg" @click="navigateTo('https://www.izus.uni-stuttgart.de/fokus/fdm-projekte/resus/')"/>
+        
+
       </q-toolbar-title>
     </q-toolbar>
   </q-footer>
@@ -131,6 +135,7 @@ export default {
     width: 20px;
     height: 20px;
   }
+
 }
 </style>
 
