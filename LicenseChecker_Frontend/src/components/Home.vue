@@ -10,7 +10,7 @@
 
           <q-avatar size="21px" style="padding:3px 5px 0 0">
             <img src="/questionMark.svg" />
-            <q-tooltip max-width="500px" class="bg-primary text-white shadow-4" :offset="[12, 22]">
+            <q-tooltip max-width="500px" class="bg-primary text-secondary shadow-4" :offset="[12, 22]">
               If your code reuses libraries or other third-party code that is already licensed, you are not free in your
               choice of a software license for your own code.
             </q-tooltip>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="row" style="margin: 80px 0">
-      <q-card-section class="hide reponsive-card large-screen" style="
+      <q-card-section class="reponsive-card large-screen" style="
        
         ">
       </q-card-section>
@@ -40,7 +40,7 @@
               <div class="text">Licence Recommendation</div>
             </q-card-section>
 
-            <q-card-section class="q-pt-none text-justify text-primary">
+            <q-card-section class="q-pt-none text-justify text-secondary">
               I have an existing code and need a recommendation for a compatible license
             </q-card-section>
           </q-card>
@@ -61,7 +61,7 @@
               <div class="text">License Search</div>
             </q-card-section>
 
-            <q-card-section class="q-pt-none text-justify text-primary">
+            <q-card-section class="q-pt-none text-justify text-secondary">
               I want to explore existing open source licenses and learn more about their properties and compatibility
             </q-card-section>
           </q-card>
@@ -81,7 +81,7 @@
               <div class="text">Help</div>
             </q-card-section>
 
-            <q-card-section class="q-pt-none text-justify text-primary">
+            <q-card-section class="q-pt-none text-justify text-secondary">
               I need help to find the right license for my software
             </q-card-section>
           </q-card>
@@ -102,7 +102,7 @@ export default {
 <style scoped>
 .text {
   font-size: 14px;
-  color: #2f60ac;
+  color: #323232;
   font-weight: bold;
   padding-top: 3px;
   margin: 0 4px 9px 4px;
@@ -123,7 +123,7 @@ export default {
   height: 15rem;
   border-radius: 6px;
   transform: translate(160px, 100px);
-  background-color: #2f61aca8;
+  background-color: #00beff;
 }
 
 .rih {

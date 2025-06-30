@@ -8,9 +8,9 @@
           <q-form @submit="uploadFile">
             <q-select outlined hint="Python (requirements.txt, Pipfile, pyproject.toml)"
               :rules="[val => !!val || 'This field is required']" v-model="selectedChoice" :options="choices"
-              label="Select Dependency File Type" style="margin-bottom: 15px;">
+              label="Select Dependency File Type" color="secondary" style="margin-bottom: 15px;">
             </q-select>
-            <q-uploader hide-upload-btn label="Upload dependency file" @added="handleFileUpload">
+            <q-uploader hide-upload-btn label="Upload dependency file" @added="handleFileUpload" color="secondary">
             </q-uploader>
 
 
@@ -18,10 +18,10 @@
             <q-btn style=" margin-top: 15px; background-color:#1A8917; text-transform:capitalize; color: white;"
               :label="loading ? 'Uploading...' : 'Submit'" type="submit" :loading="loading" :disable="loading" />
           </q-form>
-          <q-banner v-if="fileError" dense inline-actions class="text-white bg-red q-mt-lg ">
+          <q-banner v-if="fileError" dense inline-actions class="text-secondary bg-red q-mt-lg ">
             {{ fileError }}
             <template v-slot:action>
-              <q-btn flat color="white" label="Dismiss" @click="dismissError" />
+              <q-btn flat color="secondary" label="Dismiss" @click="dismissError" />
             </template>
           </q-banner>
         </div>
@@ -61,7 +61,7 @@
         <div class="q-mt-md">
           <q-btn v-if="!fromLR" label="Find Compatible Licenses" @click="saveSelected" class="btn q-mr-xs" />
           <q-btn v-if="fromLR" @click="updateSelected" label="Add to Compatiblity list" class="btn q-mr-xs" />
-          <q-btn label="Back" @click="goBack" color="primary" />
+          <q-btn label="Back" @click="goBack" color="secondary" />
         </div>
       </div>
 
@@ -127,7 +127,7 @@ export default {
       this.loading = true;
       this.$q.loading.show({
         message: 'Searching for licenses',
-        boxClass: 'bg-grey-2 text-grey-9',
+        boxClass: 'bg-blue text-secondary',
         spinnerColor: 'primary'
       });
       try {
@@ -257,7 +257,7 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 60vh;
-  border: 2px dotted #2F60AC;
+  border: 2px dotted #004191;
   max-width: 1000px;
   margin: 20px auto 0;
 }

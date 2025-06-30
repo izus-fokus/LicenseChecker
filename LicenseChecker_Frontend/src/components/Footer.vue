@@ -36,6 +36,10 @@
           situation, you should seek the advice of a qualified lawyer.
         </span>
 
+        
+        <img style="width: 200px; margin-left: auto " src="/public/DFG_logo.svg" @click="navigateTo('https://www.izus.uni-stuttgart.de/fokus/fdm-projekte/resus/')"/>
+        
+
       </q-toolbar-title>
     </q-toolbar>
   </q-footer>
@@ -52,7 +56,7 @@ export default {
 </script>
 <style scoped>
 .custom-footer {
-  background-color: transparent;
+  background-color: #323232;
 }
 
 .footer-top {
@@ -73,7 +77,7 @@ export default {
 
 .disclaimer-text.highlight {
   border: 2px solid red;
-  background-color: transparent;
+  background-color: #323232;
   transition: border 0.5s ease-in-out;
   padding-bottom: 10px;
 
@@ -131,6 +135,7 @@ export default {
     width: 20px;
     height: 20px;
   }
+
 }
 </style>
 

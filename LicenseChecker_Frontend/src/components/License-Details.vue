@@ -1,7 +1,7 @@
 <template>
 
   <div class="row custom-content">
-    <div class="col-6 q-pa-xl text-primary">
+    <div class="col-6 q-pa-xl text-secondary">
       <h6>{{ license.name }}</h6>
 
       <p style="font-size: 14px; padding-bottom: 20px;"><span v-html="license.description"></span></p>
@@ -9,17 +9,17 @@
       <div class="q-pa-md border-primary pillshapedborder">
 
         <q-expansion-item v-model="expanded" icon="img:/Compatible.svg" label="Compatible Licenses"
-          class="text-primary text-h6 text-center" @click="
+          class="text-secondary text-h6 text-center" @click="
             $parent.$emit('listCompatibleLicenses', this.compatibleLicenses)
             ">
           <q-card>
             <q-card-section>
               <q-list dense padding class="rounded-borders">
-                <q-table color="primary" :visible-columns="visibleColumns" table-class="text-grey-8"
-                  table-header-class="text-brown" flat :rows="detailedCompatibleLicenses" row-key="name"></q-table>
+                <q-table color="primary" :visible-columns="visibleColumns" table-class="ext-secondary"
+                  table-header-class="text-black" flat :rows="detailedCompatibleLicenses" row-key="name"></q-table>
               </q-list>
             </q-card-section>
-            <q-btn to="/compatibleLicenses" label="Detailed View" color="primary" @click="
+            <q-btn to="/compatibleLicenses" label="Detailed View" color="secondary" @click="
               $parent.$emit('changedetailedCompatibleLicensesId', [
                 license.id,
               ])
@@ -29,7 +29,7 @@
       </div>
 
       <div class="q-pa-md q-mt-lg border-primary pillshapedborder">
-        <q-expansion-item icon="img:/permission.svg" label="Permissions" class="text-primary text-h6 text-center">
+        <q-expansion-item icon="img:/permission.svg" label="Permissions" class="ext-secondary text-h6 text-center">
           <q-card>
             <q-card-section>
               <span v-for="(per, i) in license.permissions" :key="i">
@@ -53,7 +53,7 @@
         </q-expansion-item>
       </div>
       <div class="q-pa-md q-mt-lg border-primary pillshapedborder">
-        <q-expansion-item icon="img:/condition.svg" label="Conditions" class="text-primary text-h6 text-center">
+        <q-expansion-item icon="img:/condition.svg" label="Conditions" class="ext-secondary text-h6 text-center">
           <q-card>
             <q-card-section>
               <span v-for="(cond, i) in license.conditions" :key="i">
@@ -77,7 +77,7 @@
         </q-expansion-item>
       </div>
       <div class="q-pa-md q-mt-lg border-primary pillshapedborder">
-        <q-expansion-item icon="img:/limitation.svg" label="Limitations" class="text-primary text-h6 text-center">
+        <q-expansion-item icon="img:/limitation.svg" label="Limitations" class="ext-secondary text-h6 text-center">
           <q-card>
             <q-card-section>
               <span v-for="(lim, i) in license.limitations" :key="i">
@@ -102,7 +102,7 @@
       </div>
       <br />
     </div>
-    <div class="col-6 q-pa-xl border-primary text-primary">
+    <div class="col-6 q-pa-xl border-primary ext-secondary">
       <q-scroll-area style="
           height: 100%;
           max-width: 100%;
@@ -179,13 +179,13 @@ export default {
 
 .text {
   font-size: 14px;
-  color: #2f60ac;
+  color: #004191;
   font-weight: bold;
   padding-top: 3px;
 }
 
 .pillshapedborder {
-  border: 2px solid #2f61aca8;
+  border: 2px solid #004191;
   border-radius: 20px;
 }
 

@@ -15,13 +15,13 @@
           accept=".zip,.rar" :auto-upload="false" v-model="files" @added="onFileAdded" @failed="onUploadFailed"
           @uploading="onUploading">
           <template v-slot:file="{ file, abort }">
-            <q-chip removable @remove="abort" class="bg-primary text-white">
+            <q-chip removable @remove="abort" class="bg-primary text-secondary">
               {{ file.name }}
             </q-chip>
           </template>
         </q-uploader>
         <q-card-section v-if="files.length > 0">
-          <q-btn label="Upload" color="primary" @click="uploadFiles" />
+          <q-btn label="Upload" color="secondary" @click="uploadFiles" />
         </q-card-section>
       </div>
     </div>
@@ -67,7 +67,7 @@ export default {
 }
 
 .custom-background-color {
-  border: 2px dotted #2F60AC;
+  border: 2px dotted #004191;
 
 }
 
