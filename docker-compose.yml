@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
   fossology:
     container_name: fossology
-    image: fossology/fossology:3.10.0
+    image: docker.io/fossology/fossology:3.10.0
     platform: linux/amd64
     ports:
       - '7100:7100'
