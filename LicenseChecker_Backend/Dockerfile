@@ -1,5 +1,5 @@
 # 
-FROM registry.suse.com/bci/python:3.11
+FROM python:3.13.11-alpine3.23
 
 # 
 WORKDIR /code

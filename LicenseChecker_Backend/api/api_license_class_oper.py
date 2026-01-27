@@ -286,7 +286,7 @@ def check_python_dependency(my_file):
         # print(line)
         #   print(package)
         check_lic_remove_char = re.match(
-            "([\w-]*)(\[.*\])?[ ]*([=~<>]{0,2})[ ]*(.*)", package
+            "([\\w-]*)(\\[.*\\])?[ ]*([=~<>]{0,2})[ ]*(.*)", package
         )
         lic = check_lic_remove_char.group(1)
         # print(lic)
@@ -305,7 +305,7 @@ def check_python_dependency(my_file):
                     filter(lambda x: "License" in x, json["info"]["classifiers"])
                 )
                 # print(res)
-                lic_name = re.match("([\w\s]*)(::)([\w\s]*)(:: )([\w]*)", res[0])
+                lic_name = re.match("([\\w\\s]*)(::)([\\w\\s]*)(:: )([\\w]*)", res[0])
                 if lic_name is not None:
                     #  print(lic_name)
                     data[lic] = {
@@ -362,7 +362,7 @@ def check_python_toml_dependency(my_file):
                         filter(lambda x: "License" in x, json["info"]["classifiers"])
                     )
                     # print(res)
-                    lic_name = re.match("([\w\s]*)(::)([\w\s]*)(:: )([\w]*)", res[0])
+                    lic_name = re.match("([\\w\\s]*)(::)([\\w\\s]*)(:: )([\\w]*)", res[0])
                     if lic_name is not None:
                         #  print(lic_name)
                         data[lic] = {
@@ -412,7 +412,7 @@ def check_python_toml_dependency(my_file):
                         filter(lambda x: "License" in x, json["info"]["classifiers"])
                     )
                     print(res)
-                    lic_name = re.match("([\w\s]*)(::)([\w\s]*)(:: )([\w]*)", res[0])
+                    lic_name = re.match("([\\w\\s]*)(::)([\\w\\s]*)(:: )([\\w]*)", res[0])
                     if lic_name is not None:
                         #  print(lic_name)
                         data[lic] = {
@@ -440,7 +440,7 @@ def check_python_toml_dependency(my_file):
     elif data_toml["build-system"].get("requires") is not None:
         for package in data_toml["build-system"]["requires"]:
             check_lic_remove_char = re.match(
-                "([\w-]*)(\[.*\])?[ ]*([=~<>]{0,2})[ ]*(.*)", package
+                "([\\w-]*)(\\[.*\\])?[ ]*([=~<>]{0,2})[ ]*(.*)", package
             )
             lic = check_lic_remove_char.group(1)
             # print(lic)
@@ -466,7 +466,7 @@ def check_python_toml_dependency(my_file):
                         filter(lambda x: "License" in x, json["info"]["classifiers"])
                     )
                     print(res)
-                    lic_name = re.match("([\w\s]*)(::)([\w\s]*)(:: )([\w]*)", res[0])
+                    lic_name = re.match("([\\w\\s]*)(::)([\\w\\s]*)(:: )([\\w]*)", res[0])
                     if lic_name is not None:
                         #  print(lic_name)
                         data[lic] = {
