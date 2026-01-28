@@ -11,7 +11,7 @@ export default defineConfig({
     vue(),
     vueJsx(),
     quasar({
-      sassVariables: "src/styles/quasar.variables.sass",
+      sassVariables: fileURLToPath(new URL("./src/styles/quasar.variables.sass", import.meta.url)),
     }),
   ],
   resolve: {
