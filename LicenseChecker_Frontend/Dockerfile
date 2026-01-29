@@ -1,9 +1,11 @@
 # build stage
 FROM node:lts-alpine AS build-stage
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
+COPY . /app
+RUN rm -fr /app/node_modules
+RUN rm -fr /app/dist
+RUN npm install -g npm@latest
+RUN npm install --force
 RUN npm run build
 
 # production stage
