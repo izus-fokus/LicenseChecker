@@ -195,12 +195,12 @@ export default {
       this.updateShowDiv1(this.showDiv1);
       this.updateLicenses(this.licenses);
 
-      // If embedded in License-Recommendation, switch its tab inline
+      // If embedded in License-Recommendation, switch tab via router to carry context
       if (this.$route.name !== 'ZipFileUpload') {
         if (actionType === 'fromDependencyFile') {
-          this.$parent.selectedOption = 'DependencyFileUpload';
+          this.$router.push({ path: '/licenseRecommendation', query: { tab: 'DependencyFileUpload' } });
         } else if (actionType === 'manually') {
-          this.$parent.selectedOption = 'AddLicensesManually';
+          this.$router.push({ path: '/licenseRecommendation', query: { tab: 'AddLicensesManually', from: 'ZipFileUpload' } });
         }
         return;
       }
