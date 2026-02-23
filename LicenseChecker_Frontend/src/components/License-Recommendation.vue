@@ -41,7 +41,6 @@
     <!-- Display license recommendation when selectedOption is 'github' -->
     <div v-if="selectedOption === 'github'">
       <div v-show="showDiv1">
-        {{ licenses }}
         <!-- Step 1: User provides GitHub link and branch name -->
         <div class="row q-mx-xl q-mt-md center-container text-secondary" :class="{
           'custom-background-color': !$q.screen.lt.md,
