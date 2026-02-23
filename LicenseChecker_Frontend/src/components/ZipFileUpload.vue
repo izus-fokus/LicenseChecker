@@ -1,8 +1,16 @@
 <template>
   <q-page class="custom-content">
 
+    <!-- Inline views for standalone mode -->
+    <div v-if="currentView === 'AddLicensesManually'">
+      <AddLicensesManually />
+    </div>
+    <div v-if="currentView === 'DependencyFileUpload'">
+      <DependencyFileUpload />
+    </div>
+
     <!-- Section for uploading zip files -->
-    <div v-if="selectedOption === 'ZipFileUpload'">
+    <div v-if="selectedOption === 'ZipFileUpload' && currentView === 'ZipFileUpload'">
       <div v-show="!showTable" class="center-container custom-background-color">
         <div class="form-container">
           <q-form @submit="uploadZipFile()">
@@ -72,9 +80,15 @@
 
 import axios from 'axios';
 import { mapGetters, mapActions } from 'vuex'
+import AddLicensesManually from './AddLicensesManually.vue'
+import DependencyFileUpload from './DependencyFileUpload.vue'
 
 export default {
   name: "ZipFileUpload",
+  components: {
+    AddLicensesManually,
+    DependencyFileUpload,
+  },
   data() {
     return {
       showTable: false,
@@ -82,6 +96,7 @@ export default {
       file: null,
       fileError: null,
       selectedOption: 'ZipFileUpload',
+      currentView: 'ZipFileUpload',
       options: [
         { value: 'ZipFileUpload', label: 'Zip File Upload' },
       ],
@@ -156,24 +171,26 @@ export default {
     },
     ...mapActions(['updateSelectedOption', 'updateShowDiv1', 'updateLicenses']),
     goToAddLicenses(actionType) {
-      // Store the current state before navigating away
       this.updateSelectedOption(this.selectedOption);
       this.updateShowDiv1(this.showDiv1);
       this.updateLicenses(this.licenses);
 
-      console.log("Selected Option", this.selectedOption);
-      console.log("Showdiv1", this.showDiv1);
-      console.log("Available licenses", this.licenses);
-
-
-
-      // Navigate to DependencyFileUpload.vue
-      if (actionType === 'fromDependencyFile') {
-        this.$router.push('/DependencyFileUpload');
-      } else if (actionType === 'manually') {
-        this.$router.push('/AddLicensesManually');
+      // If embedded in License-Recommendation, switch its tab inline
+      if (this.$route.name !== 'ZipFileUpload') {
+        if (actionType === 'fromDependencyFile') {
+          this.$parent.selectedOption = 'DependencyFileUpload';
+        } else if (actionType === 'manually') {
+          this.$parent.selectedOption = 'AddLicensesManually';
+        }
+        return;
       }
 
+      // Standalone mode: show component inline
+      if (actionType === 'fromDependencyFile') {
+        this.currentView = 'DependencyFileUpload';
+      } else if (actionType === 'manually') {
+        this.currentView = 'AddLicensesManually';
+      }
     },
     async getSoftwareId() {
       const fullBuffer = await this.file.arrayBuffer();
