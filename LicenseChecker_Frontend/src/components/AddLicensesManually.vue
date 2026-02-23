@@ -123,7 +123,11 @@ export default {
                     checkboxSelection: updatedCheckboxSelection,
                 });
             }
-            this.$router.push('/ZipFileUpload');
+            if (this.$route.name === 'LicenseRecommendation') {
+                this.$router.push({ path: '/licenseRecommendation', query: { tab: 'ZipFileUpload' } });
+            } else {
+                this.$router.push('/ZipFileUpload');
+            }
         },
         // Function to fetch permissive and copyleft licenses for manual display
         async fetchLicenses() {

@@ -281,7 +281,11 @@ export default {
           checkboxSelection: updatedCheckboxSelection,
         });
       }
-      this.$router.push('/ZipFileUpload');
+      if (this.$route.name === 'LicenseRecommendation') {
+        this.$router.push({ path: '/licenseRecommendation', query: { tab: 'ZipFileUpload' } });
+      } else {
+        this.$router.push('/ZipFileUpload');
+      }
     },
     // Function to save selected licenses and move to License-Recommendation.vue 
     saveSelected() {
