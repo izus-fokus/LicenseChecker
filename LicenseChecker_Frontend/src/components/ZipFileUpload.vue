@@ -116,11 +116,12 @@ export default {
   },
   methods: {
     handleFileUpload(files) {
-      const maxSize = 50 * 1024 * 1024; // 50MB
+      const limitMb = Number(import.meta.env.VITE_ZIP_UPLOAD_LIMIT_MB) || 50;
+      const maxSize = limitMb * 1024 * 1024;
       if (files[0].size > maxSize) {
         this.$q.notify({
           message: 'File too large',
-          caption: 'The selected file exceeds the 50MB limit. Please upload a smaller file.',
+          caption: `The selected file exceeds the ${limitMb}MB limit. Please upload a smaller file.`,
           type: 'negative',
           position: 'center',
           timeout: 5000,
