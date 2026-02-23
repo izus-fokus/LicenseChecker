@@ -29,7 +29,8 @@
     <div style="max-width: 752px; margin: 0 auto;">
       <q-tabs v-model="selectedOption" align="left" class="q-mx-xl q-mt-md text-secondary" style="background-color: #00beff;"
         indicator-class="custom-indicator">
-        <q-tab v-for="option in options" :key="option.value" :name="option.value" :label="option.label">
+        <q-tab v-for="option in options" :key="option.value" :name="option.value" :label="option.label"
+          @click="handleTabClick(option.value)">
           <q-tooltip class="bg-primary text-secondary shadow-4" :offset="[10, 10]">
             {{ getTooltipContent(option.value) }}
           </q-tooltip>
@@ -255,6 +256,16 @@ export default {
   },
 
   methods: {
+    handleTabClick(value) {
+      if (value === 'ZipFileUpload') {
+        this.$router.push('/ZipFileUpload');
+      } else if (value === 'DependencyFileUpload') {
+        this.$router.push('/DependencyFileUpload');
+      } else if (value === 'AddLicensesManually') {
+        this.$router.push('/AddLicensesManually?from=LicenseRecommendation');
+      }
+      // 'github' tab: no navigation, handled inline as before
+    },
     // Function to show tooltips to each option available
     getTooltipContent(value) {
       switch (value) {
