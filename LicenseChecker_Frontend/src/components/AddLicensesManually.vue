@@ -39,12 +39,15 @@
 
     </div>
     <div class="q-pa-md custom-pos">
-        <q-btn v-if="fromLR" style="text-transform: capitalize; " class="q-ml-sm" @click="() => {
+        <q-btn v-if="inlineContext" style="text-transform: capitalize;" class="q-ml-sm"
+            @click="$emit('add-licenses', combinedSelectedLicenses)"
+            label="Add to Compatibility list" color="secondary" />
+        <q-btn v-else-if="fromLR" style="text-transform: capitalize; " class="q-ml-sm" @click="() => {
             $parent.$emit('selected-rows', this.combinedSelectedLicenses);
             this.$router.push('/licenseRecommendation');
         }
             " label="Add to Compatiblity list" color="secondary" />
-        <q-btn v-if="!fromLR" @click="
+        <q-btn v-else @click="
             $parent.$emit(
                 'changedetailedCompatibleLicensesId',
                 this.combinedSelectedLicenses
@@ -65,6 +68,13 @@ import axios from 'axios';
 
 export default {
     name: "AddLicensesManually",
+    props: {
+        inlineContext: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    emits: ['add-licenses'],
     data() {
         return {
             permissiveLicenses: [],

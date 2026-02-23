@@ -3,10 +3,10 @@
 
     <!-- Inline views for standalone mode -->
     <div v-if="currentView === 'AddLicensesManually'">
-      <AddLicensesManually />
+      <AddLicensesManually :inline-context="true" @add-licenses="handleAddedLicenses" />
     </div>
     <div v-if="currentView === 'DependencyFileUpload'">
-      <DependencyFileUpload />
+      <DependencyFileUpload :inline-context="true" @add-licenses="handleAddedLicenses" />
     </div>
 
     <!-- Section for uploading zip files -->
@@ -55,6 +55,28 @@
                 </q-card-section>
               </q-card>
             </q-expansion-item>
+            <!-- Shows additional licenses added from AddLicensesManually and DependencyFileUpload -->
+            <q-expansion-item v-if="selectedRows.length > 0" class="custom-headerclass bg-primary">
+              <template v-slot:header>
+                <q-item>
+                  <q-item-section>
+                    <span class="text-secondary">Added Licenses</span>
+                  </q-item-section>
+                </q-item>
+              </template>
+              <q-card class="custom-detailclass">
+                <q-card-section>
+                  <q-list>
+                    <q-item v-for="row in selectedRows" :key="row">
+                      <q-item-section>
+                        <q-checkbox v-model="checkboxSelection[row]" :label="row" color="green" />
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-card-section>
+              </q-card>
+            </q-expansion-item>
+
             <div class="q-pa-md q-gutter-sm">
               <q-btn v-if="!fromLR"
                 style="text-transform: capitalize; background-color: #1A8917; color: white;"
@@ -111,6 +133,7 @@ export default {
       licenses: null,
       checkboxSelection: {},
       responseArray: [],
+      selectedRows: [],
       showDiv1: true,
       scrollPosition: 0,
       savedState: null,
@@ -390,6 +413,17 @@ export default {
         });
     },
 
+    handleAddedLicenses(licenses) {
+      licenses.forEach(license => {
+        if (license && !this.selectedRows.includes(license)) {
+          this.selectedRows.push(license);
+        }
+        if (license) {
+          this.checkboxSelection[license] = true;
+        }
+      });
+      this.currentView = 'ZipFileUpload';
+    },
     goBack() {
       this.showTable = false;
     },

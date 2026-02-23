@@ -59,8 +59,10 @@
           </template>
         </q-table>
         <div class="q-mt-md">
-          <q-btn v-if="!fromLR" label="Find Compatible Licenses" @click="saveSelected" class="btn q-mr-xs" />
-          <q-btn v-if="fromLR" @click="updateSelected" label="Add to Compatiblity list" class="btn q-mr-xs" />
+          <q-btn v-if="inlineContext" @click="$emit('add-licenses', dependencyLicenses.filter(r => r.selected).map(r => r.dropdown))"
+            label="Add to Compatibility list" class="btn q-mr-xs" />
+          <q-btn v-else-if="!fromLR" label="Find Compatible Licenses" @click="saveSelected" class="btn q-mr-xs" />
+          <q-btn v-else @click="updateSelected" label="Add to Compatiblity list" class="btn q-mr-xs" />
           <q-btn label="Back" @click="goBack" color="secondary" />
         </div>
       </div>
@@ -76,6 +78,13 @@ import axios from 'axios';
 
 export default {
   name: "DependencyFileUpload",
+  props: {
+    inlineContext: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  emits: ['add-licenses'],
   data() {
     return {
       showTable: false,
