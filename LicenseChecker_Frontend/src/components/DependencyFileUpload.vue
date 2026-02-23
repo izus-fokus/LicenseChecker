@@ -34,7 +34,7 @@
             <q-tr :props="props">
               <q-td v-for="col in props.cols" :key="col.name" :props="props">
                 <span v-if="col.name === 'selected'">
-                  <q-checkbox v-model="props.row.selected" />
+                  <q-checkbox v-model="props.row.selected" color="green" />
                 </span>
                 <span v-else-if="col.name === 'package_name'">
                   {{ props.row.package_name }}
