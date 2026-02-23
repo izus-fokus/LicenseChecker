@@ -171,12 +171,8 @@ export default {
                 // File unknown to VirusTotal – proceed with upload
                 console.log("VirusTotal: file not in database, proceeding");
               } else if (vtError.response?.status === 429) {
-                this.$q.dialog({
-                  title: 'VirusTotal Rate Limit Reached',
-                  message: 'The VirusTotal API limit of 4 requests per minute has been exceeded. Please wait a moment and try again.',
-                  ok: { label: 'OK', color: 'primary' },
-                });
-                return;
+                // Rate limit reached – silently skip and proceed with upload
+                console.warn("VirusTotal rate limit reached, skipping check");
               } else {
                 // API unreachable or other error – warn but don't block upload
                 console.warn("VirusTotal check failed, proceeding:", vtError.message);

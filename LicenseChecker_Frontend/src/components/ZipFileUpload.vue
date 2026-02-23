@@ -299,7 +299,39 @@ export default {
           }
         });
     },
-    uploadZipFile() {
+    async uploadZipFile() {
+      const vtApiKey = import.meta.env.VITE_VIRUSTOTAL_API_KEY;
+      if (vtApiKey && this.softwareid) {
+        this.$q.loading.show({
+          message: 'Checking file with VirusTotal...',
+          boxClass: 'bg-grey-2 text-secondary',
+          spinnerColor: 'secondary',
+        });
+        try {
+          const vtResponse = await axios.get(
+            `https://www.virustotal.com/api/v3/files/${this.softwareid}`,
+            { headers: { 'x-apikey': vtApiKey } }
+          );
+          const stats = vtResponse.data?.data?.attributes?.last_analysis_stats;
+          if (stats && stats.malicious > 0) {
+            this.fileError = `VirusTotal flagged this file as malicious (${stats.malicious} detection(s)). Upload blocked.`;
+            this.$q.loading.hide();
+            return;
+          }
+          console.log("VirusTotal: file is clean", stats);
+        } catch (vtError) {
+          if (vtError.response?.status === 404) {
+            // File unknown to VirusTotal – proceed with upload
+            console.log("VirusTotal: file not in database, proceeding");
+          } else if (vtError.response?.status === 429) {
+            // Rate limit reached – silently skip and proceed with upload
+            console.warn("VirusTotal rate limit reached, skipping check");
+          } else {
+            // API unreachable or other error – warn but don't block upload
+            console.warn("VirusTotal check failed, proceeding:", vtError.message);
+          }
+        }
+      }
       this.$parent.$emit(
         "uploadZipFile",
         this.file.name,
