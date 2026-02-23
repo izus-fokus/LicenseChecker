@@ -198,7 +198,7 @@ export default {
       // If embedded in License-Recommendation, switch tab via router to carry context
       if (this.$route.name !== 'ZipFileUpload') {
         if (actionType === 'fromDependencyFile') {
-          this.$router.push({ path: '/licenseRecommendation', query: { tab: 'DependencyFileUpload' } });
+          this.$router.push({ path: '/licenseRecommendation', query: { tab: 'DependencyFileUpload', from: 'ZipFileUpload' } });
         } else if (actionType === 'manually') {
           this.$router.push({ path: '/licenseRecommendation', query: { tab: 'AddLicensesManually', from: 'ZipFileUpload' } });
         }

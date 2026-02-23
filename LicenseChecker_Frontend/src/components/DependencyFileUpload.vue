@@ -126,9 +126,24 @@ export default {
   beforeRouteEnter(to, from, next) {
     // Check if the user came from LR.vue or ZipFileUpload.vue by route name
     next((vm) => {
-      vm.fromLR = from.name === 'LicenseRecommendation';
-      vm.fromZip = from.name === 'ZipFileUpload';
+      if (!vm.fromLR && !vm.fromZip) {
+        vm.fromLR = from.name === 'LicenseRecommendation';
+        vm.fromZip = from.name === 'ZipFileUpload';
+      }
     });
+  },
+  watch: {
+    '$route.query.from'(val) {
+      this.fromZip = val === 'ZipFileUpload';
+      this.fromLR = val === 'LicenseRecommendation';
+    },
+  },
+  mounted() {
+    if (this.$route?.query?.from === 'ZipFileUpload') {
+      this.fromZip = true;
+    } else if (this.$route?.query?.from === 'LicenseRecommendation') {
+      this.fromLR = true;
+    }
   },
   methods: {
     // Function to handle file upload
