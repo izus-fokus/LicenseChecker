@@ -100,8 +100,10 @@ export default {
     beforeRouteEnter(to, from, next) {
         next((vm) => { // 'vm' will be the instance of the component after it is created
             console.log("Navigating from:", from); // Debugging log
-            vm.fromLR = from.name === 'LicenseRecommendation'; // Check if the previous route is 'licenseRecommendation'
-            vm.fromZip = from.name === 'ZipFileUpload';
+            if (!vm.fromLR && !vm.fromZip) {
+                vm.fromLR = from.name === 'LicenseRecommendation';
+                vm.fromZip = from.name === 'ZipFileUpload';
+            }
             console.log("fromLR value:", vm.fromLR); // Log the value of fromLR
         });
     },
@@ -164,6 +166,11 @@ export default {
 
     },
     mounted() {
+        if (this.$route?.query?.from === 'ZipFileUpload') {
+            this.fromZip = true;
+        } else if (this.$route?.query?.from === 'LicenseRecommendation') {
+            this.fromLR = true;
+        }
         this.fetchLicenses();
     },
     filter: ref(""),

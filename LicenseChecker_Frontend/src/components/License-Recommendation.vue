@@ -292,7 +292,7 @@ export default {
       if (actionType === 'fromDependencyFile') {
         this.$router.push('/DependencyFileUpload');
       } else if (actionType === 'manually') {
-        this.$router.push('/AddLicensesManually');
+        this.$router.push('/AddLicensesManually?from=LicenseRecommendation');
       }
 
     },

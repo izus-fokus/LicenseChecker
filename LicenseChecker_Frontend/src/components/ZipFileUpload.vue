@@ -216,7 +216,7 @@ export default {
       if (actionType === 'fromDependencyFile') {
         this.$router.push('/DependencyFileUpload');
       } else if (actionType === 'manually') {
-        this.$router.push('/AddLicensesManually');
+        this.$router.push('/AddLicensesManually?from=ZipFileUpload');
       }
     },
     async getSoftwareId() {
@@ -424,9 +424,16 @@ export default {
       const selectedLicenses = Object.keys(this.checkboxSelection).filter(
         (license) => this.checkboxSelection[license]
       );
+      this.updateZipFileUploadState({
+        showTable: this.showTable,
+        licenses: this.licenses,
+        checkboxSelection: this.checkboxSelection,
+        selectedRows: this.selectedRows,
+        softwareid: this.softwareid,
+      });
       this.$parent.$emit('changedetailedCompatibleLicensesId', selectedLicenses);
       this.$parent.$emit('getCompatibleLicenses', selectedLicenses);
-      this.$router.push("/compatibleLicenses");
+      this.$router.push("/compatibleLicenses?from=ZipFileUpload");
     },
     updateSelected() {
       const selectedLicenses = Object.keys(this.checkboxSelection).filter(
