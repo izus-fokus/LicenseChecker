@@ -249,22 +249,24 @@ export default {
 
   },
   mounted() {
-    this.selectedOption = this.getSelectedOption;
+    this.selectedOption = this.$route.query.tab || this.getSelectedOption;
     this.showDiv1 = this.getShowDiv1;
     this.licenses = this.getLicenses;
     this.logValues();
   },
 
+  watch: {
+    '$route.query.tab'(val) {
+      this.selectedOption = val || 'github';
+    },
+  },
+
   methods: {
     handleTabClick(value) {
-      if (value === 'ZipFileUpload') {
-        this.$router.push('/ZipFileUpload');
-      } else if (value === 'DependencyFileUpload') {
-        this.$router.push('/DependencyFileUpload');
-      } else if (value === 'AddLicensesManually') {
-        this.$router.push('/AddLicensesManually?from=LicenseRecommendation');
-      }
-      // 'github' tab: no navigation, handled inline as before
+      this.$router.push({
+        path: '/licenseRecommendation',
+        query: value !== 'github' ? { tab: value } : {},
+      });
     },
     // Function to show tooltips to each option available
     getTooltipContent(value) {
