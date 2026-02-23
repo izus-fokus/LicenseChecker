@@ -5,13 +5,14 @@
     <div v-if="selectedOption === 'ZipFileUpload'">
       <div v-show="!showTable" class="center-container custom-background-color">
         <div class="form-container">
-          <q-form @submit="uploadZipFile()">
+          <q-form>
             <q-uploader ref="uploader" hide-upload-btn label="Upload zip file" accept=".zip" @added="handleFileUpload"
               color="secondary">
             </q-uploader>
 
             <q-btn style=" margin-top: 15px; background-color:#1A8917; text-transform:capitalize; color: white;"
-              :label="loading ? 'Uploading...' : 'Submit'" type="submit" :loading="loading" :disable="loading || !file" />
+              :label="loading ? 'Uploading...' : 'Submit'" type="button" :loading="loading" :disable="loading || !file"
+              @click="uploadZipFile" />
           </q-form>
           <q-banner v-if="fileError" dense inline-actions class="text-secondary bg-red q-mt-lg ">
             {{ fileError }}
