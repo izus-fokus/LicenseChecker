@@ -144,6 +144,22 @@ export default {
     }
   },
 
+  watch: {
+    '$route.query.tab'(val) {
+      if (val === 'ZipFileUpload') {
+        const savedState = this.getZipFileUploadState;
+        if (savedState) {
+          this.showTable = savedState.showTable;
+          this.licenses = savedState.licenses;
+          this.checkboxSelection = { ...savedState.checkboxSelection };
+          this.selectedRows = [...(savedState.selectedRows || [])];
+          this.softwareid = savedState.softwareid;
+          this.updateZipFileUploadState(null);
+        }
+      }
+    },
+  },
+
   beforeRouteEnter(to, from, next) {
     next((vm) => {
       vm.fromLR = from.name === 'LicenseRecommendation';
@@ -197,6 +213,13 @@ export default {
 
       // If embedded in License-Recommendation, switch tab via router to carry context
       if (this.$route.name !== 'ZipFileUpload') {
+        this.updateZipFileUploadState({
+          showTable: this.showTable,
+          licenses: this.licenses,
+          checkboxSelection: this.checkboxSelection,
+          selectedRows: this.selectedRows,
+          softwareid: this.softwareid,
+        });
         if (actionType === 'fromDependencyFile') {
           this.$router.push({ path: '/licenseRecommendation', query: { tab: 'DependencyFileUpload', from: 'ZipFileUpload' } });
         } else if (actionType === 'manually') {
