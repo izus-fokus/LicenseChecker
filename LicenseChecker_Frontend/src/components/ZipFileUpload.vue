@@ -1,16 +1,8 @@
 <template>
   <q-page class="custom-content">
 
-    <!-- Inline views for standalone mode -->
-    <div v-if="currentView === 'AddLicensesManually'">
-      <AddLicensesManually :inline-context="true" @add-licenses="handleAddedLicenses" />
-    </div>
-    <div v-if="currentView === 'DependencyFileUpload'">
-      <DependencyFileUpload :inline-context="true" @add-licenses="handleAddedLicenses" />
-    </div>
-
     <!-- Section for uploading zip files -->
-    <div v-if="selectedOption === 'ZipFileUpload' && currentView === 'ZipFileUpload'">
+    <div v-if="selectedOption === 'ZipFileUpload'">
       <div v-show="!showTable" class="center-container custom-background-color">
         <div class="form-container">
           <q-form @submit="uploadZipFile()">
@@ -102,15 +94,9 @@
 
 import axios from 'axios';
 import { mapGetters, mapActions } from 'vuex'
-import AddLicensesManually from './AddLicensesManually.vue'
-import DependencyFileUpload from './DependencyFileUpload.vue'
 
 export default {
   name: "ZipFileUpload",
-  components: {
-    AddLicensesManually,
-    DependencyFileUpload,
-  },
   data() {
     return {
       showTable: false,
@@ -118,7 +104,6 @@ export default {
       file: null,
       fileError: null,
       selectedOption: 'ZipFileUpload',
-      currentView: 'ZipFileUpload',
       options: [
         { value: 'ZipFileUpload', label: 'Zip File Upload' },
       ],
@@ -141,10 +126,22 @@ export default {
   },
 
   computed: { // accessing the state from store
-    ...mapGetters(['getSelectedOption', 'getShowDiv1', 'getLicenses']),
+    ...mapGetters(['getSelectedOption', 'getShowDiv1', 'getLicenses', 'getZipFileUploadState']),
 
 
 
+  },
+
+  mounted() {
+    const savedState = this.getZipFileUploadState;
+    if (savedState) {
+      this.showTable = savedState.showTable;
+      this.licenses = savedState.licenses;
+      this.checkboxSelection = savedState.checkboxSelection;
+      this.selectedRows = savedState.selectedRows;
+      this.softwareid = savedState.softwareid;
+      this.updateZipFileUploadState(null);
+    }
   },
 
   beforeRouteEnter(to, from, next) {
@@ -192,7 +189,7 @@ export default {
       console.log('showDiv1:', this.showDiv1);
       console.log('licenses:', this.licenses);
     },
-    ...mapActions(['updateSelectedOption', 'updateShowDiv1', 'updateLicenses']),
+    ...mapActions(['updateSelectedOption', 'updateShowDiv1', 'updateLicenses', 'updateZipFileUploadState']),
     goToAddLicenses(actionType) {
       this.updateSelectedOption(this.selectedOption);
       this.updateShowDiv1(this.showDiv1);
@@ -208,11 +205,18 @@ export default {
         return;
       }
 
-      // Standalone mode: show component inline
+      // Standalone mode: save state and navigate via router (like LicenseRecommendation)
+      this.updateZipFileUploadState({
+        showTable: this.showTable,
+        licenses: this.licenses,
+        checkboxSelection: this.checkboxSelection,
+        selectedRows: this.selectedRows,
+        softwareid: this.softwareid,
+      });
       if (actionType === 'fromDependencyFile') {
-        this.currentView = 'DependencyFileUpload';
+        this.$router.push('/DependencyFileUpload');
       } else if (actionType === 'manually') {
-        this.currentView = 'AddLicensesManually';
+        this.$router.push('/AddLicensesManually');
       }
     },
     async getSoftwareId() {
@@ -413,17 +417,6 @@ export default {
         });
     },
 
-    handleAddedLicenses(licenses) {
-      licenses.forEach(license => {
-        if (license && !this.selectedRows.includes(license)) {
-          this.selectedRows.push(license);
-        }
-        if (license) {
-          this.checkboxSelection[license] = true;
-        }
-      });
-      this.currentView = 'ZipFileUpload';
-    },
     goBack() {
       this.showTable = false;
     },

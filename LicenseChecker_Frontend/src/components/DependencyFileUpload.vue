@@ -61,6 +61,8 @@
         <div class="q-mt-md">
           <q-btn v-if="inlineContext" @click="$emit('add-licenses', dependencyLicenses.filter(r => r.selected).map(r => r.dropdown))"
             label="Add to Compatibility list" class="btn q-mr-xs" />
+          <q-btn v-else-if="fromZip" @click="updateSelectedForZip"
+            label="Add to Compatibility list of Zip File Upload" class="btn q-mr-xs" />
           <q-btn v-else-if="!fromLR" label="Find Compatible Licenses" @click="saveSelected" class="btn q-mr-xs" />
           <q-btn v-else @click="updateSelected" label="Add to Compatiblity list" class="btn q-mr-xs" />
           <q-btn label="Back" @click="goBack" color="secondary" />
@@ -74,6 +76,7 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters, mapActions } from 'vuex';
 
 
 export default {
@@ -114,12 +117,17 @@ export default {
         { name: 'license', label: 'License Name', align: 'left' }
       ],
       fromLR: false,
+      fromZip: false,
     };
   },
+  computed: {
+    ...mapGetters(['getZipFileUploadState']),
+  },
   beforeRouteEnter(to, from, next) {
-    // Check if the user came from LR.vue by its route name or path
+    // Check if the user came from LR.vue or ZipFileUpload.vue by route name
     next((vm) => {
-      vm.fromLR = from.name === 'LicenseRecommendation'; // Or use `from.path === '/path-to-LR'` if route name is not set
+      vm.fromLR = from.name === 'LicenseRecommendation';
+      vm.fromZip = from.name === 'ZipFileUpload';
     });
   },
   methods: {
@@ -237,11 +245,28 @@ export default {
     goBack() {
       this.showTable = false;
     },
+    ...mapActions(['updateZipFileUploadState']),
     updateSelected() {
       const addtocompatiblelist = this.dependencyLicenses.filter(row => row.selected).map(row => row.dropdown);
       this.$parent.$emit('selected-rows', addtocompatiblelist);
       this.$router.push('/licenseRecommendation'); // Navigate programmatically
 
+    },
+    updateSelectedForZip() {
+      const newLicenses = this.dependencyLicenses.filter(row => row.selected).map(row => row.dropdown).filter(Boolean);
+      const savedState = this.getZipFileUploadState;
+      if (savedState) {
+        const existingRows = savedState.selectedRows || [];
+        const merged = [...new Set([...existingRows, ...newLicenses])];
+        const updatedCheckboxSelection = { ...savedState.checkboxSelection };
+        newLicenses.forEach(r => { updatedCheckboxSelection[r] = true; });
+        this.updateZipFileUploadState({
+          ...savedState,
+          selectedRows: merged,
+          checkboxSelection: updatedCheckboxSelection,
+        });
+      }
+      this.$router.push('/ZipFileUpload');
     },
     // Function to save selected licenses and move to License-Recommendation.vue 
     saveSelected() {

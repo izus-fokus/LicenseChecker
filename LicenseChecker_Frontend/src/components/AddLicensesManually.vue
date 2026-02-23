@@ -42,6 +42,9 @@
         <q-btn v-if="inlineContext" style="text-transform: capitalize;" class="q-ml-sm"
             @click="$emit('add-licenses', combinedSelectedLicenses)"
             label="Add to Compatibility list" color="secondary" />
+        <q-btn v-else-if="fromZip" style="text-transform: capitalize;" class="q-ml-sm"
+            @click="addToZipCompatibilityList"
+            label="Add to Compatibility list of Zip File Upload" color="secondary" />
         <q-btn v-else-if="fromLR" style="text-transform: capitalize; " class="q-ml-sm" @click="() => {
             $parent.$emit('selected-rows', this.combinedSelectedLicenses);
             this.$router.push('/licenseRecommendation');
@@ -65,6 +68,7 @@
 <script>
 import { ref } from 'vue';
 import axios from 'axios';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: "AddLicensesManually",
@@ -87,16 +91,38 @@ export default {
                 { name: 'license', label: 'License Name', align: 'left', field: 'license', sortable: true }
             ],
             fromLR: false,
+            fromZip: false,
         };
+    },
+    computed: {
+        ...mapGetters(['getZipFileUploadState']),
     },
     beforeRouteEnter(to, from, next) {
         next((vm) => { // 'vm' will be the instance of the component after it is created
             console.log("Navigating from:", from); // Debugging log
             vm.fromLR = from.name === 'LicenseRecommendation'; // Check if the previous route is 'licenseRecommendation'
+            vm.fromZip = from.name === 'ZipFileUpload';
             console.log("fromLR value:", vm.fromLR); // Log the value of fromLR
         });
     },
     methods: {
+        ...mapActions(['updateZipFileUploadState']),
+        addToZipCompatibilityList() {
+            const newLicenses = this.combinedSelectedLicenses.filter(Boolean);
+            const savedState = this.getZipFileUploadState;
+            if (savedState) {
+                const existingRows = savedState.selectedRows || [];
+                const merged = [...new Set([...existingRows, ...newLicenses])];
+                const updatedCheckboxSelection = { ...savedState.checkboxSelection };
+                newLicenses.forEach(r => { updatedCheckboxSelection[r] = true; });
+                this.updateZipFileUploadState({
+                    ...savedState,
+                    selectedRows: merged,
+                    checkboxSelection: updatedCheckboxSelection,
+                });
+            }
+            this.$router.push('/ZipFileUpload');
+        },
         // Function to fetch permissive and copyleft licenses for manual display
         async fetchLicenses() {
             try {
