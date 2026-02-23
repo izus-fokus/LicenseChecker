@@ -173,58 +173,6 @@ export default {
         const arrayBuffer = await slice.arrayBuffer();
         const zip = isZipFile(arrayBuffer);
         if (zip === true) {
-          // SHA256 + VirusTotal check
-          try {
-            const fullBuffer = await file.arrayBuffer();
-            const hashBuffer = await crypto.subtle.digest('SHA-256', fullBuffer);
-            const sha256 = Array.from(new Uint8Array(hashBuffer))
-              .map(b => b.toString(16).padStart(2, '0'))
-              .join('');
-            console.log("File SHA256:", sha256);
-
-            const vtApiKey = import.meta.env.VITE_VIRUSTOTAL_API_KEY;
-            if (vtApiKey) {
-              this.$q.loading.show({
-                message: 'Checking file with VirusTotal...',
-                boxClass: 'bg-blue text-secondary',
-                spinnerColor: 'primary'
-              });
-              try {
-                const vtResponse = await axios.get(
-                  `https://www.virustotal.com/api/v3/files/${sha256}`,
-                  { headers: { 'x-apikey': vtApiKey } }
-                );
-                const stats = vtResponse.data?.data?.attributes?.last_analysis_stats;
-                if (stats && stats.malicious > 0) {
-                  this.$q.loading.hide();
-                  this.errorMessage = `VirusTotal flagged this file as malicious (${stats.malicious} detection(s)). Upload blocked.`;
-                  console.error("VirusTotal: file flagged as malicious", stats);
-                  return;
-                }
-                console.log("VirusTotal: file is clean", stats);
-              } catch (vtError) {
-                if (vtError.response?.status === 404) {
-                  // File unknown to VirusTotal – proceed with upload
-                  console.log("VirusTotal: file not in database, proceeding");
-                } else if (vtError.response?.status === 429) {
-                  this.$q.loading.hide();
-                  this.$q.dialog({
-                    title: 'VirusTotal Rate Limit Reached',
-                    message: 'The VirusTotal API limit of 4 requests per minute has been exceeded. Please wait a moment and try again.',
-                    ok: { label: 'OK', color: 'primary' },
-                  });
-                  return;
-                } else {
-                  // API unreachable or other error – warn but don't block upload
-                  console.warn("VirusTotal check failed, proceeding:", vtError.message);
-                }
-              }
-            }
-          } catch (hashError) {
-            // Crypto API failure – warn but don't block upload
-            console.warn("SHA256 computation failed, proceeding:", hashError);
-          }
-
           const formData = new FormData()
 
           formData.append("filename", fileName);
