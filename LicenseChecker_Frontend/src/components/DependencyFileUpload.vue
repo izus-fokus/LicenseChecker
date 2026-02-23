@@ -132,12 +132,6 @@ export default {
       }
     });
   },
-  watch: {
-    '$route.query.from'(val) {
-      this.fromZip = val === 'ZipFileUpload';
-      this.fromLR = val === 'LicenseRecommendation';
-    },
-  },
   mounted() {
     if (this.$route?.query?.from === 'ZipFileUpload') {
       this.fromZip = true;
@@ -322,6 +316,10 @@ export default {
 
   // Watcher for dependencyLicenses to update selectedLicenseIds
   watch: {
+    '$route.query.from'(val) {
+      this.fromZip = val === 'ZipFileUpload';
+      this.fromLR = val === 'LicenseRecommendation';
+    },
     selectedChoice() {
       this.validateFileType();
     },
