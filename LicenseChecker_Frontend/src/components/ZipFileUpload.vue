@@ -302,11 +302,6 @@ export default {
     async uploadZipFile() {
       const vtApiKey = import.meta.env.VITE_VIRUSTOTAL_API_KEY;
       if (vtApiKey && this.softwareid) {
-        this.$q.loading.show({
-          message: 'Checking file with VirusTotal...',
-          boxClass: 'bg-grey-2 text-secondary',
-          spinnerColor: 'secondary',
-        });
         try {
           const vtResponse = await axios.get(
             `https://www.virustotal.com/api/v3/files/${this.softwareid}`,
@@ -315,7 +310,6 @@ export default {
           const stats = vtResponse.data?.data?.attributes?.last_analysis_stats;
           if (stats && stats.malicious > 0) {
             this.fileError = `VirusTotal flagged this file as malicious (${stats.malicious} detection(s)). Upload blocked.`;
-            this.$q.loading.hide();
             return;
           }
           console.log("VirusTotal: file is clean", stats);

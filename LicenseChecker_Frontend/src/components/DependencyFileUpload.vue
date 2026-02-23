@@ -149,11 +149,6 @@ export default {
 
           const vtApiKey = import.meta.env.VITE_VIRUSTOTAL_API_KEY;
           if (vtApiKey) {
-            this.$q.loading.show({
-              message: 'Checking file with VirusTotal...',
-              boxClass: 'bg-blue text-secondary',
-              spinnerColor: 'primary'
-            });
             try {
               const vtResponse = await axios.get(
                 `https://www.virustotal.com/api/v3/files/${sha256}`,
