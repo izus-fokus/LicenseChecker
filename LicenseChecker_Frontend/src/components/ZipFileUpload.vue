@@ -11,7 +11,7 @@
             </q-uploader>
 
             <q-btn style=" margin-top: 15px; background-color:#1A8917; text-transform:capitalize; color: white;"
-              :label="loading ? 'Uploading...' : 'Submit'" type="submit" :loading="loading" :disable="loading || !file" />
+              :label="loading ? 'Uploading...' : 'Submit'" type="submit" :loading="loading" :disable="loading || !file || submitted" />
           </q-form>
           <q-banner v-if="fileError" dense inline-actions class="text-secondary bg-red q-mt-lg ">
             {{ fileError }}
@@ -122,6 +122,7 @@ export default {
       showDiv1: true,
       scrollPosition: 0,
       savedState: null,
+      submitted: false,
     };
   },
 
@@ -180,6 +181,7 @@ export default {
         this.file = null;
         return;
       }
+      this.submitted = false;
       this.file = files[0];
       this.getSoftwareId();
     },
@@ -368,6 +370,7 @@ export default {
         });
     },
     async uploadZipFile() {
+      this.submitted = true;
       const vtApiKey = import.meta.env.VITE_VIRUSTOTAL_API_KEY;
       if (vtApiKey && this.softwareid) {
         try {
