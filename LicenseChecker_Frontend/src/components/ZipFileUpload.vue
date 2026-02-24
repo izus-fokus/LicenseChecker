@@ -372,7 +372,8 @@ export default {
     async uploadZipFile() {
       this.submitted = true;
       const vtApiKey = import.meta.env.VITE_VIRUSTOTAL_API_KEY;
-      if (vtApiKey && this.softwareid) {
+      const vtEnabled = import.meta.env.VITE_VIRUSTOTAL_ENABLED !== 'false';
+      if (vtEnabled && vtApiKey && this.softwareid) {
         try {
           const vtResponse = await axios.get(
             `https://www.virustotal.com/api/v3/files/${this.softwareid}`,

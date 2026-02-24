@@ -174,7 +174,8 @@ export default {
           console.log("File SHA256:", sha256);
 
           const vtApiKey = import.meta.env.VITE_VIRUSTOTAL_API_KEY;
-          if (vtApiKey) {
+          const vtEnabled = import.meta.env.VITE_VIRUSTOTAL_ENABLED !== 'false';
+          if (vtEnabled && vtApiKey) {
             try {
               const vtResponse = await axios.get(
                 `https://www.virustotal.com/api/v3/files/${sha256}`,
