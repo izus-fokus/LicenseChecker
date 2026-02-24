@@ -26,6 +26,8 @@ services:
     networks:
       - resus
     restart: unless-stopped
+    volumes:
+      - fossologydata:/tmp:rw
   license-engine:
     container_name: engine
     image: "cr.tik.uni-stuttgart.de/izus-darus/license-checker/engine:${TAGENGINE}"
@@ -36,6 +38,11 @@ services:
     environment:
       - FOSSOLOGY_ENDPOINT_BASE_PATH=http://fossology:80
     restart: unless-stopped
+    volumes:
+      - licenseenginedata:/tmp:rw
 networks:
   resus:
     driver: bridge
+volumes:
+  licenseenginedata:
+  fossologydata:
