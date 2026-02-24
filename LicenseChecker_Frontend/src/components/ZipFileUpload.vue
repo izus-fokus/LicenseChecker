@@ -287,6 +287,20 @@ export default {
               spinnerColor: "secondary",
             });
           }
+          if (this.status === "FAILING") {
+            clearInterval(this.checkTimer);
+            this.checkTimer = null;
+            this.$q.loading.hide();
+            this.$q.notify({
+              message: "Analysis failed.",
+              caption: "Please try uploading the file again.",
+              type: "negative",
+              position: "center",
+              timeout: 5000,
+            });
+            this.resetComponent();
+            return;
+          }
           if (this.status == "FINISHED") {
             setTimeout(() => {
               // Check if there is an error message
@@ -470,6 +484,21 @@ export default {
       this.$router.push('/licenseRecommendation');
     },
 
+    resetComponent() {
+      this.showTable = false;
+      this.loading = false;
+      this.file = null;
+      this.fileError = null;
+      this.submitted = false;
+      this.status = " ";
+      this.softwareid = null;
+      this.licenses = null;
+      this.checkboxSelection = {};
+      this.selectedRows = [];
+      if (this.$refs.uploader) {
+        this.$refs.uploader.reset();
+      }
+    },
     reanalyze() {
       // Delete the software with the specified software-id
       axios
