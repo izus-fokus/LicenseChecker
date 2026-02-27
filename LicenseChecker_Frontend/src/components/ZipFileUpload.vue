@@ -6,7 +6,7 @@
       <div v-show="!showTable" class="center-container custom-background-color">
         <div class="form-container">
           <q-form @submit="uploadZipFile()">
-            <q-uploader ref="uploader" hide-upload-btn label="Upload zip file" accept=".zip" @added="handleFileUpload"
+            <q-uploader ref="uploader" hide-upload-btn :label="`Upload zip file (max ${uploadLimitMb} MB)`" accept=".zip" @added="handleFileUpload"
               color="secondary">
             </q-uploader>
 
@@ -128,6 +128,9 @@ export default {
 
   computed: { // accessing the state from store
     ...mapGetters(['getSelectedOption', 'getShowDiv1', 'getLicenses', 'getZipFileUploadState']),
+    uploadLimitMb() {
+      return Number(import.meta.env.VITE_ZIP_UPLOAD_LIMIT_MB) || 3;
+    },
 
 
 
@@ -168,7 +171,7 @@ export default {
   },
   methods: {
     handleFileUpload(files) {
-      const limitMb = Number(import.meta.env.VITE_ZIP_UPLOAD_LIMIT_MB) || 50;
+      const limitMb = this.uploadLimitMb;
       const maxSize = limitMb * 1024 * 1024;
       if (files[0].size > maxSize) {
         this.$q.notify({
