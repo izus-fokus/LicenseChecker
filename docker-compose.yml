@@ -49,8 +49,10 @@ services:
       - POSTGRES_USER=fossy
       - POSTGRES_PASSWORD=fossy
       - POSTGRES_INITDB_ARGS='-E SQL_ASCII'
+    ports:
+      - "5432:5432"                # Host‑Port : Container‑Port (optional)
     volumes:
-      - database:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready --dbname $$POSTGRES_DB --username $$POSTGRES_USER"]
       interval: 10s
@@ -76,5 +78,7 @@ networks:
     driver: bridge
 volumes:
   licenseenginedata:
-  database:
+  pg_data:
+    name: pg_data                 # benannter Docker‑Volume
+    driver: local
   repository:
