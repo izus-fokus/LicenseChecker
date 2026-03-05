@@ -35,7 +35,7 @@ services:
       - db
     healthcheck:
       test: ["CMD-SHELL", "curl http://localhost/repo/api/v2/info"]
-      interval: 60s
+      interval: 10s
       start_period: 2s
       timeout: 3s
     volumes:
