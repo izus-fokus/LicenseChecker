@@ -26,6 +26,35 @@ services:
     networks:
       - resus
     restart: unless-stopped
+    environment:
+      - FOSSOLOGY_DB_HOST=db
+      - FOSSOLOGY_DB_NAME=fossology
+      - FOSSOLOGY_DB_USER=fossy
+      - FOSSOLOGY_DB_PASSWORD=fossy
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD-SHELL", "curl http://localhost/repo/api/v2/info"]
+      interval: 60s
+      start_period: 2s
+      timeout: 3s
+    volumes:
+      - repository:/srv/fossology/repository/
+  db:
+    image: docker.io/postgres:16
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=fossology
+      - POSTGRES_USER=fossy
+      - POSTGRES_PASSWORD=fossy
+      - POSTGRES_INITDB_ARGS='-E SQL_ASCII'
+    volumes:
+      - database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready --dbname $$POSTGRES_DB --username $$POSTGRES_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   license-engine:
     container_name: engine
     image: "cr.tik.uni-stuttgart.de/izus-darus/license-checker/engine:${TAGENGINE}"
@@ -36,6 +65,9 @@ services:
     environment:
       - FOSSOLOGY_ENDPOINT_BASE_PATH=http://fossology:80
     restart: unless-stopped
+    depends_on:
+      fossology:
+        condition: service_healthy
     volumes:
       - licenseenginedata:/licenseengine/tmp:rw
 networks:
@@ -43,3 +75,5 @@ networks:
     driver: bridge
 volumes:
   licenseenginedata:
+  database:
+  repository:
