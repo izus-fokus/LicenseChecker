@@ -41,7 +41,7 @@ services:
     volumes:
       - repository:/srv/fossology/repository/
   db:
-    image: docker.io/postgres:16
+    image: docker.io/postgres:16-alpine3.22
     container_name: postgres
     restart: unless-stopped
     environment:
