@@ -22,7 +22,7 @@ services:
     image: docker.io/fossology/fossology:4.6.0
     platform: linux/amd64
     ports:
-      - "127.0.0.1:7100:80"
+      - '7100:80'
     networks:
       - resus
     restart: unless-stopped
@@ -61,10 +61,7 @@ services:
   license-engine:
     container_name: engine
     image: "cr.tik.uni-stuttgart.de/izus-darus/license-checker/engine:${TAGENGINE}"
-    ports:
-      - '7001:7000'
-    networks:
-      - resus
+    network_mode: "host"
     environment:
       - FOSSOLOGY_ENDPOINT_BASE_PATH=http://localhost:7100
     restart: unless-stopped
