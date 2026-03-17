@@ -1,0 +1,18 @@
+[Unit]
+Description=LicenseChecker license engine
+After=fossology.service
+Requires=fossology.service
+
+[Container]
+# Set TAGENGINE in an EnvironmentFile or substitute before deployment
+Image=cr.tik.uni-stuttgart.de/izus-darus/license-checker/engine:${TAGENGINE}
+ContainerName=engine
+Network=host
+Environment=FOSSOLOGY_ENDPOINT_BASE_PATH=http://localhost:7100
+Volume=licenseenginedata.volume:/licenseengine/tmp:rw
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

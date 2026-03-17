@@ -1,0 +1,16 @@
+[Unit]
+Description=LicenseChecker backend
+After=network-online.target
+
+[Container]
+# Set TAGBACKEND in an EnvironmentFile or substitute before deployment
+Image=cr.tik.uni-stuttgart.de/izus-darus/license-checker/backend:${TAGBACKEND}
+ContainerName=backend
+PublishPort=8000:8000
+Network=resus.network
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
