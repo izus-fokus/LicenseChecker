@@ -1,0 +1,20 @@
+[Unit]
+Description=LicenseChecker full stack
+After=network-online.target
+
+[Kube]
+Yaml=licensechecker.yaml
+# Volumes are created automatically from the PVCs declared in the YAML
+# To substitute image tags before starting:
+#   sed -e "s/TAGBACKEND/$TAGBACKEND/" -e "s/TAGENGINE/$TAGENGINE/" \
+#       -e "s/TAGFRONTED/$TAGFRONTED/" licensechecker.yaml | podman kube play -
+PublishPort=5432:5432
+PublishPort=7100:7100
+PublishPort=8000:8000
+PublishPort=5173:5173
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

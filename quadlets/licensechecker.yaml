@@ -1,0 +1,88 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: licensechecker-config
+data:
+  POSTGRES_DB: fossology
+  POSTGRES_USER: fossy
+  POSTGRES_PASSWORD: fossy
+  POSTGRES_INITDB_ARGS: -E SQL_ASCII
+  # All containers share the pod network namespace, so DB is at localhost
+  FOSSOLOGY_DB_HOST: localhost
+  FOSSOLOGY_DB_NAME: fossology
+  FOSSOLOGY_DB_USER: fossy
+  FOSSOLOGY_DB_PASSWORD: fossy
+  FOSSOLOGY_ENDPOINT_BASE_PATH: http://localhost:7100
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: licensechecker
+spec:
+  restartPolicy: Always
+  containers:
+    - name: postgres
+      image: docker.io/postgres:16-alpine3.22
+      envFrom:
+        - configMapRef:
+            name: licensechecker-config
+      ports:
+        - containerPort: 5432
+          hostPort: 5432
+      volumeMounts:
+        - name: pg-data
+          mountPath: /var/lib/postgresql/data
+
+    - name: fossology
+      # Note: set --platform linux/amd64 via PodmanArgs if not on amd64
+      image: docker.io/fossology/fossology:4.6.0
+      envFrom:
+        - configMapRef:
+            name: licensechecker-config
+      ports:
+        - containerPort: 80
+          hostPort: 7100
+      securityContext:
+        privileged: true  # required for /dev/fuse
+      volumeMounts:
+        - name: repository
+          mountPath: /srv/fossology/repository/
+
+    - name: engine
+      # Replace TAGENGINE before deploying, e.g. with envsubst
+      image: cr.tik.uni-stuttgart.de/izus-darus/license-checker/engine:TAGENGINE
+      env:
+        - name: FOSSOLOGY_ENDPOINT_BASE_PATH
+          valueFrom:
+            configMapKeyRef:
+              name: licensechecker-config
+              key: FOSSOLOGY_ENDPOINT_BASE_PATH
+      volumeMounts:
+        - name: licenseenginedata
+          mountPath: /licenseengine/tmp
+
+    - name: backend
+      # Replace TAGBACKEND before deploying
+      image: cr.tik.uni-stuttgart.de/izus-darus/license-checker/backend:TAGBACKEND
+      ports:
+        - containerPort: 8000
+          hostPort: 8000
+
+    - name: frontend
+      # Replace TAGFRONTED before deploying (note original typo preserved)
+      image: cr.tik.uni-stuttgart.de/izus-darus/license-checker/frontend:TAGFRONTED
+      ports:
+        - containerPort: 80
+          hostPort: 5173
+
+  volumes:
+    - name: pg-data
+      persistentVolumeClaim:
+        claimName: pg-data
+    - name: repository
+      persistentVolumeClaim:
+        claimName: repository
+    - name: licenseenginedata
+      persistentVolumeClaim:
+        claimName: licenseenginedata
