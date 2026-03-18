@@ -1,0 +1,16 @@
+[Unit]
+Description=LicenseChecker frontend
+After=network-online.target
+
+[Container]
+# Set TAGFRONTED in an EnvironmentFile or substitute before deployment
+Image=cr.tik.uni-stuttgart.de/izus-darus/license-checker/frontend:${TAGFRONTED}
+ContainerName=frontend
+PublishPort=5173:80
+Network=resus.network
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
