@@ -12,6 +12,7 @@ Network=resus
 
 [Service]
 EnvironmentFile=/home/podmanuser/.config/containers/systemd/LicenseChecker/.env
+RestartSec=10s
 Restart=always
 
 [Install]

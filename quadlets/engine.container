@@ -13,6 +13,12 @@ Volume=licenseenginedata.volume:/licenseengine/tmp:rw
 
 [Service]
 EnvironmentFile=/home/podmanuser/.config/containers/systemd/LicenseChecker/.env
+NoNewPrivileges=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+RestartSec=10s
 Restart=always
 
 [Install]
