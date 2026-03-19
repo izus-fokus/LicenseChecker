@@ -1,6 +1,7 @@
 [Unit]
 Description=LicenseChecker frontend
 After=network-online.target
+Wants=network-online.target
 
 [Container]
 # Set TAGFRONTED in an EnvironmentFile or substitute before deployment

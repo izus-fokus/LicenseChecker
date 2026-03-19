@@ -1,6 +1,7 @@
 [Unit]
 Description=LicenseChecker backend
 After=network-online.target
+Wants=network-online.target
 
 [Container]
 # Set TAGBACKEND in an EnvironmentFile or substitute before deployment

@@ -1,6 +1,7 @@
 [Unit]
 Description=LicenseChecker full stack
 After=network-online.target
+Wants=network-online.target
 
 [Kube]
 Yaml=licensechecker.yaml
