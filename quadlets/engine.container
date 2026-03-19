@@ -20,6 +20,7 @@ RestrictRealtime=yes
 RestrictSUIDSGID=yes
 MemoryDenyWriteExecute=yes
 LockPersonality=yes
+RestartSec=10s
 Restart=always
 
 [Install]
