@@ -11,6 +11,13 @@ Network=resus
 
 [Service]
 EnvironmentFile=/home/podmanuser/.config/containers/systemd/LicenseChecker/.env
+NoNewPrivileges=yes
+DeviceAllow=/dev/null rw
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+MemoryDenyWriteExecute=yes
+LockPersonality=yes
 Restart=always
 
 [Install]
