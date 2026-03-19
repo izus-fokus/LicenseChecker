@@ -8,7 +8,6 @@ ContainerName=postgres
 Environment=POSTGRES_DB=fossology
 Environment=POSTGRES_USER=fossy
 Environment=POSTGRES_PASSWORD=fossy
-Environment=POSTGRES_INITDB_ARGS=-E SQL_ASCII
 PublishPort=5432:5432
 Volume=pg_data.volume:/var/lib/postgresql/data
 Network=resus
