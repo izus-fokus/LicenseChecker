@@ -12,7 +12,7 @@ Environment=FOSSOLOGY_DB_USER=fossy
 Environment=FOSSOLOGY_DB_PASSWORD=fossy
 PublishPort=7100:80
 Volume=repository.volume:/srv/fossology/repository/
-Network=resus.network
+Network=resus
 HealthCmd=curl http://localhost/repo/api/v2/info
 HealthInterval=10s
 HealthStartPeriod=2s

@@ -7,7 +7,7 @@ After=network-online.target
 Image=cr.tik.uni-stuttgart.de/izus-darus/license-checker/frontend:${TAGFRONTED}
 ContainerName=frontend
 PublishPort=5173:80
-Network=resus.network
+Network=resus
 
 [Service]
 EnvironmentFile=/home/podmanuser/.config/containers/systemd/LicenseChecker/.env
