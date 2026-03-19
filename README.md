@@ -13,3 +13,14 @@ Open in a browser http://localhost:5173/
 
 ## Acknowledgement
 The development of the License Checker tool was funded by the German Research Foundation (DFG) - project number 425911815
+
+
+## Quadlets configuration steps
+
+    podman network create resus
+
+    systemctl --user start engine.service
+
+    systemctl --user start backend.service
+
+    systemctl --user start frontend.service
