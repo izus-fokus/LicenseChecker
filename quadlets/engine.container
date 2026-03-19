@@ -12,6 +12,7 @@ Environment=FOSSOLOGY_ENDPOINT_BASE_PATH=http://localhost:7100
 Volume=licenseenginedata.volume:/licenseengine/tmp:rw
 
 [Service]
+EnvironmentFile=/home/podmanuser/.config/containers/systemd/LicenseChecker/.env
 Restart=always
 
 [Install]

@@ -10,6 +10,7 @@ PublishPort=5173:80
 Network=resus.network
 
 [Service]
+EnvironmentFile=/home/podmanuser/.config/containers/systemd/LicenseChecker/.env
 Restart=always
 
 [Install]
