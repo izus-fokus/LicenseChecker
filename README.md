@@ -25,6 +25,14 @@ The development of the License Checker tool was funded by the German Research Fo
 
     systemctl --user start frontend.service
 
-## Bash command
+## Bash command init startup
 
     podman network create resus && systemctl --user start engine.service && systemctl --user start backend.service && systemctl --user start frontend.service
+
+## Bash command startup
+
+    systemctl --user start engine.service && systemctl --user start backend.service && systemctl --user start frontend.service
+
+## Bash command shutdown
+
+    systemctl --user stop engine.service && systemctl --user stop backend.service && systemctl --user stop frontend.service && systemctl --user stop postgres.service && systemctl --user stop fossology.service
