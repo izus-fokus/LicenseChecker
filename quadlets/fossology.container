@@ -6,9 +6,6 @@ Requires=postgres.service
 [Container]
 Image=docker.io/fossology/fossology:4.6.0
 ContainerName=fossology
-# linux/amd64 is the native platform; remove if running on amd64
-AddDevice=/dev/fuse
-PodmanArgs=--platform linux/amd64
 Environment=FOSSOLOGY_DB_HOST=db
 Environment=FOSSOLOGY_DB_NAME=fossology
 Environment=FOSSOLOGY_DB_USER=fossy
