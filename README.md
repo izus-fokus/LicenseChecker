@@ -35,4 +35,4 @@ The development of the License Checker tool was funded by the German Research Fo
 
 ## Bash command shutdown
 
-    systemctl --user daemon-reload && systemctl --user stop engine.service && systemctl --user stop backend.service && systemctl --user stop frontend.service && systemctl --user stop postgres.service && systemctl --user stop fossology.service
+    systemctl --user daemon-reload && systemctl --user stop engine.service && systemctl --user stop backend.service && systemctl --user stop frontend.service && systemctl --user stop postgres-container.service && systemctl --user stop fossology.service
