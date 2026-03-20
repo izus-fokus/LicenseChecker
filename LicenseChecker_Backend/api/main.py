@@ -315,7 +315,8 @@ def return_licenses_for_type(license_type: str):
         elif x == "public domain":
             y = x.title().replace(" ", "")
 
-        uuu = slo.search(hasLicenseType=slo[y])
+        license_type_individual = slo.search_one(iri="*#" + y)
+        uuu = slo.search(hasLicenseType=license_type_individual)
         list = []
         for z in uuu:
             list.append(z.name)
