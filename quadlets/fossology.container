@@ -1,7 +1,7 @@
 [Unit]
 Description=FOSSology license scanner
-After=postgres.service
-Requires=postgres.service
+After=postgres-container.service
+Requires=postgres-container.service
 
 [Container]
 Image=docker.io/fossology/fossology:4.6.0
