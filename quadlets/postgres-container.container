@@ -12,8 +12,6 @@ Environment=POSTGRES_PASSWORD=fossy
 PublishPort=5432:5432
 Volume=pg_data.volume:/var/lib/postgresql/data
 Network=resus
-# Alias "db" so other containers can reach postgres via FOSSOLOGY_DB_HOST=db
-NetworkAlias=db
 HealthCmd=pg_isready --dbname fossology --username fossy
 HealthInterval=10s
 HealthTimeout=5s
