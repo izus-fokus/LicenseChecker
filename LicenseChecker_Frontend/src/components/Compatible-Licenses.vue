@@ -59,12 +59,14 @@
     </div>
     <h5 class="text-secondary" v-else>No Licenses Selected</h5>
 
-    <div class="q-mt-xl">
+    <div class="q-mt-xl q-gutter-sm">
       <q-btn color="secondary" label="Back" @click="$router.back()">
         <q-tooltip class="bg-primary text-secondary shadow-4">
           Going back to the License Choosing page
         </q-tooltip>
       </q-btn>
+      <q-btn v-if="fromZip" style="text-transform: capitalize;" color="secondary"
+        label="Add to Compatibility list of Zip File Upload" @click="addToZipCompatibilityList" />
     </div>
   </div>
 
@@ -72,8 +74,8 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
-import { useStore } from 'vuex';
+import { ref } from "vue";
+import { mapGetters, mapActions } from 'vuex';
 export default {
   name: "CompatibleLicenses",
   props: [
@@ -93,7 +95,35 @@ export default {
         "type",
       ],
       filter: ref(""),
+      fromZip: false,
     };
+  },
+  computed: {
+    ...mapGetters(['getZipFileUploadState']),
+  },
+  mounted() {
+    if (this.$route?.query?.from === 'ZipFileUpload') {
+      this.fromZip = true;
+    }
+  },
+  methods: {
+    ...mapActions(['updateZipFileUploadState']),
+    addToZipCompatibilityList() {
+      const compatibleIds = (this.detailedCompatibleLicenses || []).map(l => l.id);
+      const savedState = this.getZipFileUploadState;
+      if (savedState) {
+        const existingRows = savedState.selectedRows || [];
+        const merged = [...new Set([...existingRows, ...compatibleIds])];
+        const updatedCheckboxSelection = { ...savedState.checkboxSelection };
+        compatibleIds.forEach(r => { updatedCheckboxSelection[r] = true; });
+        this.updateZipFileUploadState({
+          ...savedState,
+          selectedRows: merged,
+          checkboxSelection: updatedCheckboxSelection,
+        });
+      }
+      this.$router.push('/ZipFileUpload');
+    },
   },
 };
 </script>

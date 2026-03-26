@@ -7,6 +7,7 @@ export default createStore({ // store setup
         selectedOption: 'github', // Default selected option
         showDiv1: true, // Initial state for showDiv1
         licenses: null, // Initial state for licenses
+        zipFileUploadState: null, // Persists ZipFileUpload state across route navigations
 
     },
     mutations: { // commit mutations to modify the state
@@ -18,6 +19,9 @@ export default createStore({ // store setup
         },
         setLicenses(state, licenses) {
             state.licenses = licenses;
+        },
+        setZipFileUploadState(state, zipState) {
+            state.zipFileUploadState = zipState;
         },
 
     },
@@ -31,6 +35,9 @@ export default createStore({ // store setup
         updateLicenses({ commit }, licenses) {
             commit('setLicenses', licenses);
         },
+        updateZipFileUploadState({ commit }, zipState) {
+            commit('setZipFileUploadState', zipState);
+        },
 
 
     },
@@ -38,6 +45,7 @@ export default createStore({ // store setup
         getSelectedOption: (state) => state.selectedOption,
         getShowDiv1: (state) => state.showDiv1,
         getLicenses: (state) => state.licenses,
+        getZipFileUploadState: (state) => state.zipFileUploadState,
 
     },
 

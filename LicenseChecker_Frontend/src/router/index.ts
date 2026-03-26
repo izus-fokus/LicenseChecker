@@ -8,6 +8,7 @@ import LicenseDetails from "../components/License-Details.vue";
 import CompatibleLicenses from "../components/Compatible-Licenses.vue";
 import DependencyFileUpload from "../components/DependencyFileUpload.vue";
 import AddLicensesManually from "../components/AddLicensesManually.vue"
+import ZipFileUpload from "../components/ZipFileUpload.vue"
 
 
 
@@ -70,6 +71,12 @@ const router = createRouter({
       path: '/AddLicensesManually',
       name: 'AddLicensesManually',
       component: AddLicensesManually,
+
+    },
+    {
+      path: '/ZipFileUpload',
+      name: 'ZipFileUpload',
+      component: ZipFileUpload,
 
     },
     // {

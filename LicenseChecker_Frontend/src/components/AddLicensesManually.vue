@@ -39,12 +39,18 @@
 
     </div>
     <div class="q-pa-md custom-pos">
-        <q-btn v-if="fromLR" style="text-transform: capitalize; " class="q-ml-sm" @click="() => {
+        <q-btn v-if="inlineContext" style="text-transform: capitalize;" class="q-ml-sm"
+            @click="$emit('add-licenses', combinedSelectedLicenses)"
+            label="Add to Compatibility list" color="secondary" />
+        <q-btn v-else-if="fromZip" style="text-transform: capitalize;" class="q-ml-sm"
+            @click="addToZipCompatibilityList"
+            label="Add to Compatibility list of Zip File Upload" color="secondary" />
+        <q-btn v-else-if="fromLR" style="text-transform: capitalize; " class="q-ml-sm" @click="() => {
             $parent.$emit('selected-rows', this.combinedSelectedLicenses);
             this.$router.push('/licenseRecommendation');
         }
             " label="Add to Compatiblity list" color="secondary" />
-        <q-btn v-if="!fromLR" @click="
+        <q-btn v-else @click="
             $parent.$emit(
                 'changedetailedCompatibleLicensesId',
                 this.combinedSelectedLicenses
@@ -62,9 +68,17 @@
 <script>
 import { ref } from 'vue';
 import axios from 'axios';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: "AddLicensesManually",
+    props: {
+        inlineContext: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    emits: ['add-licenses'],
     data() {
         return {
             permissiveLicenses: [],
@@ -77,16 +91,44 @@ export default {
                 { name: 'license', label: 'License Name', align: 'left', field: 'license', sortable: true }
             ],
             fromLR: false,
+            fromZip: false,
         };
+    },
+    computed: {
+        ...mapGetters(['getZipFileUploadState']),
     },
     beforeRouteEnter(to, from, next) {
         next((vm) => { // 'vm' will be the instance of the component after it is created
             console.log("Navigating from:", from); // Debugging log
-            vm.fromLR = from.name === 'LicenseRecommendation'; // Check if the previous route is 'licenseRecommendation'
+            if (!vm.fromLR && !vm.fromZip) {
+                vm.fromLR = from.name === 'LicenseRecommendation';
+                vm.fromZip = from.name === 'ZipFileUpload';
+            }
             console.log("fromLR value:", vm.fromLR); // Log the value of fromLR
         });
     },
     methods: {
+        ...mapActions(['updateZipFileUploadState']),
+        addToZipCompatibilityList() {
+            const newLicenses = this.combinedSelectedLicenses.filter(Boolean);
+            const savedState = this.getZipFileUploadState;
+            if (savedState) {
+                const existingRows = savedState.selectedRows || [];
+                const merged = [...new Set([...existingRows, ...newLicenses])];
+                const updatedCheckboxSelection = { ...savedState.checkboxSelection };
+                newLicenses.forEach(r => { updatedCheckboxSelection[r] = true; });
+                this.updateZipFileUploadState({
+                    ...savedState,
+                    selectedRows: merged,
+                    checkboxSelection: updatedCheckboxSelection,
+                });
+            }
+            if (this.$route.name === 'LicenseRecommendation') {
+                this.$router.push({ path: '/licenseRecommendation', query: { tab: 'ZipFileUpload' } });
+            } else {
+                this.$router.push('/ZipFileUpload');
+            }
+        },
         // Function to fetch permissive and copyleft licenses for manual display
         async fetchLicenses() {
             try {
@@ -127,7 +169,18 @@ export default {
         },
 
     },
+    watch: {
+        '$route.query.from'(val) {
+            this.fromZip = val === 'ZipFileUpload';
+            this.fromLR = val === 'LicenseRecommendation';
+        },
+    },
     mounted() {
+        if (this.$route?.query?.from === 'ZipFileUpload') {
+            this.fromZip = true;
+        } else if (this.$route?.query?.from === 'LicenseRecommendation') {
+            this.fromLR = true;
+        }
         this.fetchLicenses();
     },
     filter: ref(""),

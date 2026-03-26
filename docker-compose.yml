@@ -3,9 +3,7 @@ version: '3'
 services:
   frontend:
     container_name: frontend
-    build:
-      context: ./LicenseChecker_Frontend
-      dockerfile: Dockerfile
+    image: "cr.tik.uni-stuttgart.de/izus-darus/license-checker/frontend:${TAGFRONTED}"
     ports:
       - '5173:80'
     networks:
@@ -13,9 +11,7 @@ services:
     restart: unless-stopped
   backend:
     container_name: backend
-    build:
-      context: ./LicenseChecker_Backend
-      dockerfile: Dockerfile
+    image: "cr.tik.uni-stuttgart.de/izus-darus/license-checker/backend:${TAGBACKEND}"
     ports:
       - '8000:8000'
     networks:
@@ -26,20 +22,60 @@ services:
     image: docker.io/fossology/fossology:4.6.0
     platform: linux/amd64
     ports:
-      - '7100:7100'
+      - '7100:80'
     networks:
       - resus
     restart: unless-stopped
-  license-engine:
-    container_name: license-engine
-    build: ./license-engine
-    ports:
-      - '7001:7000'
-    networks:
-      - resus
     environment:
-      - FOSSOLOGY_ENDPOINT_BASE_PATH=http://fossology:80
+      - FOSSOLOGY_DB_HOST=db
+      - FOSSOLOGY_DB_NAME=fossology
+      - FOSSOLOGY_DB_USER=fossy
+      - FOSSOLOGY_DB_PASSWORD=fossy
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD-SHELL", "curl http://localhost/repo/api/v2/info"]
+      interval: 10s
+      start_period: 2s
+      timeout: 3s
+    volumes:
+      - repository:/srv/fossology/repository/
+  db:
+    image: docker.io/postgres:16-alpine3.22
+    container_name: postgres
     restart: unless-stopped
+    environment:
+      - POSTGRES_DB=fossology
+      - POSTGRES_USER=fossy
+      - POSTGRES_PASSWORD=fossy
+      - POSTGRES_INITDB_ARGS='-E SQL_ASCII'
+    ports:
+      - "5432:5432"                # Host‑Port : Container‑Port (optional)
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready --dbname $$POSTGRES_DB --username $$POSTGRES_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  license-engine:
+    container_name: engine
+    image: "cr.tik.uni-stuttgart.de/izus-darus/license-checker/engine:${TAGENGINE}"
+    network_mode: "host"
+    environment:
+      - FOSSOLOGY_ENDPOINT_BASE_PATH=http://localhost:7100
+    restart: unless-stopped
+    depends_on:
+      fossology:
+        condition: service_healthy
+    volumes:
+      - licenseenginedata:/licenseengine/tmp:rw
 networks:
   resus:
     driver: bridge
+volumes:
+  licenseenginedata:
+  pg_data:
+    name: pg_data                 # benannter Docker‑Volume
+    driver: local
+  repository:

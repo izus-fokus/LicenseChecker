@@ -315,7 +315,8 @@ def return_licenses_for_type(license_type: str):
         elif x == "public domain":
             y = x.title().replace(" ", "")
 
-        uuu = slo.search(hasLicenseType=slo[y])
+        license_type_individual = slo.search_one(iri="*#" + y)
+        uuu = slo.search(hasLicenseType=license_type_individual)
         list = []
         for z in uuu:
             list.append(z.name)
@@ -575,6 +576,5 @@ async def create_upload_file(file: UploadFile,choice: Literal['Python','JS'] = "
             status_code=415,
             detail="Invalid Dependency File Please Upload a  Valid Python file",
             )
-
 
 
