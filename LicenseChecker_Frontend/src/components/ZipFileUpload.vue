@@ -123,6 +123,7 @@ export default {
       scrollPosition: 0,
       savedState: null,
       submitted: false,
+      waitingCount: 0,
     };
   },
 
@@ -290,6 +291,25 @@ export default {
               spinnerColor: "secondary",
             });
           }
+          if (this.status === "WAITING") {
+            this.waitingCount++;
+            if (this.waitingCount >= 5) {
+              clearInterval(this.checkTimer);
+              this.checkTimer = null;
+              this.$q.loading.hide();
+              this.$q.dialog({
+                title: "Analysis Timeout",
+                message: "The analysis is taking too long. The backend may be unavailable. Please try again later.",
+                ok: { label: "OK", color: "negative" },
+                persistent: true,
+              }).onOk(() => {
+                this.resetComponent();
+              });
+              return;
+            }
+          } else {
+            this.waitingCount = 0;
+          }
           if (this.status === "FAILING") {
             clearInterval(this.checkTimer);
             this.checkTimer = null;
@@ -430,6 +450,7 @@ export default {
       });
     },
     ready() {
+      this.waitingCount = 0;
       this.checkTimer = setInterval(() => {
         this.getStatus();
       }, 5000);
@@ -498,6 +519,7 @@ export default {
       this.licenses = null;
       this.checkboxSelection = {};
       this.selectedRows = [];
+      this.waitingCount = 0;
       if (this.$refs.uploader) {
         this.$refs.uploader.reset();
       }
