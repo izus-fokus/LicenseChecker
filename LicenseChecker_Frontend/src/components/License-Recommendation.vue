@@ -29,7 +29,8 @@
     <div style="max-width: 752px; margin: 0 auto;">
       <q-tabs v-model="selectedOption" align="left" class="q-mx-xl q-mt-md text-secondary" style="background-color: #00beff;"
         indicator-class="custom-indicator">
-        <q-tab v-for="option in options" :key="option.value" :name="option.value" :label="option.label">
+        <q-tab v-for="option in options" :key="option.value" :name="option.value" :label="option.label"
+          @click="handleTabClick(option.value)">
           <q-tooltip class="bg-primary text-secondary shadow-4" :offset="[10, 10]">
             {{ getTooltipContent(option.value) }}
           </q-tooltip>
@@ -41,7 +42,6 @@
     <!-- Display license recommendation when selectedOption is 'github' -->
     <div v-if="selectedOption === 'github'">
       <div v-show="showDiv1">
-        {{ licenses }}
         <!-- Step 1: User provides GitHub link and branch name -->
         <div class="row q-mx-xl q-mt-md center-container text-secondary" :class="{
           'custom-background-color': !$q.screen.lt.md,
@@ -170,6 +170,9 @@
     <div v-show="selectedOption === 'DependencyFileUpload'">
       <DependencyFileUpload />
     </div>
+    <div v-show="selectedOption === 'ZipFileUpload'">
+      <ZipFileUpload />
+    </div>
 
   </div>
 
@@ -181,6 +184,7 @@ import axios from "axios";
 // import DesktopUpload from './Desktop-Upload.vue'
 import AddLicensesManually from './AddLicensesManually.vue'
 import DependencyFileUpload from './DependencyFileUpload.vue'
+import ZipFileUpload from './ZipFileUpload.vue'
 
 import { mapGetters, mapActions } from 'vuex';
 
@@ -199,6 +203,7 @@ export default {
     // DesktopUpload,
     AddLicensesManually,
     DependencyFileUpload,
+    ZipFileUpload,
   },
 
   data() {
@@ -209,6 +214,7 @@ export default {
         { value: 'github', label: 'Retrieve Code from GitHub' },
         // { value: 'desktop', label: 'Upload Code from Local Machine' },
         { value: 'DependencyFileUpload', label: 'Dependency File Upload' },
+        { value: 'ZipFileUpload', label: 'Zip File Upload' },
         { value: 'AddLicensesManually', label: 'Add Licenses Manually' },
 
       ],
@@ -243,13 +249,25 @@ export default {
 
   },
   mounted() {
-    this.selectedOption = this.getSelectedOption;
+    this.selectedOption = this.$route.query.tab || this.getSelectedOption;
     this.showDiv1 = this.getShowDiv1;
     this.licenses = this.getLicenses;
     this.logValues();
   },
 
+  watch: {
+    '$route.query.tab'(val) {
+      this.selectedOption = val || 'github';
+    },
+  },
+
   methods: {
+    handleTabClick(value) {
+      this.$router.push({
+        path: '/licenseRecommendation',
+        query: value !== 'github' ? { tab: value } : {},
+      });
+    },
     // Function to show tooltips to each option available
     getTooltipContent(value) {
       switch (value) {
@@ -257,6 +275,8 @@ export default {
           return 'Retrieve code from github';
         case 'DependencyFileUpload':
           return 'Upload dependencies (upload a dependency file like a requirements.txt or a project.toml)';
+        case 'ZipFileUpload':
+          return 'Upload a zip file containing your project to analyze its licenses';
         case 'AddLicensesManually':
           return 'Select licenses from the list of Premissive and Copyleft licenses';
         default:
@@ -285,7 +305,7 @@ export default {
       if (actionType === 'fromDependencyFile') {
         this.$router.push('/DependencyFileUpload');
       } else if (actionType === 'manually') {
-        this.$router.push('/AddLicensesManually');
+        this.$router.push('/AddLicensesManually?from=LicenseRecommendation');
       }
 
     },

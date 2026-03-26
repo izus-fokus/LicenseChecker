@@ -16,7 +16,7 @@
 
 
             <q-btn style=" margin-top: 15px; background-color:#1A8917; text-transform:capitalize; color: white;"
-              :label="loading ? 'Uploading...' : 'Submit'" type="submit" :loading="loading" :disable="loading" />
+              :label="loading ? 'Uploading...' : 'Submit'" type="submit" :loading="loading" :disable="loading || !file" />
           </q-form>
           <q-banner v-if="fileError" dense inline-actions class="text-secondary bg-red q-mt-lg ">
             {{ fileError }}
@@ -34,7 +34,7 @@
             <q-tr :props="props">
               <q-td v-for="col in props.cols" :key="col.name" :props="props">
                 <span v-if="col.name === 'selected'">
-                  <q-checkbox v-model="props.row.selected" />
+                  <q-checkbox v-model="props.row.selected" color="green" />
                 </span>
                 <span v-else-if="col.name === 'package_name'">
                   {{ props.row.package_name }}
@@ -59,8 +59,12 @@
           </template>
         </q-table>
         <div class="q-mt-md">
-          <q-btn v-if="!fromLR" label="Find Compatible Licenses" @click="saveSelected" class="btn q-mr-xs" />
-          <q-btn v-if="fromLR" @click="updateSelected" label="Add to Compatiblity list" class="btn q-mr-xs" />
+          <q-btn v-if="inlineContext" @click="$emit('add-licenses', dependencyLicenses.filter(r => r.selected).map(r => r.dropdown))"
+            label="Add to Compatibility list" class="btn q-mr-xs" />
+          <q-btn v-else-if="fromZip" @click="updateSelectedForZip"
+            label="Add to Compatibility list of Zip File Upload" class="btn q-mr-xs" />
+          <q-btn v-else-if="!fromLR" label="Find Compatible Licenses" @click="saveSelected" class="btn q-mr-xs" />
+          <q-btn v-else @click="updateSelected" label="Add to Compatiblity list" class="btn q-mr-xs" />
           <q-btn label="Back" @click="goBack" color="secondary" />
         </div>
       </div>
@@ -72,10 +76,18 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters, mapActions } from 'vuex';
 
 
 export default {
   name: "DependencyFileUpload",
+  props: {
+    inlineContext: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  emits: ['add-licenses'],
   data() {
     return {
       showTable: false,
@@ -105,13 +117,27 @@ export default {
         { name: 'license', label: 'License Name', align: 'left' }
       ],
       fromLR: false,
+      fromZip: false,
     };
   },
+  computed: {
+    ...mapGetters(['getZipFileUploadState']),
+  },
   beforeRouteEnter(to, from, next) {
-    // Check if the user came from LR.vue by its route name or path
+    // Check if the user came from LR.vue or ZipFileUpload.vue by route name
     next((vm) => {
-      vm.fromLR = from.name === 'LicenseRecommendation'; // Or use `from.path === '/path-to-LR'` if route name is not set
+      if (!vm.fromLR && !vm.fromZip) {
+        vm.fromLR = from.name === 'LicenseRecommendation';
+        vm.fromZip = from.name === 'ZipFileUpload';
+      }
     });
+  },
+  mounted() {
+    if (this.$route?.query?.from === 'ZipFileUpload') {
+      this.fromZip = true;
+    } else if (this.$route?.query?.from === 'LicenseRecommendation') {
+      this.fromLR = true;
+    }
   },
   methods: {
     // Function to handle file upload
@@ -136,6 +162,48 @@ export default {
           this.loading = false;
           this.$q.loading.hide();
           return;
+        }
+
+        // SHA256 + VirusTotal check
+        try {
+          const fullBuffer = await this.file.arrayBuffer();
+          const hashBuffer = await crypto.subtle.digest('SHA-256', fullBuffer);
+          const sha256 = Array.from(new Uint8Array(hashBuffer))
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('');
+          console.log("File SHA256:", sha256);
+
+          const vtApiKey = import.meta.env.VITE_VIRUSTOTAL_API_KEY;
+          const vtEnabled = import.meta.env.VITE_VIRUSTOTAL_ENABLED !== 'false';
+          if (vtEnabled && vtApiKey) {
+            try {
+              const vtResponse = await axios.get(
+                `https://www.virustotal.com/api/v3/files/${sha256}`,
+                { headers: { 'x-apikey': vtApiKey } }
+              );
+              const stats = vtResponse.data?.data?.attributes?.last_analysis_stats;
+              if (stats && stats.malicious > 0) {
+                this.fileError = `VirusTotal flagged this file as malicious (${stats.malicious} detection(s)). Upload blocked.`;
+                console.error("VirusTotal: file flagged as malicious", stats);
+                return;
+              }
+              console.log("VirusTotal: file is clean", stats);
+            } catch (vtError) {
+              if (vtError.response?.status === 404) {
+                // File unknown to VirusTotal – proceed with upload
+                console.log("VirusTotal: file not in database, proceeding");
+              } else if (vtError.response?.status === 429) {
+                // Rate limit reached – silently skip and proceed with upload
+                console.warn("VirusTotal rate limit reached, skipping check");
+              } else {
+                // API unreachable or other error – warn but don't block upload
+                console.warn("VirusTotal check failed, proceeding:", vtError.message);
+              }
+            }
+          }
+        } catch (hashError) {
+          // Crypto API failure – warn but don't block upload
+          console.warn("SHA256 computation failed, proceeding:", hashError);
         }
 
         const formData = new FormData();
@@ -187,11 +255,32 @@ export default {
     goBack() {
       this.showTable = false;
     },
+    ...mapActions(['updateZipFileUploadState']),
     updateSelected() {
       const addtocompatiblelist = this.dependencyLicenses.filter(row => row.selected).map(row => row.dropdown);
       this.$parent.$emit('selected-rows', addtocompatiblelist);
       this.$router.push('/licenseRecommendation'); // Navigate programmatically
 
+    },
+    updateSelectedForZip() {
+      const newLicenses = this.dependencyLicenses.filter(row => row.selected).map(row => row.dropdown).filter(Boolean);
+      const savedState = this.getZipFileUploadState;
+      if (savedState) {
+        const existingRows = savedState.selectedRows || [];
+        const merged = [...new Set([...existingRows, ...newLicenses])];
+        const updatedCheckboxSelection = { ...savedState.checkboxSelection };
+        newLicenses.forEach(r => { updatedCheckboxSelection[r] = true; });
+        this.updateZipFileUploadState({
+          ...savedState,
+          selectedRows: merged,
+          checkboxSelection: updatedCheckboxSelection,
+        });
+      }
+      if (this.$route.name === 'LicenseRecommendation') {
+        this.$router.push({ path: '/licenseRecommendation', query: { tab: 'ZipFileUpload' } });
+      } else {
+        this.$router.push('/ZipFileUpload');
+      }
     },
     // Function to save selected licenses and move to License-Recommendation.vue 
     saveSelected() {
@@ -228,6 +317,10 @@ export default {
 
   // Watcher for dependencyLicenses to update selectedLicenseIds
   watch: {
+    '$route.query.from'(val) {
+      this.fromZip = val === 'ZipFileUpload';
+      this.fromLR = val === 'LicenseRecommendation';
+    },
     selectedChoice() {
       this.validateFileType();
     },

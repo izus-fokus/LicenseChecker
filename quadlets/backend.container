@@ -1,0 +1,26 @@
+[Unit]
+Description=LicenseChecker backend
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+# Set TAGBACKEND in an EnvironmentFile or substitute before deployment
+Image=cr.tik.uni-stuttgart.de/izus-darus/license-checker/backend:${TAGBACKEND}
+ContainerName=backend
+PublishPort=8000:8000
+Network=resus
+
+[Service]
+EnvironmentFile=/home/podmanuser/.config/containers/systemd/LicenseChecker/.env
+NoNewPrivileges=yes
+DeviceAllow=/dev/null rw
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+MemoryDenyWriteExecute=yes
+LockPersonality=yes
+RestartSec=10s
+Restart=always
+
+[Install]
+WantedBy=default.target
