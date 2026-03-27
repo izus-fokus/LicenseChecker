@@ -293,7 +293,7 @@ export default {
           }
           if (this.status === "WAITING") {
             this.waitingCount++;
-            if (this.waitingCount >= 5) {
+            if (this.waitingCount >= 2) {
               clearInterval(this.checkTimer);
               this.checkTimer = null;
               this.$q.loading.hide();
