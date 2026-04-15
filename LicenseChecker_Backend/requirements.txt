@@ -17,7 +17,7 @@ pydantic==2.12.5
 PyJWT==2.12.1
 PyPika==0.51.1
 python-dotenv==1.2.2
-python-multipart==0.0.22
+python-multipart==0.0.26
 PyYAML==6.0.3
 requests==2.32.5
 setuptools==82.0.1
