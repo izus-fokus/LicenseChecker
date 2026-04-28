@@ -36,3 +36,20 @@ The development of the License Checker tool was funded by the German Research Fo
 ## Bash command shutdown
 
     systemctl --user daemon-reload && systemctl --user stop engine.service && systemctl --user stop backend.service && systemctl --user stop frontend.service && systemctl --user stop postgres-container.service && systemctl --user stop fossology.service
+
+## Frontend logging setup
+
+    /var/log/licensechecker/nginx  ←→  /var/log/nginx  (inside container)
+
+  The :z label tells SELinux to relabel the host directory so the container can write to it. Before restarting the
+  service, create the host directory:
+
+  sudo mkdir -p /var/log/licensechecker/nginx
+
+  Then reload the quadlet and restart the service:
+
+  sudo systemctl daemon-reload
+  sudo systemctl restart frontend.service
+
+  After that, navigation.log (the route log from today's change) and the standard Nginx access.log / error.log will
+  all be accessible at /var/log/licensechecker/nginx/ on the host.
