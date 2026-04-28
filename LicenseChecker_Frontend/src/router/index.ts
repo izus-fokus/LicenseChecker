@@ -88,4 +88,8 @@ const router = createRouter({
   ],
 });
 
+router.afterEach((to) => {
+  fetch(`/log?path=${encodeURIComponent(to.fullPath)}`).catch(() => {});
+});
+
 export default router;
