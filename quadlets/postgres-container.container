@@ -4,7 +4,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Container]
-Image=docker.io/postgres:16-alpine3.22
+Image=dhi.io/postgres:16-alpine3.23-dev
 ContainerName=postgres
 Environment=POSTGRES_DB=fossology
 Environment=POSTGRES_USER=fossy
