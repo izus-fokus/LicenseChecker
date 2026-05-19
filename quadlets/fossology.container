@@ -17,7 +17,6 @@ HealthCmd=curl http://localhost/repo/api/v2/info
 HealthInterval=10s
 HealthStartPeriod=2s
 HealthTimeout=3s
-PullPolicy=never
 
 [Service]
 Restart=always

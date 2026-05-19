@@ -10,7 +10,6 @@ ContainerName=frontend
 PublishPort=5173:80
 Network=resus
 Volume=/var/log/licensechecker/nginx:/var/log/nginx:z
-PullPolicy=never
 
 [Service]
 EnvironmentFile=/home/podmanuser/.config/containers/systemd/LicenseChecker/.env

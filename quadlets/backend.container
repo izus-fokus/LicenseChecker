@@ -9,7 +9,6 @@ Image=cr.tik.uni-stuttgart.de/izus-darus/license-checker/backend:${TAGBACKEND}
 ContainerName=backend
 PublishPort=8000:8000
 Network=resus
-PullPolicy=never
 
 [Service]
 EnvironmentFile=/home/podmanuser/.config/containers/systemd/LicenseChecker/.env
