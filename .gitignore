@@ -3,3 +3,4 @@ LicenceChecker/api/db.sqlite3-shm
 LicenceChecker/api/db.sqlite3-wal
 *.sqlite3-shm
 *.sqlite3-wal
+LicenseChecker_Backend/api/api_tests/node_modules
