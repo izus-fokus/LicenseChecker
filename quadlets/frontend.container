@@ -12,7 +12,7 @@ Network=resus
 Volume=/var/log/licensechecker/nginx:/var/log/nginx:z
 
 [Service]
-EnvironmentFile=/home/podmanuser/.config/containers/systemd/LicenseChecker/.env
+EnvironmentFile=/home/podman/.config/containers/systemd/LicenseChecker/.env
 RestartSec=10s
 Restart=always
 

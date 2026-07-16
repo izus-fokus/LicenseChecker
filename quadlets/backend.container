@@ -11,7 +11,7 @@ PublishPort=8000:8000
 Network=resus
 
 [Service]
-EnvironmentFile=/home/podmanuser/.config/containers/systemd/LicenseChecker/.env
+EnvironmentFile=/home/podman/.config/containers/systemd/LicenseChecker/.env
 NoNewPrivileges=yes
 DeviceAllow=/dev/null rw
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
