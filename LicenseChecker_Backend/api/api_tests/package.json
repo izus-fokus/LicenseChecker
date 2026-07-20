@@ -15,7 +15,7 @@
     "@fortawesome/fontawesome-free": "^7.2.0",
     "@quasar/extras": "^2.0.0",
     "@vue/cli-service": "^5.0.9",
-    "axios": "^1.16.1",
+    "axios": "^1.18.0",
     "core-js": "^3.49.0",
     "element-plus": "^2.14.1",
     "pinia": "^3.0.4",
