@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
   fossology:
     container_name: fossology
-    image: docker.io/fossology/fossology:4.6.0
+    image: docker.io/fossology/fossology:latest
     platform: linux/amd64
     ports:
       - '7100:80'
@@ -41,7 +41,7 @@ services:
     volumes:
       - repository:/srv/fossology/repository/
   db:
-    image: docker.io/postgres:16-alpine3.22
+    image: docker.io/postgres:16-alpine3.23
     container_name: postgres
     restart: unless-stopped
     environment:
